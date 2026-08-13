@@ -1,0 +1,35 @@
+COLOCA AQUÍ LAS FOTOS REALES DEL RESTAURANTE
+=============================================
+
+Solo hay que sustituir los archivos por las fotografías reales. La web ya
+apunta a estos nombres; si mantienes el mismo nombre, no hay que tocar
+nada más del código.
+
+Los archivos pueden ser .jpg, .jpeg, .webp o .png (preferible .webp o .jpg
+bien comprimidos para carga rápida). Se recomienda que cada imagen pese
+menos de 300 KB y tenga al menos 1200 px en su lado más grande.
+
+Esperados:
+
+  hero-fachada.jpg      → Fachada / local (pantalla completa, formato
+                          apaisado grande). Sin texto superpuesto: la web
+                          ya lo añade encima.
+  ambiente-interior.jpg → Interior: mesas y decoración (vertical 4:5).
+  terraza.jpg           → Terraza exterior.
+  plato-tajin.jpg       → Tajín (apaisado 4:3).
+  plato-cuscus.jpg      → Cuscús (apaisado 4:3).
+  plato-mariscos.jpg    → Marisco / paella a la plancha (apaisado 4:3).
+  plato-tacos.jpg       → Tacos (apaisado 4:3).
+  plato-desayuno.jpg    → Desayuno marroquí (apaisado).
+  plato-paella.jpg      → Paella de marisco (opcional).
+
+Mientras un archivo no exista, la web muestra un marcador elegante con el
+texto "[FOTO PENDIENTE: nombre]". Ambos casos (con o sin foto) funcionan
+sin errores.
+
+También se espera (pendiente del cliente):
+  - Logo oficial en alta calidad (logo.svg / logo.png) para sustituir el
+    monograma "A" del menú superior.
+  - Usuario/perfil real de Instagram.
+  - Horario detallado por día.
+  - Precio de "Croquetas / Fingers / Nuggets".
