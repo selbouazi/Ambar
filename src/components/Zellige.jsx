@@ -1,76 +1,99 @@
-export function Diamond({ className = 'h-2.5 w-2.5' }) {
+import { useId } from 'react'
+
+/** Estrella de ocho puntas (khatam) centrada en (cx, cy). */
+function starPoints(cx, cy, outer, inner) {
+  const points = []
+  for (let i = 0; i < 16; i += 1) {
+    const radius = i % 2 === 0 ? outer : inner
+    const angle = (-90 + i * 22.5) * (Math.PI / 180)
+    points.push(`${(cx + radius * Math.cos(angle)).toFixed(2)},${(cy + radius * Math.sin(angle)).toFixed(2)}`)
+  }
+  return points.join(' ')
+}
+
+/**
+ * Retícula de zellige: estrellas de ocho puntas y rombos en las esquinas.
+ * Es la textura y la retícula de la marca; se usa a tres escalas.
+ */
+export function ZelligePattern({
+  className = '',
+  tile = 120,
+  strokeWidth = 1,
+  inner = true,
+}) {
+  const rawId = useId()
+  const id = `zellige-${rawId.replace(/[^a-zA-Z0-9]/g, '')}`
+  const half = tile / 2
+  const outer = tile * 0.36
+  const innerR = tile * 0.15
+  const diamond = tile * 0.075
+
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <path d="M12 2l10 10-10 10L2 12 12 2Z" />
-      <path d="m12 6 6 6-6 6-6-6 6-6Z" strokeWidth="0.9" />
+    <svg className={className} aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id={id} width={tile} height={tile} patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round">
+            <polygon points={starPoints(half, half, outer, innerR)} />
+            {inner && <polygon points={starPoints(half, half, outer * 0.56, innerR * 0.56)} opacity="0.7" />}
+            {[
+              [0, 0],
+              [tile, 0],
+              [0, tile],
+              [tile, tile],
+            ].map(([x, y]) => (
+              <polygon
+                key={`${x}-${y}`}
+                points={`${x},${y - diamond} ${x + diamond},${y} ${x},${y + diamond} ${x - diamond},${y}`}
+              />
+            ))}
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
     </svg>
   )
 }
 
-export function ZelligeLine({ className = '' }) {
+/** Una sola estrella de ocho puntas, para sellos y divisores. */
+export function StarMotif({ className = 'h-6 w-6' }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
+      <polygon points={starPoints(24, 24, 21, 9)} />
+      <polygon points={starPoints(24, 24, 12, 5)} opacity="0.55" />
+    </svg>
+  )
+}
+
+/** Filete divisor con estrella central. */
+export function ZelligeRule({ className = '' }) {
   return (
     <div className={`flex items-center gap-3 ${className}`} aria-hidden="true">
-      <span className="h-px flex-1 bg-current opacity-30" />
-      <Diamond className="h-2 w-2 shrink-0 text-gold-500" />
-      <span className="h-px w-10 bg-current opacity-30" />
-      <Diamond className="h-1.5 w-1.5 shrink-0 text-gold-500" />
-      <span className="h-px w-10 bg-current opacity-30" />
-      <Diamond className="h-2 w-2 shrink-0 text-gold-500" />
-      <span className="h-px flex-1 bg-current opacity-30" />
+      <span className="h-px flex-1 bg-current opacity-25" />
+      <StarMotif className="h-4 w-4 shrink-0" />
+      <span className="h-px flex-1 bg-current opacity-25" />
     </div>
   )
 }
 
-export function ZelligeGrain({ className = '' }) {
-  const rows = 12
-  const cols = 24
+/**
+ * Sello halal: círculo fino con texto curvo y estrella central.
+ * No es una certificación oficial: describe la cocina del restaurante.
+ */
+export function HalalSeal({ className = 'h-16 w-16' }) {
+  const rawId = useId()
+  const pathId = `seal-${rawId.replace(/[^a-zA-Z0-9]/g, '')}`
+
   return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      preserveAspectRatio="xMidYMid slice"
-      viewBox={`0 0 ${cols * 30} ${rows * 30}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-    >
-      {Array.from({ length: rows }).map((_, r) =>
-        Array.from({ length: cols }).map((__, c) => {
-          const x = c * 30 + 15
-          const y = r * 30 + 15
-          return (
-            <path key={`${r}-${c}`} d={`M${x - 9} ${y}l9 -9 9 9-9 9-9-9Z`} />
-          )
-        }),
-      )}
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="40" cy="40" r="31.5" stroke="currentColor" strokeWidth="0.5" opacity="0.55" />
+      <path id={pathId} d="M40 9.5a30.5 30.5 0 0 1 30.5 30.5" fill="none" stroke="none" />
+      <text fontSize="6.4" letterSpacing="1.9" fill="currentColor" fontWeight="500">
+        <textPath href={`#${pathId}`} startOffset="0">
+          HALAL FOOD · REST. AMBAR ·
+        </textPath>
+      </text>
+      <polygon points={starPoints(40, 40, 15, 6.4)} fill="currentColor" stroke="none" />
     </svg>
-  )
-}
-
-export function StarBadge({ className = '' }) {
-  return (
-    <div
-      className={`relative grid place-items-center ${className}`}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 60 60" className="h-full w-full text-gold-500">
-        <path
-          d="M30 2l8.3 8.3 11.7-1.7-1.7 11.7L57 30l-8.7 9.7 1.7 11.7-11.7-1.7L30 58l-8.3-8.3L10 51.4l1.7-11.7L3 30l8.7-9.7L10 8.6l11.7 1.7L30 2Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-        <path
-          d="M30 14l5.3 5.3 7.5-1.1-1.1 7.5 5.6 5.6-5.6 5.6 1.1 7.5-7.5-1.1L30 46l-5.3-5.3-7.5 1.1 1.1-7.5-5.6-5.6 5.6-5.6-1.1-7.5 7.5 1.1L30 14Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.8"
-          opacity="0.7"
-        />
-      </svg>
-      <svg viewBox="0 0 24 24" className="absolute h-1/3 w-1/3 text-gold-400" fill="currentColor" aria-hidden="true">
-        <path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9L12 3Z" />
-      </svg>
-    </div>
   )
 }

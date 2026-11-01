@@ -1,62 +1,101 @@
-import { useState } from 'react'
-import Icon from './Icons'
-import { ZelligeGrain, Diamond } from './Zellige'
+import { photoSpecs, getPhoto } from '../data/photos'
+import { ZelligePattern, StarMotif } from './Zellige'
 
-export function PhotoPlaceholder({ label, className = '' }) {
+const RATIOS = {
+  '16/9': 'aspect-[16/9]',
+  '4/5': 'aspect-[4/5]',
+  '4/3': 'aspect-[4/3]',
+  '3/2': 'aspect-[3/2]',
+  '1/1': 'aspect-square',
+}
+
+/**
+ * Hueco de foto intencional.
+ * No dice "FOTO PENDIENTE": dibuja el zellige de la marca con el nombre del
+ * plato o del espacio. Cuando Suli coloque la foto en public/photos/, el
+ * componente la sirve automáticamente.
+ */
+export function PhotoPlaceholder({ title, note = 'Fotografía del restaurante', className = '' }) {
   return (
     <div
       role="img"
-      aria-label={`Fotografía pendiente de ${label}. El cliente debe sustituir el archivo de imagen.`}
-      className={`relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-[1.75rem] border border-gold-400/25 bg-maroc-800 text-center md:rounded-[2.5rem] ${className}`}
+      aria-label={`${title}. ${note}.`}
+      className={`relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-maroc-800 p-6 text-center text-gold-400 sm:p-8 ${className}`}
     >
-      <ZelligeGrain className="absolute inset-0 h-full w-full text-gold-400 opacity-[0.07]" />
-      <div className="relative px-6">
-        <span className="mx-auto grid h-12 w-12 place-items-center rounded-full border border-gold-400/40 text-gold-400">
-          <Icon name="camera" className="h-5 w-5" />
-        </span>
-        <p className="mt-4 font-display text-lg italic text-cream-200">
-          Fotografía en camino
+      <ZelligePattern className="absolute inset-0 h-full w-full opacity-[0.11]" tile={96} />
+      <div className="relative flex flex-col items-center">
+        <StarMotif className="h-10 w-10 opacity-80" />
+        <p className="mt-6 font-display text-3xl italic leading-tight text-cream-100 sm:text-4xl">
+          {title}
         </p>
-        <div className="mx-auto mt-3 flex items-center justify-center gap-2 text-gold-400">
-          <span className="h-px w-6 bg-current opacity-60" />
-          <Diamond className="h-1.5 w-1.5" />
-          <span className="h-px w-6 bg-current opacity-60" />
-        </div>
-        <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-gold-300">
-          [FOTO PENDIENTE: {label}]
-        </p>
+        <p className="mt-3 max-w-[16rem] text-[13px] leading-relaxed text-cream-200/70">{note}</p>
       </div>
     </div>
   )
 }
 
+/**
+ * Fotografía responsive con variantes avif/webp/jpg generadas por sharp.
+ * Mantiene width/height para CLS 0 y usa un fondo de baja resolución mientras
+ * carga. Si la foto no existe, muestra el hueco intencional.
+ */
 export default function Photo({
-  src,
-  label,
+  photoKey,
   alt,
-  ratio = 'aspect-[4/3]',
+  title,
+  ratio,
   className = '',
-  rounded = 'rounded-[1.75rem] md:rounded-[2.5rem]',
+  imgClassName = '',
   eager = false,
+  position,
+  sizes,
+  children,
 }) {
-  const [failed, setFailed] = useState(false)
+  const spec = photoSpecs[photoKey]
+  const asset = getPhoto(photoKey)
+  const aspect =
+    ratio === 'h-full' ? '' : RATIOS[ratio] || RATIOS[spec?.ratio || '4/3']
+  const objectPosition = position || asset?.position || spec?.position || 'center'
+
+  if (!asset) {
+    return (
+      <div className={`relative overflow-hidden bg-maroc-800 ${aspect} ${className}`}>
+        <PhotoPlaceholder title={title || spec?.alt?.split(',')[0] || 'Ambar'} />
+        {children}
+      </div>
+    )
+  }
+
+  const avif = asset.formats.avif ?? []
+  const webp = asset.formats.webp ?? []
+  const jpg = asset.formats.jpg ?? []
+  const toSrcSet = (list) => list.map((v) => `${v.src} ${v.width}w`).join(', ')
+  const fallback = jpg.at(-1) || webp.at(-1)
+  const placeholder = webp[0]?.src || fallback?.src
 
   return (
     <div
-      className={`relative overflow-hidden bg-maroc-800 ${ratio} ${rounded} ${className}`}
+      className={`relative overflow-hidden bg-maroc-800 ${aspect} ${className}`}
+      style={placeholder ? { backgroundImage: `url(${placeholder})`, backgroundSize: 'cover', backgroundPosition: objectPosition } : undefined}
     >
-      {failed ? (
-        <PhotoPlaceholder label={label} className="rounded-none" />
-      ) : (
+      <picture>
+        {avif.length > 0 && <source type="image/avif" srcSet={toSrcSet(avif)} sizes={sizes || spec?.sizes || '100vw'} />}
+        {webp.length > 0 && <source type="image/webp" srcSet={toSrcSet(webp)} sizes={sizes || spec?.sizes || '100vw'} />}
         <img
-          src={src}
-          alt={alt || `Fotografía del restaurante: ${label}`}
-          className="absolute inset-0 h-full w-full object-cover"
-          loading={eager ? 'eager' : 'lazy'}
+          src={fallback?.src}
+          srcSet={jpg.length > 0 ? toSrcSet(jpg) : undefined}
+          sizes={sizes || spec?.sizes || '100vw'}
+          width={asset.width}
+          height={asset.height}
+          alt={alt || spec?.alt || ''}
+          loading={eager || spec?.priority ? 'eager' : 'lazy'}
+          fetchPriority={eager || spec?.priority ? 'high' : 'auto'}
           decoding="async"
-          onError={() => setFailed(true)}
+          className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`}
+          style={{ objectPosition }}
         />
-      )}
+      </picture>
+      {children}
     </div>
   )
 }

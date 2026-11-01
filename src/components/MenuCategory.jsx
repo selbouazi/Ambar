@@ -1,99 +1,113 @@
-import { FadeIn } from './FadeIn'
-import Icon from './Icons'
-import Photo from './Photo'
+import Reveal from './Reveal'
+import { formatPrice, priceOf } from '../data/menu'
 
-export default function MenuCategory({ category, index }) {
+const TAG_LABEL = {
+  'solo-viernes': 'Solo viernes',
+  'menu-2': 'Menú +2 €',
+  'por-persona': 'Por persona',
+  'a-consultar': 'A consultar',
+  verificar: 'Por confirmar',
+}
+
+function Tags({ tags }) {
+  const visible = (tags || []).filter((tag) => tag !== 'a-consultar')
+  if (!visible.length) return null
   return (
-    <section id={category.slug} className="scroll-mt-28">
-      {/* Cabecera de categoría */}
-      <div className="grid items-end gap-6 md:grid-cols-[1fr_auto] md:gap-14">
-        <FadeIn y={20}>
-          <p className="font-display text-sm italic text-gold-500">
-            {String(index + 1).padStart(2, '0')}
-          </p>
-          <h2 className="mt-2 font-display text-4xl font-medium leading-none sm:text-5xl">
-            {category.nombre}
-          </h2>
-          <div className="mt-4 h-px w-24 bg-gold-500/60" />
-          {(category.nota || category.menu_extra || category.sabores) && (
-            <div className="mt-5 space-y-1 text-sm text-ink/65">
-              {category.nota && <p>{category.nota}</p>}
-              {category.menu_extra && (
-                <p className="font-medium uppercase tracking-wide text-gold-600">
-                  <Icon name="menu" className="mr-1 inline h-3.5 w-3.5" />
-                  {category.menu_extra}
-                </p>
-              )}
-              {category.sabores && (
-                <p>
-                  <span className="font-medium text-ink/80">Sabores:</span>{' '}
-                  {category.sabores.join(' · ')}
-                </p>
-              )}
-            </div>
-          )}
-        </FadeIn>
-      </div>
+    <span className="flex shrink-0 flex-wrap items-center gap-1.5">
+      {visible.map((tag) => (
+        <span
+          key={tag}
+          className={`whitespace-nowrap rounded-full border px-2 py-0.5 text-[11px] font-medium ${
+            tag === 'solo-viernes'
+              ? 'border-gold-600/50 text-gold-700'
+              : 'border-ink/20 text-ink-mute'
+          }`}
+        >
+          {TAG_LABEL[tag] || tag}
+        </span>
+      ))}
+    </span>
+  )
+}
 
-      {/* Opcional: foto de cabecera de categoría */}
-      {category.cover && (
-        <FadeIn className="mt-8" y={26}>
-          <Photo
-            src={category.cover.src}
-            label={category.cover.label}
-            ratio="aspect-[16/6] md:aspect-[16/5]"
-            className="w-full"
-          />
-        </FadeIn>
+function Leader() {
+  return <span aria-hidden="true" className="menu-leader mb-1 min-w-6 flex-1 self-end" />
+}
+
+function MenuItemRow({ item }) {
+  return (
+    <li className="menu-row border-b border-ink/10 py-4">
+      {item.variants?.length ? (
+        <>
+          <h3 className="font-display text-[19px] font-medium leading-snug text-ink">
+            {item.name}
+          </h3>
+          <ul className="mt-1.5 space-y-1">
+            {item.variants.map((variant) => (
+              <li key={variant.label} className="flex items-baseline gap-3">
+                <span className="text-[15px] text-ink-soft">{variant.label}</span>
+                <Leader />
+                <span className="tnum shrink-0 font-display text-[17px] font-medium text-gold-700">
+                  {formatPrice(variant.price)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <div className="flex items-baseline gap-3">
+            <h3 className="font-display text-[19px] font-medium leading-snug text-ink">
+              {item.name}
+            </h3>
+            <Tags tags={item.tags} />
+            <Leader />
+            <span className="tnum shrink-0 font-display text-[17px] font-medium text-gold-700">
+              {priceOf(item)}
+            </span>
+          </div>
+          {item.description && (
+            <p className="mt-1 text-[15px] leading-relaxed text-ink-soft">{item.description}</p>
+          )}
+        </>
+      )}
+    </li>
+  )
+}
+
+/**
+ * Una categoría de la carta. Se lee como un menú impreso: nombre a la
+ * izquierda, precio a la derecha, punteado entre ambos.
+ */
+export default function MenuCategory({ category, headingId }) {
+  return (
+    <section id={category.id} aria-labelledby={headingId} className="scroll-mt-36">
+      <Reveal>
+        <h2
+          id={headingId}
+          className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-none tracking-[-0.02em] text-ink"
+        >
+          {category.name}
+        </h2>
+      </Reveal>
+
+      {(category.intro || category.note || category.menuExtra) && (
+        <Reveal delay={60}>
+          <div className="mt-3 space-y-1.5 text-[15px] leading-relaxed text-ink-soft">
+            {category.intro && <p>{category.intro}</p>}
+            {category.note && <p>{category.note}</p>}
+            {category.menuExtra && <p className="text-gold-700">{category.menuExtra}</p>}
+          </div>
+        </Reveal>
       )}
 
-      {/* Lista editorial de platos */}
-      <div className="mt-8">
-        {category.items.map((item, i) => {
-          const missing = item.precio === '[FALTA DATO]'
-          return (
-            <FadeIn key={item.nombre} delay={Math.min(i * 0.04, 0.3)} y={18}>
-              <div className="group flex items-baseline gap-4 border-b border-ink/10 py-4 transition-colors duration-300 hover:border-gold-500/40 md:py-5">
-                <span
-                  aria-hidden="true"
-                  className="hidden shrink-0 text-[10px] font-medium uppercase tracking-widest text-ink/30 sm:block"
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-display text-[1.15rem] font-medium leading-snug text-ink md:text-xl">
-                    {item.nombre}
-                  </h3>
-                  {item.descripcion && (
-                    <p className="mt-0.5 max-w-2xl text-sm text-ink/60">
-                      {item.descripcion}
-                    </p>
-                  )}
-                  {item.nota && (
-                    <p className="mt-0.5 text-xs italic text-ink/50">{item.nota}</p>
-                  )}
-                  {missing && (
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-600">
-                      Precio pendiente · [FALTA DATO]
-                    </p>
-                  )}
-                </div>
-                <div className="shrink-0 text-right">
-                  <span
-                    className={
-                      missing
-                        ? 'font-display text-sm text-gold-600'
-                        : 'font-display text-lg font-semibold text-gold-600'
-                    }
-                  >
-                    {missing ? '[FALTA DATO]' : item.precio}
-                  </span>
-                </div>
-              </div>
-            </FadeIn>
-          )
-        })}
-      </div>
+      <Reveal delay={100}>
+        <ul className="mt-5">
+          {category.items.map((item) => (
+            <MenuItemRow key={item.name} item={item} />
+          ))}
+        </ul>
+      </Reveal>
     </section>
   )
 }

@@ -1,54 +1,93 @@
 import Icon from './Icons'
+import { mapsHref } from '../data/business'
 
-export default function ReviewCard({ author, text, featured = false, className = '' }) {
+function Stars({ className = '' }) {
+  return (
+    <span className={`flex items-center gap-0.5 ${className}`} role="img" aria-label="5 de 5 estrellas">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+          <path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9L12 3Z" />
+        </svg>
+      ))}
+    </span>
+  )
+}
+
+/**
+ * Reseña real de Google. Se atribuye a «Reseña en Google» y enlaza a la ficha.
+ * No se inventan nombres ni textos.
+ */
+export default function ReviewCard({ review, featured = false, className = '' }) {
+  const hasAuthor = Boolean(review.author)
+
   return (
     <figure
-      className={`break-inside-avoid rounded-[1.75rem] border border-gold-500/20 bg-cream-100 p-7 ${
-        featured
-          ? 'bg-maroc-900 text-cream-50 md:p-9'
-          : 'text-ink'
+      className={`flex h-full flex-col justify-between p-7 sm:p-8 ${
+        featured ? 'bg-maroc-900 text-cream-50' : 'bg-cream-100 text-ink'
       } ${className}`}
     >
-      <Icon name="quote" className={`h-7 w-7 ${featured ? 'text-gold-400' : 'text-gold-500'}`} />
-      <blockquote
-        className={`mt-4 font-display text-lg font-normal leading-snug ${
-          featured ? 'italic text-cream-100' : 'text-ink'
-        }`}
-      >
-        &ldquo;{text}&rdquo;
-      </blockquote>
-      <figcaption className="mt-6 flex items-center gap-3">
-        <span
-          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border font-display text-sm ${
-            featured
-              ? 'border-gold-400/50 text-gold-300'
-              : 'border-gold-500/40 text-gold-600'
+      <div>
+        <Icon
+          name="quote"
+          className={`h-6 w-6 ${featured ? 'text-gold-400' : 'text-gold-600'}`}
+        />
+        <blockquote
+          className={`mt-5 font-display leading-[1.45] ${
+            featured ? 'text-[23px] text-cream-50 sm:text-[27px]' : 'text-[19px] text-ink'
           }`}
         >
-          {author.charAt(0)}
-        </span>
-        <span>
-          <span className="block text-sm font-semibold">{author}</span>
-          <span
-            className={`block text-xs ${
-              featured ? 'text-cream-200/60' : 'text-ink/55'
+          {review.text}
+        </blockquote>
+
+        {review.ownerReply && (
+          <p
+            className={`mt-5 border-l-2 border-gold-500/40 pl-4 text-[14px] leading-relaxed ${
+              featured ? 'text-cream-200/65' : 'text-ink-soft'
             }`}
           >
-            Reseña · Google
-          </span>
-        </span>
+            <span className="font-medium">Respuesta del restaurante:</span> {review.ownerReply}
+          </p>
+        )}
+      </div>
+
+      <figcaption className="mt-7 flex items-center gap-3">
         <span
-          className={`ml-auto flex items-center gap-0.5 ${
-            featured ? 'text-gold-400' : 'text-gold-500'
+          className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border font-display text-sm ${
+            featured ? 'border-gold-400/40 text-gold-300' : 'border-gold-600/35 text-gold-700'
           }`}
-          aria-label="5 estrellas"
+          aria-hidden="true"
         >
-          {[0, 1, 2, 3, 4].map((i) => (
-            <svg key={i} viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden="true">
-              <path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9L12 3Z" />
-            </svg>
-          ))}
+          {hasAuthor ? review.author.charAt(0) : 'A'}
         </span>
+        <span className="min-w-0">
+          {hasAuthor ? (
+            <>
+              <span className={`block truncate text-[14px] font-medium ${featured ? 'text-cream-100' : 'text-ink'}`}>
+                {review.author}
+              </span>
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`gold-underline text-[12px] ${featured ? 'text-cream-200/70' : 'text-ink-mute'}`}
+              >
+                {review.sourceLabel}
+              </a>
+            </>
+          ) : (
+            <a
+              href={mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`gold-underline block truncate text-[14px] font-medium ${
+                featured ? 'text-cream-100' : 'text-ink'
+              }`}
+            >
+              {review.sourceLabel}
+            </a>
+          )}
+        </span>
+        <Stars className={`ml-auto ${featured ? 'text-gold-400' : 'text-gold-600'}`} />
       </figcaption>
     </figure>
   )

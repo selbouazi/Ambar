@@ -1,8 +1,12 @@
 import { useEffect } from 'react'
-import { restaurante, GOOGLE_MAPS_URL } from '../data/restaurante'
+import { business, mapsHref } from '../data/business'
+import { menu } from '../data/menu'
 
-const SITE_URL = 'https://restaurante-halal-ambar.vercel.app'
-const OG_IMAGE = `${SITE_URL}/og-placeholder.svg`
+/**
+ * TODO(confirmar): dominio definitivo. Se mantiene el de Vercel actual.
+ */
+export const SITE_URL = 'https://restaurante-halal-ambar.vercel.app'
+const OG_IMAGE = `${SITE_URL}/og.png`
 
 function upsertMeta(attr, key, content) {
   if (!content) return
@@ -15,39 +19,96 @@ function upsertMeta(attr, key, content) {
   el.setAttribute('content', content)
 }
 
-function buildRestaurantJsonLd() {
-  const n = restaurante.negocio
+const DAY_NAMES_SCHEMA = {
+  monday: 'Monday',
+  tuesday: 'Tuesday',
+  wednesday: 'Wednesday',
+  thursday: 'Thursday',
+  friday: 'Friday',
+  saturday: 'Saturday',
+  sunday: 'Sunday',
+}
+
+function buildOpeningHours() {
+  return business.hours
+    .filter((day) => !day.closed)
+    .map((day) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: DAY_NAMES_SCHEMA[day.key],
+      opens: day.opens,
+      closes: day.closes === '24:00' ? '00:00' : day.closes,
+    }))
+}
+
+export function buildRestaurantJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    name: n.nombre,
-    image: [OG_IMAGE],
+    '@id': `${SITE_URL}/#restaurante`,
+    name: business.name,
+    alternateName: business.shortName,
+    description: business.description,
     url: SITE_URL,
-    telephone: n.telefono,
-    priceRange: n.rango_precio,
+    image: [OG_IMAGE],
+    telephone: business.phone.display,
+    priceRange: business.priceRange,
+    currenciesAccepted: 'EUR',
+    servesCuisine: ['Moroccan', 'Halal'],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Ctra. de Valls, 70',
-      postalCode: '43700',
-      addressLocality: 'El Vendrell',
-      addressRegion: 'Tarragona',
-      addressCountry: 'ES',
+      streetAddress: `${business.address.street}, ${business.address.number}`,
+      postalCode: business.address.postalCode,
+      addressLocality: business.address.city,
+      addressRegion: business.address.region,
+      addressCountry: business.address.countryCode,
     },
+    openingHoursSpecification: buildOpeningHours(),
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: String(n.valoracion.puntuacion),
-      reviewCount: String(n.valoracion.numero_resenas),
+      ratingValue: business.rating.score,
+      reviewCount: business.rating.count,
+      bestRating: 5,
+      worstRating: 1,
     },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        opens: '09:00',
-        closes: '00:00',
-      },
+    acceptsReservations: false,
+    hasMap: mapsHref,
+    sameAs: [business.links.instagram, mapsHref],
+    amenityFeature: [
+      { '@type': 'LocationFeatureSpecification', name: 'Cocina halal', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Apto para familias', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Para llevar', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Entrega a domicilio', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Local accesible', value: true },
     ],
-    servesCuisine: ['Cocina marroquí', 'Halal'],
-    acceptsReservations: 'True',
-    hasMap: GOOGLE_MAPS_URL,
+    hasMenu: `${SITE_URL}/carta`,
+  }
+}
+
+export function buildMenuJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Menu',
+    name: `Carta de ${business.name}`,
+    inLanguage: 'es-ES',
+    hasMenuSection: menu.map((category) => ({
+      '@type': 'MenuSection',
+      name: category.name,
+      ...(category.note ? { description: category.note } : {}),
+      hasMenuItem: category.items.map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        ...(item.description ? { description: item.description } : {}),
+        ...(typeof item.price === 'number'
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: item.price.toFixed(2),
+                priceCurrency: 'EUR',
+              },
+            }
+          : {}),
+      })),
+    })),
   }
 }
 
@@ -56,7 +117,7 @@ export default function Seo({
   description,
   path = '/',
   image = OG_IMAGE,
-  withRestaurantJsonLd = true,
+  withMenuJsonLd = false,
 }) {
   useEffect(() => {
     document.title = title
@@ -68,8 +129,10 @@ export default function Seo({
     upsertMeta('property', 'og:type', 'website')
     upsertMeta('property', 'og:url', full)
     upsertMeta('property', 'og:image', image)
+    upsertMeta('property', 'og:image:width', '1200')
+    upsertMeta('property', 'og:image:height', '630')
     upsertMeta('property', 'og:locale', 'es_ES')
-    upsertMeta('property', 'og:site_name', restaurante.negocio.nombre)
+    upsertMeta('property', 'og:site_name', business.name)
     upsertMeta('name', 'twitter:card', 'summary_large_image')
     upsertMeta('name', 'twitter:title', title)
     upsertMeta('name', 'twitter:description', description)
@@ -83,18 +146,28 @@ export default function Seo({
     }
     link.setAttribute('href', full)
 
-    const id = 'jsonld-restaurant'
-    const existing = document.getElementById(id)
-    if (withRestaurantJsonLd) {
-      const s = existing || document.createElement('script')
-      s.type = 'application/ld+json'
-      s.id = id
-      s.innerHTML = JSON.stringify(buildRestaurantJsonLd())
-      if (!existing) document.head.appendChild(s)
-    } else if (existing) {
-      existing.remove()
+    const restaurantId = 'jsonld-restaurant'
+    let script = document.getElementById(restaurantId)
+    if (!script) {
+      script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.id = restaurantId
+      document.head.appendChild(script)
     }
-  }, [title, description, path, image, withRestaurantJsonLd])
+    script.textContent = JSON.stringify(buildRestaurantJsonLd())
+
+    const menuId = 'jsonld-menu'
+    const existingMenu = document.getElementById(menuId)
+    if (withMenuJsonLd) {
+      const menuScript = existingMenu || document.createElement('script')
+      menuScript.type = 'application/ld+json'
+      menuScript.id = menuId
+      menuScript.textContent = JSON.stringify(buildMenuJsonLd())
+      if (!existingMenu) document.head.appendChild(menuScript)
+    } else if (existingMenu) {
+      existingMenu.remove()
+    }
+  }, [title, description, path, image, withMenuJsonLd])
 
   return null
 }
