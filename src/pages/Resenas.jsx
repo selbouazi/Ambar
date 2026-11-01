@@ -1,122 +1,123 @@
 import Seo from '../components/Seo'
-import { FadeIn, Stagger, StaggerItem } from '../components/FadeIn'
-import Counter from '../components/Counter'
-import SectionHeading from '../components/SectionHeading'
-import CTAButton from '../components/CTAButton'
+import Reveal from '../components/Reveal'
 import ReviewCard from '../components/ReviewCard'
-import { ZelligeGrain, ZelligeLine } from '../components/Zellige'
-import { restaurante, GOOGLE_MAPS_URL } from '../data/restaurante'
+import CTAButton from '../components/CTAButton'
+import { ZelligePattern } from '../components/Zellige'
+import { business, mapsHref, telHref } from '../data/business'
 
-const n = restaurante.negocio
+const n = business
+
+function Stars({ className = 'h-5 w-5' }) {
+  return (
+    <span className="flex items-center gap-1 text-gold-400" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} viewBox="0 0 24 24" className={className} fill="currentColor">
+          <path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9L12 3Z" />
+        </svg>
+      ))}
+    </span>
+  )
+}
 
 export default function Resenas() {
+  const [first, ...rest] = n.reviews
+
   return (
     <>
       <Seo
-        title={`Reseñas · ${n.nombre} (${n.valoracion.puntuacion}/5)`}
-        description={`Opiniones de clientes de ${n.nombre} en El Vendrell: ${n.valoracion.puntuacion} sobre 5 con ${n.valoracion.numero_resenas} reseñas en Google. Cocina marroquí halal recomendada por familias.`}
+        title="Opiniones · Restaurante halal Ambar, El Vendrell"
+        description={`Opiniones de clientes de Ambar en El Vendrell: ${n.rating.score} sobre 5 con ${n.rating.count} reseñas en Google. Cocina marroquí halal, tajín y cuscús.`}
         path="/resenas"
       />
 
-      <header className="relative overflow-hidden bg-maroc-950 pb-16 pt-40 text-cream-50 sm:pb-24 lg:pt-48">
-        <ZelligeGrain className="pointer-events-none absolute -right-24 bottom-0 h-[55vh] w-[55vh] text-gold-400 opacity-[0.05]" />
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <FadeIn>
-            <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.4em] text-gold-400">
-              <span className="h-px w-10 bg-gold-500/70" />
-              Reseñas
-            </p>
-            <h1 className="mt-5 font-display text-6xl font-medium italic leading-none tracking-tight sm:text-7xl lg:text-8xl">
-              Palabra de cliente
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-cream-200/70">
-              La mejor carta de presentación de Ambar la escriben quienes vienen a
-              comer y repiten.
-            </p>
-          </FadeIn>
+      {/* Cabecera */}
+      <header className="relative overflow-hidden bg-maroc-950 pb-14 pt-28 text-cream-50 sm:pb-16 lg:pt-36">
+        <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" tile={130} />
+        <div className="relative mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <Reveal priority>
+                <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em]">
+                  Lo que dicen
+                </h1>
+                <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
+                  Reseñas publicadas en la ficha de Google del restaurante. Las
+                  mostramos tal cual, sin retocar.
+                </p>
+              </Reveal>
+            </div>
+
+            <Reveal priority delay={100} className="lg:col-span-5">
+              <div className="border-t border-cream-100/15 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+                <div className="flex items-end gap-4">
+                  <p className="tnum font-display text-7xl leading-none text-gold-400">
+                    {n.rating.score.toString().replace('.', ',')}
+                  </p>
+                  <div className="pb-2">
+                    <Stars />
+                    <p className="mt-1.5 text-[14px] text-cream-200/70">
+                      {n.rating.count} reseñas en Google
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href={mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gold-underline mt-4 inline-block text-[14px] text-gold-300"
+                >
+                  Ver la ficha en Google
+                </a>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </header>
 
-      {/* Bloque editorial de valoración */}
-      <section className="border-b border-gold-500/15 bg-maroc-900 py-20 text-cream-50 sm:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
-          <FadeIn>
-            <div className="flex items-center gap-6">
-              <p className="font-display text-8xl font-semibold leading-none text-gold-400 sm:text-9xl">
-                <Counter value={n.valoracion.puntuacion} decimals={1} />
-              </p>
-              <div>
-                <span className="flex items-center gap-1 text-gold-400">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <svg key={i} viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
-                      <path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.6l1-6L3.3 9.4l6-.9L12 3Z" />
-                    </svg>
-                  ))}
-                </span>
-                <p className="mt-3 text-sm uppercase tracking-[0.2em] text-cream-200/65">
-                  sobre 5 · Google
-                </p>
-              </div>
-            </div>
-          </FadeIn>
+      {/* Reseñas */}
+      <section className="bg-cream-50 py-20 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
+          <div className="grid gap-4 sm:grid-cols-2 lg:gap-5">
+            <Reveal className="sm:col-span-2">
+              <ReviewCard review={first} featured />
+            </Reveal>
 
-          <FadeIn delay={0.12}>
-            <div className="lg:pl-10">
-              <p className="font-display text-3xl font-medium italic leading-snug text-cream-100 sm:text-4xl">
-                <Counter value={n.valoracion.numero_resenas} /> reseñas reales, casi
-                todos repiten
-              </p>
-              <div className="mt-7">
-                <CTAButton
-                  href={GOOGLE_MAPS_URL}
-                  external
-                  variant="gold"
-                  icon="external"
-                >
-                  Ver en Google
-                </CTAButton>
-              </div>
-            </div>
-          </FadeIn>
+            {rest.map((review, i) => (
+              <Reveal key={review.id} delay={80 + i * 60}>
+                <ReviewCard review={review} className="h-full" />
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <p className="mt-10 max-w-2xl text-[14px] leading-relaxed text-ink-mute">
+              Las reseñas se atribuyen a «Reseña en Google» cuando la persona no
+              publica su nombre. Puedes leerlas todas, con sus respuestas, en la ficha
+              del restaurante en Google.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Mosaico de reseñas */}
-      <section className="bg-cream-100 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading
-            kicker="Lo que nos escriben"
-            title="Reseñas que nos dan fuerzas"
-            tone="light"
-          />
-          <Stagger
-            className="mt-14 columns-1 gap-5 space-y-5 sm:columns-2 lg:columns-3"
-            stagger={0.07}
-          >
-            {restaurante.resenas_destacadas.map((r) => (
-              <StaggerItem key={r.autor} className="break-inside-avoid">
-                <ReviewCard author={r.autor} text={r.texto} />
-              </StaggerItem>
-            ))}
-          </Stagger>
-
-          <FadeIn className="mt-16 text-center">
-            <ZelligeLine className="mx-auto max-w-xs text-gold-500/60" />
-            <p className="mx-auto mt-6 max-w-xl text-ink/65">
-              ¿Ya nos has probado? Deja tu reseña en Google y ayúdanos a seguir
-              creciendo.
+      {/* Cierre */}
+      <section className="bg-maroc-900 py-16 text-cream-50 sm:py-20">
+        <div className="mx-auto flex max-w-[75rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+          <div>
+            <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-tight">
+              Ven a comprobarlo tú mismo
+            </h2>
+            <p className="mt-2 text-[15px] text-cream-200/65">
+              Reserva opcional. También puedes pedir para llevar.
             </p>
-            <div className="mt-6">
-              <CTAButton
-                href={GOOGLE_MAPS_URL}
-                external
-                variant="dark"
-                icon="external"
-              >
-                Escribir una reseña
-              </CTAButton>
-            </div>
-          </FadeIn>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <CTAButton href={telHref} variant="primary" icon="phone">
+              Llamar
+            </CTAButton>
+            <CTAButton to="/carta" variant="onDark" icon="arrow">
+              Ver la carta
+            </CTAButton>
+          </div>
         </div>
       </section>
     </>
