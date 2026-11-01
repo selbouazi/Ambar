@@ -8,3 +8,14 @@ dist-ssr
 .idea
 *.log
 .env
+
+# Herramientas locales y auditorias (no forman parte del sitio)
+.agents/
+skills-lock.json
+.audit/
+.playwright-cli/
+
+# Variantes generadas por npm run photos
+public/photos/gen/*
+!public/photos/gen/.gitkeep
+

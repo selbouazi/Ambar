@@ -1,167 +1,241 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Seo from '../components/Seo'
-import { FadeIn, EASE } from '../components/FadeIn'
+import Reveal from '../components/Reveal'
 import CTAButton from '../components/CTAButton'
 import MenuCategory from '../components/MenuCategory'
-import { ZelligeGrain } from '../components/Zellige'
-import { restaurante, slugCategoria } from '../data/restaurante'
-import { PHOTOS, PHOTO_LABELS } from '../data/photos'
+import Icon from '../components/Icons'
+import { ZelligePattern } from '../components/Zellige'
+import { LiveStatus } from '../components/Hours'
+import { scrollToHash } from '../components/SmoothScroll'
+import { business, hoursSummary, telHref } from '../data/business'
+import { menu, menuItemCount } from '../data/menu'
 
-const n = restaurante.negocio
+const n = business
 
-const COVERS = {
-  Desayunos: { src: PHOTOS.desayuno, label: PHOTO_LABELS.desayuno },
-  Platos: { src: PHOTOS.tajin, label: PHOTO_LABELS.tajin },
-  Pescado: { src: PHOTOS.mariscos, label: PHOTO_LABELS.mariscos },
-  Tacos: { src: PHOTOS.tacos, label: PHOTO_LABELS.tacos },
-}
-
-function useScrollSpy(ids) {
+/** Resalta en la navegación la categoría visible. */
+function useScrollSpy(ids, enabled) {
   const [active, setActive] = useState(ids[0])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id)
-        })
-      },
-      { rootMargin: '-35% 0px -60% 0px', threshold: 0 },
-    )
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [ids])
+    if (!enabled) return
+
+    const onScroll = () => {
+      const offset = 160
+      let current = ids[0]
+      ids.forEach((id) => {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top - offset <= 0) current = id
+      })
+      setActive(current)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [ids, enabled])
 
   return active
 }
 
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+}
+
 export default function Carta() {
-  const categorias = restaurante.carta.map((c) => ({
-    ...c,
-    slug: slugCategoria(c.categoria),
-  }))
-  const ids = categorias.map((c) => c.slug)
-  const active = useScrollSpy(ids)
+  const [query, setQuery] = useState('')
+  const searchRef = useRef(null)
+  const searching = query.trim().length > 0
+
+  const filtered = useMemo(() => {
+    const term = normalize(query.trim())
+    if (!term) return menu
+
+    return menu
+      .map((category) => ({
+        ...category,
+        items: category.items.filter((item) =>
+          normalize(`${item.name} ${item.description ?? ''}`).includes(term),
+        ),
+      }))
+      .filter((category) => category.items.length > 0)
+  }, [query])
+
+  const ids = useMemo(() => filtered.map((category) => category.id), [filtered])
+  const active = useScrollSpy(ids, !searching)
+  const resultCount = filtered.reduce((total, category) => total + category.items.length, 0)
 
   return (
     <>
       <Seo
-        title={`La carta · ${n.nombre} El Vendrell`}
-        description={`Carta completa de ${n.nombre}: entrantes, tajines, pizzas, pescado a la plancha, desayunos marroquíes, batidos y bebidas. Precios de ${n.rango_precio.toLowerCase()}.`}
+        title="La carta · Restaurante halal Ambar, El Vendrell"
+        description="Carta completa de Ambar: desayunos marroquíes, tajines, cuscús de los viernes, tacos, pizzas, pescado fresco y marisco. Precios actualizados."
         path="/carta"
+        withMenuJsonLd
       />
 
       {/* Cabecera */}
-      <header className="relative overflow-hidden bg-maroc-950 pb-16 pt-40 text-cream-50 sm:pb-20 lg:pt-48">
-        <ZelligeGrain className="pointer-events-none absolute -right-20 top-10 h-[60vh] w-[60vh] text-gold-400 opacity-[0.05]" />
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <FadeIn>
-            <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.4em] text-gold-400">
-              <span className="h-px w-10 bg-gold-500/70" />
-              Menú
-            </p>
-            <h1 className="mt-5 font-display text-6xl font-medium italic leading-none tracking-tight sm:text-7xl lg:text-8xl">
+      <header className="relative overflow-hidden bg-maroc-950 pb-14 pt-28 text-cream-50 sm:pb-16 lg:pt-36">
+        <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" tile={130} />
+        <div className="relative mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
+          <Reveal priority>
+            <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em]">
               La carta
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-cream-200/70">
-              Todo se prepara al momento. Desayunos desde primera hora, marisco a la
-              brasa al mediodía y tajines que llenan las noches del Vendrell.
+            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
+              {menuItemCount} platos de cocina marroquí y brasa. El cuscús solo se sirve
+              los viernes; el resto, de martes a domingo.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-cream-200/55">
-              <span className="font-display text-2xl italic text-gold-400">
-                {n.rango_precio}
-              </span>
-              <span className="h-5 w-px bg-cream-100/20" aria-hidden="true" />
-              <span>
-                {n.horario.apertura} – {n.horario.cierre} · {n.direccion.split(',')[0]}
-              </span>
+          </Reveal>
+
+          <Reveal priority delay={100}>
+            <div className="mt-8 flex flex-col gap-5 border-t border-cream-100/12 pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <LiveStatus />
+              <div className="flex flex-wrap gap-3">
+                <CTAButton href={telHref} variant="primary" icon="phone">
+                  Llamar para pedir
+                </CTAButton>
+                <CTAButton href={n.links.maps} external variant="onDark" icon="pin">
+                  Cómo llegar
+                </CTAButton>
+              </div>
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
       </header>
 
-      {/* Scrollspy sticky */}
-      <nav
-        aria-label="Categorías de la carta"
-        className="sticky top-[84px] z-40 border-y border-gold-500/15 bg-cream-50/95 backdrop-blur-xl lg:top-[92px]"
-      >
-        <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-2.5 sm:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {categorias.map((c) => {
-            const isActive = active === c.slug
-            return (
-              <a
-                key={c.slug}
-                href={`#${c.slug}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  const el = document.getElementById(c.slug)
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 124
-                    window.scrollTo({ top: y, behavior: 'smooth' })
-                  }
-                }}
-                aria-current={isActive ? 'true' : undefined}
-                className={`whitespace-nowrap rounded-full px-4 py-2 text-[12px] font-medium uppercase tracking-[0.14em] transition-all duration-300 ${
-                  isActive
-                    ? 'bg-maroc-900 text-gold-300 shadow-md'
-                    : 'text-ink/60 hover:bg-cream-200 hover:text-ink'
-                }`}
-              >
-                {c.categoria}
-              </a>
-            )
-          })}
-        </div>
-      </nav>
-
-      {/* Categorías */}
-      <div className="mx-auto max-w-7xl space-y-24 px-5 py-16 sm:px-8 lg:space-y-32 lg:py-24">
-        {categorias.map((cat, i) => (
-          <MenuCategory
-            key={cat.slug}
-            category={{ ...cat, cover: COVERS[cat.categoria] }}
-            index={i}
+      {/* Navegación de categorías */}
+      <div className="sticky top-16 z-30 border-b border-ink/10 bg-cream-50 lg:top-[72px]">
+        <div className="relative mx-auto max-w-[82rem] px-5 sm:px-8 lg:px-12">
+          <nav aria-label="Categorías de la carta" className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+            <ul className="flex w-max items-center gap-1 py-2">
+              {filtered.map((category) => {
+                const isActive = !searching && category.id === active
+                return (
+                  <li key={category.id}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuery('')
+                        window.setTimeout(() => scrollToHash(category.id), 0)
+                      }}
+                      aria-current={isActive ? 'true' : undefined}
+                      className={`flex min-h-11 items-center whitespace-nowrap rounded-full px-4 text-[14px] font-medium transition-colors ${
+                        isActive
+                          ? 'bg-maroc-900 text-cream-50'
+                          : 'text-ink-soft hover:bg-cream-200 hover:text-ink'
+                      }`}
+                    >
+                      {category.name}
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-cream-50 to-transparent lg:hidden"
           />
-        ))}
+        </div>
       </div>
 
-      {/* CTA final */}
-      <section className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 26 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="relative overflow-hidden rounded-[2.5rem] bg-maroc-900 px-6 py-14 text-center text-cream-50 sm:px-12"
-        >
-          <ZelligeGrain className="absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" />
-          <div className="relative">
-            <h2 className="font-display text-4xl font-medium italic tracking-tight sm:text-5xl">
-              ¿Dudas con la carta?
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-cream-200/70">
-              Llámanos y te contamos cómo preparamos cada plato, o elige la terraza para
-              venir a verlo con calma.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <CTAButton href={`tel:${n.telefono_uri}`} variant="gold" icon="phone">
-                Llamar · {n.telefono.replace('+34 ', '')}
-              </CTAButton>
-              <CTAButton
-                href={n.enlaces.pedidos_online.url}
-                external
-                variant="outlineCream"
-                icon="delivery"
+      {/* Buscador */}
+      <div className="border-b border-ink/10 bg-cream-100">
+        <div className="mx-auto max-w-[46rem] px-5 py-5 sm:px-8">
+          <label htmlFor="buscar-plato" className="sr-only">
+            Buscar un plato en la carta
+          </label>
+          <div className="flex items-center gap-3 border border-ink/20 bg-cream-50 px-4 focus-within:border-gold-600">
+            <Icon name="search" className="h-4 w-4 shrink-0 text-ink-mute" />
+            <input
+              ref={searchRef}
+              id="buscar-plato"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Buscar en la carta: tajín, tacos, té…"
+              className="min-h-11 w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-mute"
+            />
+            {searching && (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('')
+                  searchRef.current?.focus()
+                }}
+                className="flex min-h-11 items-center gap-1 text-[13px] text-ink-mute hover:text-ink"
               >
-                Pedir a domicilio
-              </CTAButton>
-            </div>
+                Limpiar
+                <Icon name="close" className="h-3.5 w-3.5" />
+              </button>
+            )}
           </div>
-        </motion.div>
+          {searching && (
+            <p className="mt-2 text-[13px] text-ink-mute" role="status">
+              {resultCount === 0
+                ? 'No hay platos que coincidan. Prueba con otra palabra.'
+                : `${resultCount} ${resultCount === 1 ? 'plato' : 'platos'} encontrados.`}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Categorías */}
+      <div className="bg-cream-50 pb-20 pt-12 sm:pb-24 sm:pt-16">
+        <div className="mx-auto max-w-[46rem] px-5 sm:px-8">
+          {resultCount === 0 ? (
+            <p className="py-16 text-center text-[17px] text-ink-soft">
+              No encontramos ese plato. Puedes llamarnos y te decimos si lo tenemos hoy.
+            </p>
+          ) : (
+            <div className="space-y-14 sm:space-y-16">
+              {filtered.map((category) => (
+                <MenuCategory
+                  key={category.id}
+                  category={category}
+                  headingId={`${category.id}-titulo`}
+                />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-16 border-t border-ink/10 pt-8">
+            <p className="text-[14px] leading-relaxed text-ink-mute">
+              Precios en euros. La carta puede cambiar según temporada y producto fresco.
+              Para pedir o preguntar por un plato, llama al{' '}
+              <a href={telHref} className="gold-underline text-gold-700">
+                {n.phone.display}
+              </a>
+              .
+            </p>
+            <p className="mt-2 text-[14px] text-ink-mute">{hoursSummary}. Lunes cerrado.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Cierre */}
+      <section className="bg-maroc-900 py-16 text-cream-50 sm:py-20">
+        <div className="mx-auto flex max-w-[75rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+          <div>
+            <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-tight">
+              ¿Lo pides para llevar o te sientas a comer?
+            </h2>
+            <p className="mt-2 text-[15px] text-cream-200/65">
+              Comer en el local, para llevar y entrega a domicilio.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <CTAButton href={telHref} variant="primary" icon="phone">
+              Llamar
+            </CTAButton>
+            <CTAButton href={n.links.maps} external variant="onDark" icon="pin">
+              Cómo llegar
+            </CTAButton>
+          </div>
+        </div>
       </section>
     </>
   )

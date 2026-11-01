@@ -1,48 +1,37 @@
-import { FadeIn } from './FadeIn'
-import { ZelligeLine } from './Zellige'
+import Reveal from './Reveal'
 
+/**
+ * Titular de sección. Sin etiquetas pequeñas en mayúsculas encima: la
+ * información va en el titular o en la frase de apoyo.
+ */
 export default function SectionHeading({
-  kicker,
   title,
   description,
-  align = 'center',
+  align = 'left',
   tone = 'light',
+  as: Tag = 'h2',
   className = '',
+  id,
 }) {
-  const isCenter = align === 'center'
+  const centered = align === 'center'
   const titleColor = tone === 'dark' ? 'text-cream-50' : 'text-ink'
-  const kickerColor = 'text-gold-500'
-  const descColor =
-    tone === 'dark' ? 'text-cream-200/75' : 'text-ink/70'
+  const descColor = tone === 'dark' ? 'text-cream-200/70' : 'text-ink-soft'
 
   return (
-    <FadeIn
-      className={`max-w-3xl ${isCenter ? 'mx-auto text-center' : ''} ${className}`}
-    >
-      <FadeIn delay={0}>
-        <p
-          className={
-            isCenter
-              ? 'flex items-center justify-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-gold-500'
-              : 'flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.35em] text-gold-500'
-          }
+    <div className={`${centered ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'} ${className}`}>
+      <Reveal>
+        <Tag
+          id={id}
+          className={`font-display text-[clamp(2rem,3.6vw,3.25rem)] font-normal leading-[1.05] tracking-[-0.02em] ${titleColor}`}
         >
-          <span className="h-px w-8 bg-gold-500/50" />
-          {kicker}
-          {isCenter && <span className="h-px w-8 bg-gold-500/50" />}
-        </p>
-      </FadeIn>
-      <h2
-        className={`mt-4 font-display text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.6rem] ${titleColor}`}
-      >
-        {title}
-      </h2>
+          {title}
+        </Tag>
+      </Reveal>
       {description && (
-        <p className={`mt-5 text-base leading-relaxed sm:text-lg ${descColor}`}>
-          {description}
-        </p>
+        <Reveal delay={80}>
+          <p className={`mt-5 text-[17px] leading-relaxed sm:text-lg ${descColor}`}>{description}</p>
+        </Reveal>
       )}
-      {isCenter && <ZelligeLine className="mx-auto mt-8 max-w-xs text-gold-500/70" />}
-    </FadeIn>
+    </div>
   )
 }
