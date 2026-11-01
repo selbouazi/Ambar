@@ -1,13 +1,21 @@
 /**
- * Carta transcrita de las fotos de la carta física del restaurante.
- * Esta lista manda sobre cualquier JSON o página anterior.
+ * Carta del restaurante.
  *
- * Convenciones:
+ * Hay dos juegos de datos:
+ * - `REAL_MENU`: la carta transcrita de las fotos de la carta física.
+ * - `PLACEHOLDER_MENU`: cuatro categorías con tres filas de ejemplo cada una.
+ *
+ * `menu` exporta uno u otro según el flag `PROTOTIPO` (src/config.ts).
+ * Con `PROTOTIPO = false` la carta funciona exactamente como antes.
+ *
+ * Convenciones de la carta real:
  * - `price` en euros (número). `null` = precio no legible en la foto.
  * - `priceLabel` solo cuando el precio no es un número simple ("desde 5 €").
  * - `variants` para platos con precio por persona / tamaño.
  * - `tags` se muestran como etiquetas en la carta.
  */
+
+import { PROTOTIPO } from '../config'
 
 export type MenuTag = 'solo-viernes' | 'menu-2' | 'por-persona' | 'a-consultar' | 'verificar'
 
@@ -40,7 +48,9 @@ export interface MenuCategory {
   items: MenuItem[]
 }
 
-export const menu: MenuCategory[] = [
+/* ── Carta real ──────────────────────────────────────────────────────────── */
+
+const REAL_MENU: MenuCategory[] = [
   {
     id: 'desayuno',
     name: 'Desayuno',
@@ -203,8 +213,25 @@ export const menu: MenuCategory[] = [
   },
 ]
 
-/** Platos estrella de la portada: los que más se piden, con precio real. */
-export const starDishes = [
+/* ── Carta del prototipo ─────────────────────────────────────────────────── */
+
+const DEMO_ROWS = (): MenuItem[] =>
+  [1, 2, 3].map(() => ({
+    name: 'Nombre del plato',
+    description: 'Descripción corta de ejemplo.',
+    priceLabel: '0,00 €',
+  }))
+
+const PLACEHOLDER_MENU: MenuCategory[] = [
+  { id: 'desayuno', name: 'Desayuno', items: DEMO_ROWS() },
+  { id: 'entrantes', name: 'Entrantes', items: DEMO_ROWS() },
+  { id: 'platos', name: 'Platos', items: DEMO_ROWS() },
+  { id: 'bebidas', name: 'Bebidas', items: DEMO_ROWS() },
+]
+
+/* ── Platos destacados ───────────────────────────────────────────────────── */
+
+const REAL_STAR_DISHES = [
   {
     name: 'Tajín',
     detail: 'De pollo o de carne, a fuego lento y servido en su tandjra.',
@@ -239,6 +266,60 @@ export const starDishes = [
   },
 ]
 
+const PLACEHOLDER_STAR_DISHES = [
+  {
+    name: 'Entrante de ejemplo',
+    detail: 'Aquí irá la descripción del entrante.',
+    priceLabel: '0,00 €',
+    categoryId: 'entrantes',
+  },
+  {
+    name: 'Plato de ejemplo',
+    detail: 'Aquí irá la descripción del plato.',
+    priceLabel: '0,00 €',
+    categoryId: 'platos',
+  },
+  {
+    name: 'Bebida de ejemplo',
+    detail: 'Aquí irá la descripción de la bebida.',
+    priceLabel: '0,00 €',
+    categoryId: 'bebidas',
+  },
+]
+
+/* ── Desayunos de la portada ─────────────────────────────────────────────── */
+
+/**
+ * Tres filas de desayuno para la portada. No se derivan de `REAL_MENU` porque
+ * la portada usa una descripción más corta que la carta; así el modo real
+ * conserva exactamente el texto publicado.
+ */
+const REAL_BREAKFAST_TEASER = [
+  {
+    name: 'Desayuno 1',
+    detail: 'Dos huevos con queso, mortadela, miel, aceitunas o mermelada, y té, café o zumo.',
+    price: 6,
+  },
+  { name: 'Desayuno 2', detail: 'Msemmen + té o café.', price: 3.5 },
+  { name: 'Desayuno 3', detail: 'Harxa + té o café.', price: 3.5 },
+]
+
+const PLACEHOLDER_BREAKFAST_TEASER = [1, 2, 3].map(() => ({
+  name: 'Nombre del plato',
+  detail: 'Descripción corta de ejemplo.',
+  priceLabel: '0,00 €',
+}))
+
+/* ── Selectores ──────────────────────────────────────────────────────────── */
+
+export const menu: MenuCategory[] = PROTOTIPO ? PLACEHOLDER_MENU : REAL_MENU
+
+export const breakfastTeaser = PROTOTIPO
+  ? PLACEHOLDER_BREAKFAST_TEASER
+  : REAL_BREAKFAST_TEASER
+
+export const starDishes = PROTOTIPO ? PLACEHOLDER_STAR_DISHES : REAL_STAR_DISHES
+
 /** Formatea un precio en euros al estilo español: 7 → "7 €", 3.5 → "3,50 €". */
 export function formatPrice(value: number): string {
   const hasCents = Math.round(value * 100) % 100 !== 0
@@ -258,3 +339,12 @@ export function priceOf(item: MenuItem): string {
 
 /** Total de platos de la carta, para metadatos y pruebas. */
 export const menuItemCount = menu.reduce((total, category) => total + category.items.length, 0)
+
+/** Primer plato de la carta con una etiqueta concreta (p. ej. el cuscús). */
+export function findDishByTag(tag: MenuTag): MenuItem | undefined {
+  for (const category of menu) {
+    const item = category.items.find((candidate) => candidate.tags?.includes(tag))
+    if (item) return item
+  }
+  return undefined
+}

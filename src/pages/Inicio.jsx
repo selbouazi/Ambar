@@ -11,8 +11,10 @@ import MapEmbed from '../components/MapEmbed'
 import Icon from '../components/Icons'
 import { HalalSeal, ZelligePattern, StarMotif } from '../components/Zellige'
 import { LiveStatus, CouscousNotice } from '../components/Hours'
+import { PROTOTIPO } from '../config'
 import { business, hoursSummary, mapsHref, telHref } from '../data/business'
-import { formatPrice, starDishes } from '../data/menu'
+import { copy } from '../data/copy'
+import { breakfastTeaser, findDishByTag, formatPrice, priceOf, starDishes } from '../data/menu'
 import { hasPhoto, galleryPhotos } from '../data/photos'
 
 const n = business
@@ -74,6 +76,7 @@ function Stars({ className = 'h-4 w-4' }) {
 function Hero() {
   const ref = useRef(null)
   const photo = hasPhoto('heroInterior')
+  const hasRating = n.rating.score !== null && n.rating.count !== null
 
   return (
     <section ref={ref} className="relative flex min-h-[100svh] flex-col overflow-hidden bg-maroc-950 text-cream-50">
@@ -89,15 +92,14 @@ function Hero() {
       <div className="relative mx-auto flex w-full max-w-[75rem] flex-1 flex-col px-5 pb-10 pt-24 sm:px-8 lg:px-12 lg:pb-12 lg:pt-32">
         <div className="grid flex-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-7">
-            <p className="text-[15px] text-cream-200/70">Cocina marroquí halal · El Vendrell</p>
+            <p className="text-[15px] text-cream-200/70">{copy.hero.kicker}</p>
 
             <h1 className="mt-3 font-display text-[clamp(4.5rem,13vw,9rem)] font-normal italic leading-[0.84] tracking-[-0.04em] text-cream-50">
               Ambar
             </h1>
 
             <p className="mt-7 max-w-[32rem] text-[17px] leading-relaxed text-cream-200/80 sm:text-lg">
-              Tajines a fuego lento, cuscús solo los viernes y marisco fresco.
-              La mesa de una familia marroquí, en la Ctra. de Valls.
+              {copy.hero.lead}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -111,57 +113,91 @@ function Hero() {
 
             <LiveStatus className="mt-8" showDetail />
 
-            {/* En móvil, el panel lateral se convierte en una franja compacta. */}
-            <div className="mt-8 flex items-center gap-4 border border-gold-500/25 bg-maroc-900/70 p-4 lg:hidden">
+            {/* En el prototipo, el hueco del hero y el sello halal van en columna. */}
+            {PROTOTIPO && (
+              <div className="mt-8 lg:hidden">
+                <Photo photoKey="heroInterior" ratio="16/9" tone="dark" />
+              </div>
+            )}
+
+            <div
+              className={`flex items-center gap-4 border border-gold-500/25 bg-maroc-900/70 p-4 lg:hidden ${
+                PROTOTIPO ? 'mt-4' : 'mt-8'
+              }`}
+            >
               <HalalSeal className="h-12 w-12 shrink-0 text-gold-400" />
               <div>
                 <p className="font-display text-lg italic leading-tight text-cream-50">
-                  Cocina halal
+                  {copy.hero.panelTitle}
                 </p>
                 <p className="mt-0.5 text-[13px] leading-snug text-cream-200/70">
-                  Tajín, cuscús de los viernes y marisco fresco.
+                  {copy.hero.panelShort}
                 </p>
               </div>
             </div>
           </div>
 
           <aside className="hidden lg:col-span-5 lg:block">
-            <div className="relative flex h-full min-h-[24rem] flex-col justify-between border border-gold-500/25 bg-maroc-900 p-8">
-              <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.07]" tile={110} />
-              <div className="relative">
-                <HalalSeal className="h-16 w-16 text-gold-400" />
-              </div>
-              <div className="relative mt-10">
-                <p className="font-display text-3xl italic leading-tight text-cream-50">Cocina halal</p>
-                <p className="mt-3 text-[15px] leading-relaxed text-cream-200/65">
-                  Tajín, cuscús de los viernes y marisco fresco. Todo se prepara al momento.
-                </p>
-              </div>
-              <div className="relative mt-10 border-t border-cream-100/10 pt-5">
-                <div className="flex items-end gap-3">
-                  <p className="tnum font-display text-5xl leading-none text-gold-400">
-                    {n.rating.score.toString().replace('.', ',')}
-                  </p>
-                  <div className="pb-1">
-                    <Stars className="h-3.5 w-3.5 text-gold-400" />
-                    <p className="mt-1 text-[13px] text-cream-200/70">
-                      {n.rating.count} reseñas en Google
+            {PROTOTIPO ? (
+              <div className="flex h-full flex-col border border-gold-500/25 bg-maroc-900 p-6">
+                <Photo photoKey="heroInterior" ratio="16/9" tone="dark" />
+
+                <div className="mt-6 flex items-start gap-4">
+                  <HalalSeal className="h-12 w-12 shrink-0 text-gold-400" />
+                  <div>
+                    <p className="font-display text-2xl italic leading-tight text-cream-50">
+                      {copy.hero.panelTitle}
+                    </p>
+                    <p className="mt-2 text-[14px] leading-relaxed text-cream-200/70">
+                      {copy.hero.panelShort}
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative flex h-full min-h-[24rem] flex-col justify-between border border-gold-500/25 bg-maroc-900 p-8">
+                <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.07]" tile={110} />
+                <div className="relative">
+                  <HalalSeal className="h-16 w-16 text-gold-400" />
+                </div>
+                <div className="relative mt-10">
+                  <p className="font-display text-3xl italic leading-tight text-cream-50">
+                    {copy.hero.panelTitle}
+                  </p>
+                  <p className="mt-3 text-[15px] leading-relaxed text-cream-200/65">
+                    {copy.hero.panelText}
+                  </p>
+                </div>
+                <div className="relative mt-10 border-t border-cream-100/10 pt-5">
+                  <div className="flex items-end gap-3">
+                    <p className="tnum font-display text-5xl leading-none text-gold-400">
+                      {n.rating.score.toString().replace('.', ',')}
+                    </p>
+                    <div className="pb-1">
+                      <Stars className="h-3.5 w-3.5 text-gold-400" />
+                      <p className="mt-1 text-[13px] text-cream-200/70">
+                        {n.rating.count} reseñas en Google
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </aside>
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-cream-100/10 pt-5 text-[13px] text-cream-200/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            {n.address.street}, {n.address.number} · {n.address.postalCode} {n.address.city}
+            {n.addressLines.length > 1
+              ? `${n.addressLines[0]} · ${n.addressLines[1]}`
+              : n.addressLines[0]}
           </p>
           <p className="tnum hidden sm:block">{hoursSummary}</p>
-          <p className="lg:hidden">
-            {n.rating.score.toString().replace('.', ',')} sobre 5 · {n.rating.count} reseñas
-          </p>
+          {hasRating && (
+            <p className="lg:hidden">
+              {n.rating.score.toString().replace('.', ',')} sobre 5 · {n.rating.count} reseñas
+            </p>
+          )}
           <p className="tnum hidden lg:block">{n.priceRange}</p>
         </div>
       </div>
@@ -172,6 +208,8 @@ function Hero() {
 /* ── La casa ─────────────────────────────────────────────────────────────── */
 
 function Historia() {
+  const hasRating = n.rating.score !== null && n.rating.count !== null
+
   return (
     <section className="bg-cream-50 py-20 sm:py-28 lg:py-36">
       <div className="mx-auto grid max-w-[75rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
@@ -180,51 +218,52 @@ function Historia() {
             photoKey="historiaInterior"
             title="El comedor"
             ratio="4/5"
+            tone="light"
             className="w-full"
           />
         </Reveal>
 
         <div className="lg:col-span-7 lg:pt-6">
           <SectionHeading
-            title="Un rincón marroquí, abierto a toda la familia"
-            description="En Ambar cocinamos recetas marroquíes como se hacían en casa: a fuego lento, con calma y buenos ingredientes."
+            title={copy.historia.title}
+            description={copy.historia.description}
           />
 
           <Reveal delay={120}>
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">
-              Tajines, cuscús solo los viernes, marisco fresco y unos desayunos que
-              arrancan el día con el sabor del norte de África. Un local tranquilo y
-              climatizado, donde venir con los niños, con amigos o a cenar sin prisa.
+              {copy.historia.body}
             </p>
           </Reveal>
 
-          <Reveal delay={180}>
-            <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-ink/10 pt-8">
-              <div>
-                <dt className="text-[13px] text-ink-mute">Valoración</dt>
-                <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
-                  {n.rating.score.toString().replace('.', ',')}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[13px] text-ink-mute">Reseñas</dt>
-                <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
-                  {n.rating.count}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[13px] text-ink-mute">Horario</dt>
-                <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">9–24</dd>
-              </div>
-            </dl>
-          </Reveal>
+          {hasRating && (
+            <Reveal delay={180}>
+              <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-ink/10 pt-8">
+                <div>
+                  <dt className="text-[13px] text-ink-mute">Valoración</dt>
+                  <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
+                    {n.rating.score.toString().replace('.', ',')}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[13px] text-ink-mute">Reseñas</dt>
+                  <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
+                    {n.rating.count}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[13px] text-ink-mute">Horario</dt>
+                  <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">9–24</dd>
+                </div>
+              </dl>
+            </Reveal>
+          )}
 
           <Reveal delay={240}>
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <CTAButton to="/carta" variant="onCream" icon="arrow">
                 La carta completa
               </CTAButton>
-              <p className="text-[14px] text-ink-mute">Reserva opcional: puedes venir sin avisar.</p>
+              <p className="text-[14px] text-ink-mute">{copy.historia.reserveNote}</p>
             </div>
           </Reveal>
         </div>
@@ -242,8 +281,8 @@ function CartaDestacada() {
         <div className="lg:col-span-5">
           <SectionHeading
             tone="dark"
-            title="Lo que no puedes irte sin probar"
-            description="Cinco platos que resumen la casa. La carta completa tiene mucho más."
+            title={copy.cartaDestacada.title}
+            description={copy.cartaDestacada.description}
           />
           <Reveal delay={140}>
             <div className="mt-8">
@@ -282,7 +321,7 @@ function CartaDestacada() {
                     className="mb-1 min-w-6 flex-1 self-end border-b border-dotted border-cream-100/20 transition-colors group-hover:border-gold-500/50"
                   />
                   <span className="tnum shrink-0 font-display text-[19px] font-medium text-gold-400">
-                    {dish.priceLabel || formatPrice(dish.price)}
+                    {dish.priceLabel || priceOf(dish)}
                   </span>
                 </Link>
               </Reveal>
@@ -294,9 +333,12 @@ function CartaDestacada() {
   )
 }
 
-/* ── Cuscús ──────────────────────────────────────────────────────────────── */
+/* ── Plato destacado ─────────────────────────────────────────────────────── */
 
 function CouscousBanner() {
+  const featured = findDishByTag('solo-viernes')
+  const featuredPrice = featured ? priceOf(featured) : '0 €'
+
   return (
     <section className="bg-cream-100 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
@@ -306,12 +348,12 @@ function CouscousBanner() {
             <div className="relative grid items-center gap-8 lg:grid-cols-[1.5fr_1fr]">
               <div>
                 <h2 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-normal italic leading-[0.95] tracking-[-0.03em]">
-                  Cuscús los viernes
+                  {copy.couscous.title}
                 </h2>
                 <CouscousNotice className="mt-4 text-[16px] leading-relaxed" />
               </div>
               <div className="flex items-end justify-between gap-6 lg:flex-col lg:items-end lg:justify-center lg:gap-3">
-                <p className="tnum font-display text-6xl leading-none text-gold-400">7 €</p>
+                <p className="tnum font-display text-6xl leading-none text-gold-400">{featuredPrice}</p>
                 <CTAButton to="/carta#platos" variant="onDark">
                   Ver en la carta
                 </CTAButton>
@@ -326,37 +368,32 @@ function CouscousBanner() {
 
 /* ── Desayunos ───────────────────────────────────────────────────────────── */
 
-const DESAYUNOS = [
-  {
-    name: 'Desayuno 1',
-    detail: 'Dos huevos con queso, mortadela, miel, aceitunas o mermelada, y té, café o zumo.',
-    price: 6,
-  },
-  { name: 'Desayuno 2', detail: 'Msemmen + té o café.', price: 3.5 },
-  { name: 'Desayuno 3', detail: 'Harxa + té o café.', price: 3.5 },
-]
-
 function Desayunos() {
+  const desayunos = breakfastTeaser.map((item) => ({
+    name: item.name,
+    detail: item.detail,
+    price: item.priceLabel || formatPrice(item.price),
+  }))
+
   return (
     <section className="bg-cream-50 py-20 sm:py-28 lg:py-36">
       <div className="mx-auto grid max-w-[75rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
         <div className="lg:col-span-5">
           <SectionHeading
-            title="Desayunos marroquíes desde las nueve"
-            description="Msemmen y harxa recién hechos, con miel y queso, y un té que se sirve como en casa."
+            title={copy.desayunos.title}
+            description={copy.desayunos.description}
           />
           <Reveal delay={140}>
             <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink-soft">
-              Es uno de los momentos que más se repiten en las reseñas: empezar el día
-              aquí, sin prisa, con el té caliente y el pan todavía tibio.
+              {copy.desayunos.body}
             </p>
           </Reveal>
         </div>
 
         <div className="lg:col-span-7">
           <ul>
-            {DESAYUNOS.map((item, i) => (
-              <Reveal as="li" key={item.name} delay={i * 70}>
+            {desayunos.map((item, i) => (
+              <Reveal as="li" key={`${item.name}-${i}`} delay={i * 70}>
                 <div className="menu-row flex items-baseline gap-3 border-b border-ink/10 py-5">
                   <div className="min-w-0">
                     <h3 className="font-display text-[21px] font-medium leading-snug text-ink">
@@ -368,16 +405,14 @@ function Desayunos() {
                   </div>
                   <span aria-hidden="true" className="menu-leader mb-1 min-w-6 flex-1 self-end" />
                   <span className="tnum shrink-0 font-display text-[19px] font-medium text-gold-700">
-                    {formatPrice(item.price)}
+                    {item.price}
                   </span>
                 </div>
               </Reveal>
             ))}
           </ul>
           <Reveal delay={240}>
-            <p className="mt-6 text-[14px] text-ink-mute">
-              También hay msemmen o harxa con miel y queso por 1,50 €.
-            </p>
+            <p className="mt-6 text-[14px] text-ink-mute">{copy.desayunos.note}</p>
           </Reveal>
         </div>
       </div>
@@ -389,24 +424,34 @@ function Desayunos() {
 
 function Resenas() {
   const [first, second, third] = n.reviews
+  const hasRating = n.rating.score !== null && n.rating.count !== null
 
   return (
     <section className="bg-cream-100 py-20 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <SectionHeading title="Quien viene, repite" description="Opiniones reales publicadas en la ficha de Google." />
-            <Reveal delay={120}>
-              <div className="mt-8 flex items-end gap-4">
-                <p className="tnum font-display text-6xl leading-none text-gold-700">
-                  {n.rating.score.toString().replace('.', ',')}
-                </p>
-                <div className="pb-1">
-                  <Stars className="h-4 w-4 text-gold-600" />
-                  <p className="mt-1 text-[14px] text-ink-mute">{n.rating.count} reseñas en Google</p>
+            <SectionHeading title={copy.resenas.title} description={copy.resenas.description} />
+            {hasRating ? (
+              <Reveal delay={120}>
+                <div className="mt-8 flex items-end gap-4">
+                  <p className="tnum font-display text-6xl leading-none text-gold-700">
+                    {n.rating.score.toString().replace('.', ',')}
+                  </p>
+                  <div className="pb-1">
+                    <Stars className="h-4 w-4 text-gold-600" />
+                    <p className="mt-1 text-[14px] text-ink-mute">{n.rating.count} reseñas en Google</p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+            ) : (
+              <Reveal delay={120}>
+                <div className="mt-8 flex items-center gap-3">
+                  <Stars className="h-4 w-4 text-gold-600" />
+                  <p className="text-[14px] text-ink-mute">{copy.resenasPage.ratingPlaceholder}</p>
+                </div>
+              </Reveal>
+            )}
             <Reveal delay={180}>
               <div className="mt-8">
                 <CTAButton to="/resenas" variant="onCream" icon="arrow">
@@ -435,14 +480,6 @@ function Resenas() {
 
 /* ── Familias y servicios ────────────────────────────────────────────────── */
 
-const SERVICIOS = [
-  { icon: 'moon', label: 'Cocina halal' },
-  { icon: 'family', label: 'Ideal para familias' },
-  { icon: 'delivery', label: 'A domicilio y para llevar' },
-  { icon: 'coffee', label: 'Buen café' },
-  { icon: 'wheelchair', label: 'Local accesible' },
-]
-
 function Familias() {
   return (
     <section className="bg-maroc-900 py-20 text-cream-50 sm:py-28 lg:py-32">
@@ -450,12 +487,12 @@ function Familias() {
         <div className="lg:col-span-5">
           <SectionHeading
             tone="dark"
-            title="Para venir en familia, sin prisa"
-            description="Un local tranquilo y climatizado, con música suave y raciones generosas. Lo que más repiten quienes vienen con niños."
+            title={copy.familias.title}
+            description={copy.familias.description}
           />
           <Reveal delay={140}>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
-              {SERVICIOS.map((service) => (
+              {copy.familias.services.map((service) => (
                 <span key={service.label} className="flex items-center gap-2 text-[14px] text-cream-200/70">
                   <Icon name={service.icon} className="h-4 w-4 text-gold-400" />
                   {service.label}
@@ -485,25 +522,29 @@ function Familias() {
 /* ── Cómo llegar ─────────────────────────────────────────────────────────── */
 
 function Llegar() {
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
+
   return (
     <section id="llegar" className="scroll-mt-24 bg-cream-50 py-20 sm:py-28 lg:py-32">
       <div className="mx-auto grid max-w-[75rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
         <div className="lg:col-span-5">
-          <SectionHeading
-            title="Cómo llegar"
-            description="Estamos en la Ctra. de Valls, 70, en El Vendrell. Hay plazas gratuitas en la calle, aunque en hora punta cuesta encontrar sitio."
-          />
+          <SectionHeading title={copy.llegar.title} description={copy.llegar.description} />
 
           <Reveal delay={120}>
             <address className="mt-8 not-italic">
               <p className="font-display text-2xl leading-snug text-ink">
-                {n.address.street}, {n.address.number}
-                <br />
-                {n.address.postalCode} {n.address.city}
-                <br />
-                <span className="text-ink-soft">{n.address.region}</span>
+                {n.addressLines.map((line, i) => (
+                  <span
+                    key={line}
+                    className={`block ${i > 0 && i === n.addressLines.length - 1 ? 'text-ink-soft' : ''}`}
+                  >
+                    {line}
+                  </span>
+                ))}
               </p>
-              <p className="mt-3 text-[13px] text-ink-mute">Plus code: {n.address.plusCode}</p>
+              {n.address.plusCode && (
+                <p className="mt-3 text-[13px] text-ink-mute">Plus code: {n.address.plusCode}</p>
+              )}
             </address>
           </Reveal>
 
@@ -515,10 +556,12 @@ function Llegar() {
 
           <Reveal delay={240}>
             <div className="mt-8 flex flex-wrap gap-3">
-              <CTAButton href={mapsHref} external variant="primary" icon="external">
-                Abrir en Google Maps
-              </CTAButton>
-              <CTAButton href={telHref} variant="onCream" icon="phone">
+              {hasMaps && (
+                <CTAButton href={mapsHref} external variant="primary" icon="external">
+                  Abrir en Google Maps
+                </CTAButton>
+              )}
+              <CTAButton href={telHref} variant={hasMaps ? 'onCream' : 'primary'} icon="phone">
                 Llamar
               </CTAButton>
             </div>
@@ -536,6 +579,8 @@ function Llegar() {
 /* ── Cierre ──────────────────────────────────────────────────────────────── */
 
 function Cierre() {
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
+
   return (
     <section className="relative overflow-hidden bg-maroc-950 py-20 text-cream-50 sm:py-28 lg:py-36">
       <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" tile={150} />
@@ -544,15 +589,14 @@ function Cierre() {
           <div className="lg:col-span-7">
             <Reveal>
               <h2 className="font-display text-[clamp(2.75rem,7vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em]">
-                ¿Te guardamos
+                {copy.cierre.titleA}
                 <br />
-                <span className="italic">una mesa?</span>
+                <span className="italic">{copy.cierre.titleB}</span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-cream-200/70">
-                Puedes venir sin reserva o llamarnos para asegurar mesa. Estamos de
-                martes a domingo, de 9:00 a 24:00.
+                {copy.cierre.body}
               </p>
             </Reveal>
           </div>
@@ -570,9 +614,11 @@ function Cierre() {
                 <CTAButton href={telHref} variant="primary" icon="phone">
                   Llamar ahora
                 </CTAButton>
-                <CTAButton href={mapsHref} external variant="onDark" icon="pin">
-                  Cómo llegar
-                </CTAButton>
+                {hasMaps && (
+                  <CTAButton href={mapsHref} external variant="onDark" icon="pin">
+                    Cómo llegar
+                  </CTAButton>
+                )}
               </div>
             </div>
           </Reveal>
@@ -588,8 +634,8 @@ export default function Inicio() {
   return (
     <>
       <Seo
-        title="Restaurante halal en El Vendrell · Ambar"
-        description="Cocina marroquí halal en El Vendrell: tajines, cuscús los viernes, marisco fresco y desayunos marroquíes. 4,9 sobre 5 con 153 reseñas en Google."
+        title={copy.seo.home.title}
+        description={copy.seo.home.description}
         path="/"
       />
       <Hero />
@@ -597,10 +643,10 @@ export default function Inicio() {
       <CartaDestacada />
       <CouscousBanner />
       <Desayunos />
-      {galleryPhotos().length >= 4 && (
+      {(PROTOTIPO || galleryPhotos().length >= 4) && (
         <section className="bg-cream-50 pb-20 sm:pb-28 lg:pb-32">
           <div className="mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
-            <SectionHeading title="El local, por dentro" className="mb-10" />
+            <SectionHeading title={copy.gallery.title} className="mb-10" />
             <Gallery />
           </div>
         </section>

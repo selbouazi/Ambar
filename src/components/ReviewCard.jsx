@@ -14,11 +14,29 @@ function Stars({ className = '' }) {
 }
 
 /**
- * Reseña real de Google. Se atribuye a «Reseña en Google» y enlaza a la ficha.
+ * Reseña de Google. Se atribuye a «Reseña en Google» y enlaza a la ficha.
  * No se inventan nombres ni textos.
+ *
+ * En el prototipo (`mapsHref === '#'`) no hay enlace: el texto se muestra
+ * como una etiqueta más, sin apuntar a Google.
  */
 export default function ReviewCard({ review, featured = false, className = '' }) {
   const hasAuthor = Boolean(review.author)
+  const linked = mapsHref && mapsHref !== '#'
+  const metaTone = featured ? 'text-cream-200/70' : 'text-ink-mute'
+
+  const meta = linked ? (
+    <a
+      href={mapsHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`gold-underline text-[12px] ${metaTone}`}
+    >
+      {review.sourceLabel}
+    </a>
+  ) : (
+    <span className={`text-[12px] ${metaTone}`}>{review.sourceLabel}</span>
+  )
 
   return (
     <figure
@@ -65,26 +83,12 @@ export default function ReviewCard({ review, featured = false, className = '' })
               <span className={`block truncate text-[14px] font-medium ${featured ? 'text-cream-100' : 'text-ink'}`}>
                 {review.author}
               </span>
-              <a
-                href={mapsHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`gold-underline text-[12px] ${featured ? 'text-cream-200/70' : 'text-ink-mute'}`}
-              >
-                {review.sourceLabel}
-              </a>
+              {meta}
             </>
           ) : (
-            <a
-              href={mapsHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`gold-underline block truncate text-[14px] font-medium ${
-                featured ? 'text-cream-100' : 'text-ink'
-              }`}
-            >
-              {review.sourceLabel}
-            </a>
+            <span className={`block truncate text-[14px] font-medium ${featured ? 'text-cream-100' : 'text-ink'}`}>
+              {meta}
+            </span>
           )}
         </span>
         <Stars className={`ml-auto ${featured ? 'text-gold-400' : 'text-gold-600'}`} />

@@ -113,7 +113,7 @@ const present = Object.entries(specs).filter(([, spec]) => found.has(spec.file))
 const rows = missing
   .map(
     ([, spec]) =>
-      `| \`public/photos/${spec.file}.jpg\` | ${spec.ratio} | ${spec.section} |`,
+      `| \`public/photos/${spec.file}.jpg\` | ${spec.ratio} | ${spec.etiqueta} | ${spec.section} |`,
   )
   .join('\n')
 
@@ -137,17 +137,19 @@ Generado automáticamente por \`npm run photos\`. No editar a mano.
    tocar ningún componente.
 4. Vuelve a ejecutar \`npm run photos\` cada vez que cambies una foto.
 
-Mientras una foto no exista, la web muestra un panel de zellige con el nombre
-del plato. No aparece el texto «FOTO PENDIENTE» en ninguna build.
+Mientras una foto no exista, el prototipo (PROTOTIPO = true) muestra un hueco
+con borde discontinuo, el texto «FALTA FOTO» y una descripción corta, con la
+proporción exacta de la foto final. La web real (PROTOTIPO = false) mantiene
+el panel de zellige de la marca.
 
 **Derechos:** las fotos son del propietario del restaurante y se usan con su
 permiso. No se enlazan ni se descargan imágenes de Google Maps desde el código.
 
 ## Huecos por rellenar (${missing.length})
 
-| Archivo | Proporción ideal | Dónde va |
-|---|---|---|
-${rows || '| — | — | — |'}
+| Archivo | Proporción ideal | Etiqueta | Dónde va |
+|---|---|---|---|
+${rows || '| — | — | — | — |'}
 
 ## Fotos ya colocadas (${present.length})
 

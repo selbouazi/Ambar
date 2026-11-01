@@ -1,13 +1,29 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icons'
 import Photo from './Photo'
-import { galleryPhotos, photoSpecs } from '../data/photos'
+import { PROTOTIPO } from '../config'
+import { galleryPhotos, photoSpecs, PROTOTYPE_GALLERY } from '../data/photos'
+
+/** Cuatro huecos etiquetados: así se ve dónde irán las fotos reales. */
+function GalleryPlaceholders({ className = '' }) {
+  return (
+    <div className={className}>
+      <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        {PROTOTYPE_GALLERY.map((key) => (
+          <li key={key}>
+            <Photo photoKey={key} ratio="4/3" tone="light" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 /**
  * Galería de fotos reales del restaurante. Se alimenta sola de las claves
  * `galeria-*.jpg` del manifiesto y solo se renderiza si hay 4 o más.
  */
-export default function Gallery({ className = '' }) {
+function RealGallery({ className = '' }) {
   const photos = galleryPhotos()
   const [index, setIndex] = useState(null)
   const closeRef = useRef(null)
@@ -72,6 +88,7 @@ export default function Gallery({ className = '' }) {
               <Photo
                 photoKey={key}
                 ratio="4/3"
+                tone="light"
                 className="transition-opacity duration-300 group-hover:opacity-85"
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 50vw"
               />
@@ -147,4 +164,9 @@ export default function Gallery({ className = '' }) {
       )}
     </div>
   )
+}
+
+export default function Gallery({ className = '' }) {
+  if (PROTOTIPO) return <GalleryPlaceholders className={className} />
+  return <RealGallery className={className} />
 }

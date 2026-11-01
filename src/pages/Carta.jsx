@@ -7,8 +7,9 @@ import Icon from '../components/Icons'
 import { ZelligePattern } from '../components/Zellige'
 import { LiveStatus } from '../components/Hours'
 import { scrollToHash } from '../components/SmoothScroll'
-import { business, hoursSummary, telHref } from '../data/business'
-import { menu, menuItemCount } from '../data/menu'
+import { business, mapsHref, telHref } from '../data/business'
+import { copy } from '../data/copy'
+import { menu } from '../data/menu'
 
 const n = business
 
@@ -48,6 +49,7 @@ export default function Carta() {
   const [query, setQuery] = useState('')
   const searchRef = useRef(null)
   const searching = query.trim().length > 0
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
 
   const filtered = useMemo(() => {
     const term = normalize(query.trim())
@@ -70,8 +72,8 @@ export default function Carta() {
   return (
     <>
       <Seo
-        title="La carta · Restaurante halal Ambar, El Vendrell"
-        description="Carta completa de Ambar: desayunos marroquíes, tajines, cuscús de los viernes, tacos, pizzas, pescado fresco y marisco. Precios actualizados."
+        title={copy.seo.carta.title}
+        description={copy.seo.carta.description}
         path="/carta"
         withMenuJsonLd
       />
@@ -85,8 +87,7 @@ export default function Carta() {
               La carta
             </h1>
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
-              {menuItemCount} platos de cocina marroquí y brasa. El cuscús solo se sirve
-              los viernes; el resto, de martes a domingo.
+              {copy.carta.headerLead}
             </p>
           </Reveal>
 
@@ -97,9 +98,11 @@ export default function Carta() {
                 <CTAButton href={telHref} variant="primary" icon="phone">
                   Llamar para pedir
                 </CTAButton>
-                <CTAButton href={n.links.maps} external variant="onDark" icon="pin">
-                  Cómo llegar
-                </CTAButton>
+                {hasMaps && (
+                  <CTAButton href={mapsHref} external variant="onDark" icon="pin">
+                    Cómo llegar
+                  </CTAButton>
+                )}
               </div>
             </div>
           </Reveal>
@@ -156,7 +159,7 @@ export default function Carta() {
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar en la carta: tajín, tacos, té…"
+              placeholder={copy.carta.searchPlaceholder}
               className="min-h-11 w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-mute"
             />
             {searching && (
@@ -188,7 +191,7 @@ export default function Carta() {
         <div className="mx-auto max-w-[46rem] px-5 sm:px-8">
           {resultCount === 0 ? (
             <p className="py-16 text-center text-[17px] text-ink-soft">
-              No encontramos ese plato. Puedes llamarnos y te decimos si lo tenemos hoy.
+              {copy.carta.empty}
             </p>
           ) : (
             <div className="space-y-14 sm:space-y-16">
@@ -204,14 +207,13 @@ export default function Carta() {
 
           <div className="mt-16 border-t border-ink/10 pt-8">
             <p className="text-[14px] leading-relaxed text-ink-mute">
-              Precios en euros. La carta puede cambiar según temporada y producto fresco.
-              Para pedir o preguntar por un plato, llama al{' '}
+              {copy.carta.footnotePrefix}
               <a href={telHref} className="gold-underline text-gold-700">
                 {n.phone.display}
               </a>
               .
             </p>
-            <p className="mt-2 text-[14px] text-ink-mute">{hoursSummary}. Lunes cerrado.</p>
+            <p className="mt-2 text-[14px] text-ink-mute">{copy.carta.hoursNote}</p>
           </div>
         </div>
       </div>
@@ -221,19 +223,21 @@ export default function Carta() {
         <div className="mx-auto flex max-w-[75rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <div>
             <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-tight">
-              ¿Lo pides para llevar o te sientas a comer?
+              {copy.carta.closingTitle}
             </h2>
             <p className="mt-2 text-[15px] text-cream-200/65">
-              Comer en el local, para llevar y entrega a domicilio.
+              {copy.carta.closingText}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <CTAButton href={telHref} variant="primary" icon="phone">
               Llamar
             </CTAButton>
-            <CTAButton href={n.links.maps} external variant="onDark" icon="pin">
-              Cómo llegar
-            </CTAButton>
+            {hasMaps && (
+              <CTAButton href={mapsHref} external variant="onDark" icon="pin">
+                Cómo llegar
+              </CTAButton>
+            )}
           </div>
         </div>
       </section>

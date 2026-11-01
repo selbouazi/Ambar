@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Icon from './Icons'
-import { ZelligePattern } from './Zellige'
 import { business, mapsHref } from '../data/business'
 
 /**
@@ -9,9 +8,25 @@ import { business, mapsHref } from '../data/business'
  * No se incrusta nada de Google hasta que el visitante pulsa «Ver el mapa»:
  * así no se instalan cookies de terceros en la primera visita y la página
  * carga mucho más rápido. También hay un enlace directo a Google Maps.
+ *
+ * En el prototipo no hay mapa ni enlaces: se muestra un hueco etiquetado.
  */
 export default function MapEmbed({ className = '' }) {
   const [loaded, setLoaded] = useState(false)
+
+  if (!business.links.mapsEmbed) {
+    return (
+      <div
+        className={`flex h-full min-h-[320px] flex-col items-center justify-center gap-3 border border-dashed border-ink/25 bg-cream-100 p-8 text-center text-ink ${className}`}
+      >
+        <Icon name="pin" className="h-7 w-7 text-gold-700" />
+        <p className="text-[15px] font-medium">Aquí irá el mapa de Google</p>
+        <p className="max-w-xs text-[13px] leading-relaxed text-ink-mute">
+          {business.address.full}
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className={`relative overflow-hidden bg-maroc-800 ${className}`}>
@@ -26,12 +41,13 @@ export default function MapEmbed({ className = '' }) {
         />
       ) : (
         <div className="relative flex h-full min-h-[320px] flex-col items-center justify-center gap-5 p-8 text-center">
-          <ZelligePattern className="absolute inset-0 h-full w-full text-gold-400 opacity-[0.08]" tile={110} />
           <Icon name="pin" className="relative h-8 w-8 text-gold-400" />
           <p className="relative max-w-xs text-[15px] leading-relaxed text-cream-200/70">
-            {business.address.street}, {business.address.number}
-            <br />
-            {business.address.postalCode} {business.address.city}
+            {business.addressLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </p>
           <button
             type="button"

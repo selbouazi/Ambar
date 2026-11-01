@@ -1,0 +1,90 @@
+{
+  "heroInterior": {
+    "etiqueta": "Interior del restaurante",
+    "ratio": "16/9"
+  },
+  "historiaInterior": {
+    "etiqueta": "Mesa del comedor",
+    "ratio": "4/5"
+  },
+  "fachada": {
+    "etiqueta": "Fachada del restaurante",
+    "ratio": "3/2"
+  },
+  "tajin": {
+    "etiqueta": "Tajín servido en barro",
+    "ratio": "4/3"
+  },
+  "cuscus": {
+    "etiqueta": "Plato de cuscús",
+    "ratio": "4/3"
+  },
+  "lubina": {
+    "etiqueta": "Lubina a la plancha",
+    "ratio": "4/3"
+  },
+  "marisco": {
+    "etiqueta": "Gambas a la plancha",
+    "ratio": "4/3"
+  },
+  "tacos": {
+    "etiqueta": "Tacos con patatas",
+    "ratio": "4/3"
+  },
+  "desayunoMsemmen": {
+    "etiqueta": "Msemmen con miel",
+    "ratio": "4/3"
+  },
+  "teMarroqui": {
+    "etiqueta": "Té marroquí servido",
+    "ratio": "4/3"
+  },
+  "galeria01": {
+    "etiqueta": "Detalle del interior",
+    "ratio": "4/3"
+  },
+  "galeria02": {
+    "etiqueta": "Plato de la carta",
+    "ratio": "4/3"
+  },
+  "galeria03": {
+    "etiqueta": "Mesa preparada",
+    "ratio": "4/3"
+  },
+  "galeria04": {
+    "etiqueta": "Decoración marroquí",
+    "ratio": "4/3"
+  },
+  "galeria05": {
+    "etiqueta": "Plato marroquí servido",
+    "ratio": "4/3"
+  },
+  "galeria06": {
+    "etiqueta": "Rincón del comedor",
+    "ratio": "4/3"
+  },
+  "galeria07": {
+    "etiqueta": "Desayuno marroquí",
+    "ratio": "4/3"
+  },
+  "galeria08": {
+    "etiqueta": "Detalle de un plato",
+    "ratio": "4/3"
+  },
+  "galeria09": {
+    "etiqueta": "Ambiente del local",
+    "ratio": "4/3"
+  },
+  "galeria10": {
+    "etiqueta": "Cocina recién servida",
+    "ratio": "4/3"
+  },
+  "galeria11": {
+    "etiqueta": "Comedor desde la entrada",
+    "ratio": "4/3"
+  },
+  "galeria12": {
+    "etiqueta": "Vajilla y té",
+    "ratio": "4/3"
+  }
+}

@@ -4,6 +4,7 @@ import ReviewCard from '../components/ReviewCard'
 import CTAButton from '../components/CTAButton'
 import { ZelligePattern } from '../components/Zellige'
 import { business, mapsHref, telHref } from '../data/business'
+import { copy } from '../data/copy'
 
 const n = business
 
@@ -21,12 +22,14 @@ function Stars({ className = 'h-5 w-5' }) {
 
 export default function Resenas() {
   const [first, ...rest] = n.reviews
+  const hasRating = n.rating.score !== null && n.rating.count !== null
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
 
   return (
     <>
       <Seo
-        title="Opiniones · Restaurante halal Ambar, El Vendrell"
-        description={`Opiniones de clientes de Ambar en El Vendrell: ${n.rating.score} sobre 5 con ${n.rating.count} reseñas en Google. Cocina marroquí halal, tajín y cuscús.`}
+        title={copy.seo.resenas.title}
+        description={copy.seo.resenas.description}
         path="/resenas"
       />
 
@@ -41,33 +44,45 @@ export default function Resenas() {
                   Lo que dicen
                 </h1>
                 <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
-                  Reseñas publicadas en la ficha de Google del restaurante. Las
-                  mostramos tal cual, sin retocar.
+                  {copy.resenasPage.lead}
                 </p>
               </Reveal>
             </div>
 
             <Reveal priority delay={100} className="lg:col-span-5">
               <div className="border-t border-cream-100/15 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-                <div className="flex items-end gap-4">
-                  <p className="tnum font-display text-7xl leading-none text-gold-400">
-                    {n.rating.score.toString().replace('.', ',')}
-                  </p>
-                  <div className="pb-2">
+                {hasRating ? (
+                  <>
+                    <div className="flex items-end gap-4">
+                      <p className="tnum font-display text-7xl leading-none text-gold-400">
+                        {n.rating.score.toString().replace('.', ',')}
+                      </p>
+                      <div className="pb-2">
+                        <Stars />
+                        <p className="mt-1.5 text-[14px] text-cream-200/70">
+                          {n.rating.count} reseñas en Google
+                        </p>
+                      </div>
+                    </div>
+                    {hasMaps && (
+                      <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="gold-underline mt-4 inline-block text-[14px] text-gold-300"
+                      >
+                        Ver la ficha en Google
+                      </a>
+                    )}
+                  </>
+                ) : (
+                  <div className="flex items-center gap-3">
                     <Stars />
-                    <p className="mt-1.5 text-[14px] text-cream-200/70">
-                      {n.rating.count} reseñas en Google
+                    <p className="text-[14px] text-cream-200/70">
+                      {copy.resenasPage.ratingPlaceholder}
                     </p>
                   </div>
-                </div>
-                <a
-                  href={mapsHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gold-underline mt-4 inline-block text-[14px] text-gold-300"
-                >
-                  Ver la ficha en Google
-                </a>
+                )}
               </div>
             </Reveal>
           </div>
@@ -91,9 +106,7 @@ export default function Resenas() {
 
           <Reveal delay={200}>
             <p className="mt-10 max-w-2xl text-[14px] leading-relaxed text-ink-mute">
-              Las reseñas se atribuyen a «Reseña en Google» cuando la persona no
-              publica su nombre. Puedes leerlas todas, con sus respuestas, en la ficha
-              del restaurante en Google.
+              {copy.resenasPage.footnote}
             </p>
           </Reveal>
         </div>
@@ -104,10 +117,10 @@ export default function Resenas() {
         <div className="mx-auto flex max-w-[75rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <div>
             <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-tight">
-              Ven a comprobarlo tú mismo
+              {copy.resenasPage.closingTitle}
             </h2>
             <p className="mt-2 text-[15px] text-cream-200/65">
-              Reserva opcional. También puedes pedir para llevar.
+              {copy.resenasPage.closingText}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

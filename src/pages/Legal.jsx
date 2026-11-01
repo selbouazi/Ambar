@@ -2,6 +2,7 @@ import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
 import { ZelligePattern } from '../components/Zellige'
 import { business, telHref } from '../data/business'
+import { copy } from '../data/copy'
 
 function LegalLayout({ title, description, path, children }) {
   return (
@@ -45,15 +46,17 @@ export function AvisoLegal() {
         <ul>
           <li>Denominación: {business.name}</li>
           <li>
-            Domicilio: {business.address.street}, {business.address.number},{' '}
-            {business.address.postalCode} {business.address.city} ({business.address.region})
+            Domicilio:{' '}
+            {business.addressLines.length > 2
+              ? `${business.addressLines[0]}, ${business.addressLines[1]} (${business.addressLines[2]})`
+              : business.addressLines.join(', ')}
           </li>
           <li>
             Teléfono: <a href={telHref}>{business.phone.display}</a>
           </li>
           {/* TODO(confirmar): el titular debe facilitar su NIF/CIF y, si procede,
               los datos registrales antes de publicar esta página. */}
-          <li>NIF/CIF: pendiente de facilitar por el titular.</li>
+          <li>{copy.legal.nif}</li>
         </ul>
       </section>
 
@@ -70,9 +73,8 @@ export function AvisoLegal() {
         <h2>3. Precios y disponibilidad</h2>
         <p>
           Los precios de la carta están expresados en euros y pueden variar por
-          temporada, disponibilidad de producto fresco o cambios del establecimiento.
-          El cuscús solo se sirve los viernes. Para confirmar un precio o la
-          disponibilidad de un plato, llama al restaurante.
+          temporada, disponibilidad de producto fresco o cambios del establecimiento.{' '}
+          {copy.legal.couscous}
         </p>
       </section>
 
@@ -98,7 +100,7 @@ export function AvisoLegal() {
         <h2>6. Legislación aplicable</h2>
         <p>
           Este sitio se rige por la legislación española. Cualquier controversia se
-          someterá a los juzgados y tribunales de {business.address.city}.
+          someterá a los juzgados y tribunales de {copy.legal.jurisdictionCity}.
         </p>
       </section>
     </LegalLayout>
@@ -109,7 +111,7 @@ export function Cookies() {
   return (
     <LegalLayout
       title="Política de cookies"
-      description="Este sitio no usa cookies publicitarias ni de analítica. Solo Google puede usar cookies si decides cargar el mapa."
+      description={copy.legal.cookiesDescription}
       path="/cookies"
     >
       <section>
@@ -134,10 +136,7 @@ export function Cookies() {
         <h2>3. Servicios de terceros</h2>
         <ul>
           <li>
-            <strong>Google Maps:</strong> el mapa no se carga al abrir la página. Solo se
-            incrusta si pulsas «Ver el mapa». En ese momento Google puede instalar sus
-            propias cookies. Si no quieres, usa el botón «Abrir en Google Maps», que
-            abre una pestaña nueva.
+            <strong>Google Maps:</strong> {copy.legal.cookiesMap}
           </li>
         </ul>
         <p className="mt-4">

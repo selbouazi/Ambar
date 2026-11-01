@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icons'
+import PrototypeBadge from './PrototypeBadge'
 import { ZelligePattern } from './Zellige'
 import { LiveStatus } from './Hours'
 import { business, hoursSummary, mapsHref, telHref } from '../data/business'
+import { copy } from '../data/copy'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
+  const hasInstagram = Boolean(business.links.instagram) && business.links.instagram !== '#'
+  const hasRating = business.rating.score !== null && business.rating.count !== null
 
   return (
     <footer className="relative overflow-hidden bg-maroc-950 text-cream-200">
@@ -16,8 +21,7 @@ export default function Footer() {
           Ambar
         </p>
         <p className="mt-4 max-w-md text-[17px] leading-relaxed text-cream-200/65">
-          Cocina marroquí halal en El Vendrell. Tajines, cuscús de los viernes,
-          marisco fresco y desayunos desde primera hora.
+          {copy.footer.description}
         </p>
 
         <div className="mt-14 grid gap-12 border-t border-cream-100/10 pt-12 md:grid-cols-3">
@@ -31,31 +35,53 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href={mapsHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gold-underline flex items-start gap-2.5 text-cream-100/85 hover:text-gold-300"
-                >
-                  <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
-                  <span>
-                    {business.address.street}, {business.address.number}
-                    <br />
-                    {business.address.postalCode} {business.address.city}
+                {hasMaps ? (
+                  <a
+                    href={mapsHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gold-underline flex items-start gap-2.5 text-cream-100/85 hover:text-gold-300"
+                  >
+                    <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                    <span>
+                      {business.addressLines.slice(0, 2).map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </span>
+                  </a>
+                ) : (
+                  <span className="flex items-start gap-2.5 text-cream-100/85">
+                    <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                    <span>
+                      {business.addressLines.slice(0, 2).map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </span>
                   </span>
-                </a>
+                )}
               </li>
               <li>
-                <a
-                  href={business.links.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gold-underline inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300"
-                  aria-label="Instagram del restaurante"
-                >
-                  <Icon name="instagram" className="h-4 w-4 text-gold-500" />
-                  Instagram
-                </a>
+                {hasInstagram ? (
+                  <a
+                    href={business.links.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gold-underline inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300"
+                    aria-label="Instagram del restaurante"
+                  >
+                    <Icon name="instagram" className="h-4 w-4 text-gold-500" />
+                    Instagram
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2.5 text-cream-100/85">
+                    <Icon name="instagram" className="h-4 w-4 text-gold-500" />
+                    Instagram
+                  </span>
+                )}
               </li>
             </ul>
           </div>
@@ -63,7 +89,9 @@ export default function Footer() {
           <div>
             <h2 className="text-[15px] font-semibold text-cream-50">Horario</h2>
             <LiveStatus className="mt-5" />
-            <p className="mt-2 text-sm text-cream-200/70">{hoursSummary}</p>
+            {business.scheduleConfirmed && (
+              <p className="mt-2 text-sm text-cream-200/70">{hoursSummary}</p>
+            )}
             <Link to="/informacion#horario" className="gold-underline mt-4 inline-block text-sm text-gold-400">
               Ver el horario completo
             </Link>
@@ -93,12 +121,18 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-cream-100/10 py-8 text-[13px] text-cream-200/65 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {business.name} · {business.address.city}
+            © {year} {business.name}
+            {business.address.city ? ` · ${business.address.city}` : ''}
           </p>
-          <p className="tnum">
-            {business.rating.score.toString().replace('.', ',')} sobre 5 ·{' '}
-            {business.rating.count} reseñas en Google
-          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            {hasRating && (
+              <p className="tnum">
+                {business.rating.score.toString().replace('.', ',')} sobre 5 ·{' '}
+                {business.rating.count} reseñas en Google
+              </p>
+            )}
+            <PrototypeBadge full />
+          </div>
         </div>
       </div>
     </footer>

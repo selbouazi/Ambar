@@ -7,12 +7,14 @@
  *
  * `npm run photos` procesa los originales con sharp, genera las variantes
  * avif/webp/jpg en `public/photos/gen/` y reescribe `photo-manifest.json`.
- * Si un archivo no existe, <Photo> dibuja un panel de zellige intencional
- * (nunca el texto «FOTO PENDIENTE»).
+ * Si un archivo no existe, <Photo> dibuja un hueco etiquetado con la
+ * proporción final de la foto (sin saltos de layout).
  */
 
 import manifest from './photo-manifest.json'
-import specData from './photo-specs.json'
+import realSpecData from './photo-specs.json'
+import labelData from './photo-labels.json'
+import { PROTOTIPO } from '../config'
 
 export type PhotoRatio = '16/9' | '4/5' | '4/3' | '3/2' | '1/1'
 
@@ -23,6 +25,8 @@ export interface PhotoSpec {
   ratio: PhotoRatio
   /** Sección o uso previsto, para FOTOS-PENDIENTES.md. */
   section: string
+  /** Descripción corta (máximo 5 palabras) para el hueco del prototipo. */
+  etiqueta: string
   /** Punto de recorte por defecto (object-position). */
   position?: string
   /** Valor de `sizes` para el srcset. */
@@ -48,9 +52,15 @@ export interface PhotoAsset {
   }
 }
 
+/**
+ * En el prototipo solo viaja la etiqueta corta y la proporción: los textos
+ * reales (`alt`, `section`) no se incluyen en el bundle.
+ */
+const specData = PROTOTIPO ? labelData : realSpecData
+
 export const photoSpecs = specData as Record<string, PhotoSpec>
 
-export type PhotoKey = keyof typeof specData
+export type PhotoKey = keyof typeof realSpecData
 
 const assets = manifest as unknown as Record<string, PhotoAsset>
 
@@ -73,3 +83,14 @@ export function galleryPhotos(): PhotoKey[] {
     (key) => key.startsWith('galeria') && hasPhoto(key),
   )
 }
+
+/**
+ * Cuatro huecos de la galería para el prototipo: muestran dónde irán las
+ * fotos aunque todavía no exista ninguna.
+ */
+export const PROTOTYPE_GALLERY: PhotoKey[] = [
+  'galeria01',
+  'galeria02',
+  'galeria03',
+  'galeria04',
+]

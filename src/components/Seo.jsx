@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { PROTOTIPO } from '../config'
 import { business, mapsHref } from '../data/business'
 import { menu } from '../data/menu'
 
@@ -63,13 +64,17 @@ export function buildRestaurantJsonLd() {
       addressCountry: business.address.countryCode,
     },
     openingHoursSpecification: buildOpeningHours(),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: business.rating.score,
-      reviewCount: business.rating.count,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    ...(business.rating.score !== null && business.rating.count !== null
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: business.rating.score,
+            reviewCount: business.rating.count,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
     acceptsReservations: false,
     hasMap: mapsHref,
     sameAs: [business.links.instagram, mapsHref],
@@ -126,6 +131,16 @@ export default function Seo({
     upsertMeta('name', 'description', description)
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
+
+    // Prototipo: nada de indexación ni de datos estructurados.
+    if (PROTOTIPO) {
+      upsertMeta('name', 'robots', 'noindex, nofollow')
+      document.querySelector('link[rel="canonical"]')?.remove()
+      document.getElementById('jsonld-restaurant')?.remove()
+      document.getElementById('jsonld-menu')?.remove()
+      return
+    }
+
     upsertMeta('property', 'og:type', 'website')
     upsertMeta('property', 'og:url', full)
     upsertMeta('property', 'og:image', image)

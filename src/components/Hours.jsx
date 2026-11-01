@@ -1,14 +1,31 @@
-import { business } from '../data/business'
+import { business, hoursSummary } from '../data/business'
 import { prettyTime, useOpenState, WEEK } from '../lib/hours'
 
 /**
  * Indicador en vivo calculado en Europe/Madrid.
  * `tone` decide el color de texto según el campo sobre el que se apoya.
+ *
+ * Si el horario no está confirmado (prototipo), no se calcula nada: se muestra
+ * un aviso neutro en lugar de «Abierto ahora».
  */
 export function LiveStatus({ tone = 'dark', className = '', showDetail = false }) {
   const state = useOpenState()
   const text = tone === 'dark' ? 'text-gold-300' : 'text-gold-700'
   const detail = tone === 'dark' ? 'text-cream-200/70' : 'text-ink-mute'
+
+  if (!business.scheduleConfirmed) {
+    return (
+      <div className={className}>
+        <p role="status" className={`flex items-center gap-2.5 text-[15px] font-medium ${text}`}>
+          <span
+            aria-hidden="true"
+            className="inline-block h-2 w-2 shrink-0 rounded-full bg-current opacity-40"
+          />
+          {hoursSummary}
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className={className}>
@@ -29,6 +46,7 @@ export function LiveStatus({ tone = 'dark', className = '', showDetail = false }
 /** Tabla de horario con el día actual resaltado. */
 export function HoursTable({ className = '' }) {
   const state = useOpenState()
+  const confirmed = business.scheduleConfirmed
 
   return (
     <div className={className}>
@@ -37,7 +55,7 @@ export function HoursTable({ className = '' }) {
         <tbody>
           {WEEK.map((key) => {
             const day = business.hours.find((d) => d.key === key)
-            const isToday = key === state.todayKey
+            const isToday = confirmed && key === state.todayKey
             return (
               <tr
                 key={key}
@@ -59,7 +77,9 @@ export function HoursTable({ className = '' }) {
                     isToday ? 'text-cream-200/80' : 'text-ink-soft'
                   }`}
                 >
-                  {day.closed ? (
+                  {!confirmed ? (
+                    '00:00 – 00:00'
+                  ) : day.closed ? (
                     <span className={isToday ? 'text-cream-200/80' : 'text-ink-mute'}>Cerrado</span>
                   ) : (
                     <>
@@ -80,6 +100,14 @@ export function HoursTable({ className = '' }) {
 /** Aviso de cuscús con el día de la semana en vivo. */
 export function CouscousNotice({ className = '' }) {
   const state = useOpenState()
+
+  if (!business.scheduleConfirmed) {
+    return (
+      <p className={className}>
+        Aquí irá el aviso sobre el día en que se sirve.
+      </p>
+    )
+  }
 
   return (
     <p className={className}>

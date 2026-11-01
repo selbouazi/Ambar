@@ -103,8 +103,8 @@ export default function MenuCategory({ category, headingId }) {
 
       <Reveal delay={100}>
         <ul className="mt-5">
-          {category.items.map((item) => (
-            <MenuItemRow key={item.name} item={item} />
+          {category.items.map((item, index) => (
+            <MenuItemRow key={`${item.name}-${index}`} item={item} />
           ))}
         </ul>
       </Reveal>

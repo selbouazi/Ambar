@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import CTAButton from '../components/CTAButton'
 import { ZelligePattern } from '../components/Zellige'
-import { business, telHref } from '../data/business'
+import { telHref } from '../data/business'
+import { copy } from '../data/copy'
 
 export default function NoMatch() {
   return (
     <>
       <Seo
-        title="Página no encontrada · Restaurante Halal Ambar"
-        description="La página que buscas no existe. Vuelve al inicio o consulta la carta del Restaurante Halal Ambar en El Vendrell."
+        title={copy.seo.notFound.title}
+        description={copy.seo.notFound.description}
         path="/404"
       />
 
@@ -23,8 +24,7 @@ export default function NoMatch() {
             Esta página no está en la carta
           </h1>
           <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-cream-200/70">
-            Puede que el enlace haya cambiado. Vuelve al inicio, mira la carta o
-            llámanos: seguimos en la Ctra. de Valls, 70, {business.address.city}.
+            {copy.noMatch.lead}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">

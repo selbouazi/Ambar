@@ -8,62 +8,21 @@ import Faq from '../components/Faq'
 import { HoursTable, LiveStatus, CouscousNotice } from '../components/Hours'
 import { ZelligePattern, StarMotif } from '../components/Zellige'
 import { business, mapsHref, telHref } from '../data/business'
+import { copy } from '../data/copy'
+import { findDishByTag, priceOf } from '../data/menu'
 
 const n = business
 
-const SERVICIOS = [
-  { icon: 'moon', title: 'Cocina halal', detail: 'Toda la carta es halal, de principio a fin.' },
-  { icon: 'family', title: 'Para familias', detail: 'Local amplio, climatizado y tranquilo, también con niños.' },
-  { icon: 'delivery', title: 'Para llevar y a domicilio', detail: 'Puedes pedir para recoger o recibirlo en casa.' },
-  { icon: 'coffee', title: 'Buen café', detail: 'Café y té marroquí a cualquier hora del día.' },
-  { icon: 'wheelchair', title: 'Local accesible', detail: 'Acceso sin escalones desde la calle.' },
-  { icon: 'car', title: 'Aparcamiento', detail: 'Plazas gratuitas en la calle, algo difíciles en hora punta.' },
-]
-
-const FAQ = [
-  {
-    question: '¿Es toda la cocina halal?',
-    answer:
-      'Sí. El restaurante es halal: la carne y la cocina siguen las normas halal en todos los platos de la carta.',
-  },
-  {
-    question: '¿Hace falta reservar?',
-    answer:
-      'No es obligatorio. Puedes venir sin reserva o llamarnos para asegurar mesa, sobre todo si sois un grupo.',
-  },
-  {
-    question: '¿Se puede ir con niños?',
-    answer:
-      'Sí. El local es tranquilo, está climatizado y es apto para familias, también con niños pequeños.',
-  },
-  {
-    question: '¿Hay opción para llevar?',
-    answer:
-      'Sí. Puedes pedir para llevar y también hay servicio de entrega a domicilio, incluida la entrega sin contacto.',
-  },
-  {
-    question: '¿Qué día hay cuscús?',
-    answer:
-      'Los viernes. Es el único día que se prepara cuscús; el resto de la semana encontrarás tajines, brasa, pescado y marisco.',
-  },
-  {
-    question: '¿Dónde se puede aparcar?',
-    answer:
-      'Hay plazas gratuitas en la calle, junto al restaurante. En hora punta cuesta más encontrar sitio.',
-  },
-  {
-    question: '¿Cuál es el horario?',
-    answer:
-      'De martes a domingo, de 9:00 a 24:00. Los lunes cerramos.',
-  },
-]
-
 export default function Informacion() {
+  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
+  const featured = findDishByTag('solo-viernes')
+  const featuredPrice = featured ? priceOf(featured) : '0 €'
+
   return (
     <>
       <Seo
-        title="El local y cómo llegar · Restaurante halal Ambar, El Vendrell"
-        description="Horario, dirección, aparcamiento y servicios del Restaurante Halal Ambar en El Vendrell: cocina halal, para llevar, a domicilio y local accesible."
+        title={copy.seo.info.title}
+        description={copy.seo.info.description}
         path="/informacion"
       />
 
@@ -76,8 +35,7 @@ export default function Informacion() {
               El local
             </h1>
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
-              Todo lo práctico para tu visita: horario, cómo llegar, dónde aparcar y
-              qué puedes pedir. Si te queda alguna duda, llámanos.
+              {copy.info.lead}
             </p>
           </Reveal>
           <Reveal priority delay={100}>
@@ -92,7 +50,7 @@ export default function Informacion() {
           <div className="lg:col-span-5">
             <SectionHeading
               title="Horario"
-              description="Abrimos de martes a domingo, de 9:00 a 24:00. El lunes descansamos."
+              description={copy.info.horarioDesc}
             />
             <Reveal delay={120}>
               <div className="mt-8 border border-ink/12 bg-cream-100">
@@ -101,7 +59,7 @@ export default function Informacion() {
             </Reveal>
             <Reveal delay={180}>
               <p className="mt-4 text-[13px] text-ink-mute">
-                El horario puede variar en festivos. Llámanos si vienes desde lejos.
+                {copy.info.horarioNote}
               </p>
             </Reveal>
           </div>
@@ -112,14 +70,14 @@ export default function Informacion() {
                 <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.06]" tile={110} />
                 <div className="relative">
                   <h3 className="font-display text-[clamp(1.75rem,3.4vw,2.5rem)] font-normal italic leading-tight">
-                    Cuscús solo los viernes
+                    {copy.info.couscousTitle}
                   </h3>
                   <CouscousNotice className="mt-3 text-[15px] leading-relaxed" />
                   <div className="mt-7 flex items-end justify-between gap-6 border-t border-cream-100/12 pt-6">
                     <p className="max-w-xs text-[14px] leading-relaxed text-cream-200/70">
-                      Se prepara al momento y se sirve hasta que se acaba.
+                      {copy.info.couscousText}
                     </p>
-                    <p className="tnum font-display text-5xl leading-none text-gold-400">7 €</p>
+                    <p className="tnum font-display text-5xl leading-none text-gold-400">{featuredPrice}</p>
                   </div>
                 </div>
               </div>
@@ -145,26 +103,33 @@ export default function Informacion() {
           <div className="lg:col-span-5">
             <SectionHeading
               title="Cómo llegar"
-              description="En la Ctra. de Valls, 70, con plazas gratuitas en la calle. En hora punta cuesta encontrar sitio."
+              description={copy.info.llegarDesc}
             />
             <Reveal delay={120}>
               <address className="mt-8 not-italic">
                 <p className="font-display text-2xl leading-snug text-ink">
-                  {n.address.street}, {n.address.number}
-                  <br />
-                  {n.address.postalCode} {n.address.city}
-                  <br />
-                  <span className="text-ink-soft">{n.address.region}</span>
+                  {n.addressLines.map((line, i) => (
+                    <span
+                      key={line}
+                      className={`block ${i > 0 && i === n.addressLines.length - 1 ? 'text-ink-soft' : ''}`}
+                    >
+                      {line}
+                    </span>
+                  ))}
                 </p>
-                <p className="mt-3 text-[13px] text-ink-mute">Plus code: {n.address.plusCode}</p>
+                {n.address.plusCode && (
+                  <p className="mt-3 text-[13px] text-ink-mute">Plus code: {n.address.plusCode}</p>
+                )}
               </address>
             </Reveal>
             <Reveal delay={180}>
               <div className="mt-8 flex flex-wrap gap-3">
-                <CTAButton href={mapsHref} external variant="primary" icon="external">
-                  Abrir en Google Maps
-                </CTAButton>
-                <CTAButton href={telHref} variant="onCream" icon="phone">
+                {hasMaps && (
+                  <CTAButton href={mapsHref} external variant="primary" icon="external">
+                    Abrir en Google Maps
+                  </CTAButton>
+                )}
+                <CTAButton href={telHref} variant={hasMaps ? 'onCream' : 'primary'} icon="phone">
                   Llamar
                 </CTAButton>
               </div>
@@ -182,12 +147,12 @@ export default function Informacion() {
         <div className="mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
           <SectionHeading
             tone="dark"
-            title="Lo que encontrarás"
-            description="Solo lo que de verdad ofrecemos. Si algo no aparece aquí, pregúntanos."
+            title={copy.info.serviciosTitle}
+            description={copy.info.serviciosDesc}
           />
 
           <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICIOS.map((service, i) => (
+            {copy.info.servicios.map((service, i) => (
               <Reveal key={service.title} delay={i * 60}>
                 <div className="border-t border-cream-100/12 pt-5">
                   <Icon name={service.icon} className="h-5 w-5 text-gold-400" />
@@ -206,8 +171,7 @@ export default function Informacion() {
             <div className="mt-12 flex items-start gap-3 border-t border-cream-100/12 pt-6">
               <StarMotif className="mt-1 h-4 w-4 shrink-0 text-gold-500" />
               <p className="max-w-2xl text-[15px] leading-relaxed text-cream-200/70">
-                Reserva opcional: puedes venir sin avisar. Si sois un grupo, mejor
-                llámanos y te guardamos la mesa.
+                {copy.info.reservaNote}
               </p>
             </div>
           </Reveal>
@@ -219,12 +183,12 @@ export default function Informacion() {
         <div className="mx-auto grid max-w-[75rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
           <div className="lg:col-span-4">
             <SectionHeading
-              title="Preguntas frecuentes"
-              description="Las dudas que más nos llegan por teléfono."
+              title={copy.info.faqTitle}
+              description={copy.info.faqDesc}
             />
             <Reveal delay={120}>
               <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">
-                ¿No encuentras tu pregunta?{' '}
+                {copy.info.faqHelp}{' '}
                 <a href={telHref} className="gold-underline font-medium text-gold-700">
                   Llámanos al {n.phone.display}
                 </a>
@@ -235,7 +199,7 @@ export default function Informacion() {
 
           <div className="lg:col-span-8">
             <Reveal delay={80}>
-              <Faq items={FAQ} />
+              <Faq items={copy.info.faq} />
             </Reveal>
           </div>
         </div>

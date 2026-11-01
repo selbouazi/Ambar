@@ -13,6 +13,14 @@ import NoMatch from './pages/NoMatch'
 export default function App() {
   const location = useLocation()
 
+  // En el prototipo los botones de llamada y mapa no tienen destino real
+  // (`href="#"`). Este guardia evita que el navegador salte al inicio.
+  const guardDemoLinks = (event) => {
+    const anchor =
+      event.target instanceof Element ? event.target.closest('a[href="#"]') : null
+    if (anchor) event.preventDefault()
+  }
+
   return (
     <SmoothScroll>
       <a
@@ -22,7 +30,7 @@ export default function App() {
         Saltar al contenido
       </a>
 
-      <div className="flex min-h-screen flex-col bg-cream-50 text-ink">
+      <div className="flex min-h-screen flex-col bg-cream-50 text-ink" onClickCapture={guardDemoLinks}>
         <Navbar />
 
         <main id="contenido" key={location.pathname} className="flex-1">

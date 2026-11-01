@@ -1,4 +1,6 @@
+import { PROTOTIPO } from '../config'
 import { photoSpecs, getPhoto } from '../data/photos'
+import Icon from './Icons'
 import { ZelligePattern, StarMotif } from './Zellige'
 
 const RATIOS = {
@@ -10,17 +12,56 @@ const RATIOS = {
 }
 
 /**
- * Hueco de foto intencional.
- * No dice "FOTO PENDIENTE": dibuja el zellige de la marca con el nombre del
- * plato o del espacio. Cuando Suli coloque la foto en public/photos/, el
+ * Hueco del prototipo.
+ *
+ * Mantiene la proporción exacta que tendrá la fotografía real (sin saltos de
+ * layout), con borde discontinuo fino, icono de cámara y dos líneas:
+ * «FALTA FOTO» y una descripción de como máximo cinco palabras.
+ *
+ * `tone` adapta los colores al fondo: `dark` sobre secciones oscuras y
+ * `light` sobre crema. Nunca se usa zellige como sustituto de una foto.
+ */
+function PrototypePlaceholder({ label, tone = 'dark' }) {
+  const dark = tone === 'dark'
+
+  return (
+    <div
+      role="img"
+      aria-label={`Falta foto: ${label}`}
+      className={`flex h-full w-full flex-col items-center justify-center gap-2 border border-dashed p-3 text-center sm:gap-3 sm:p-5 ${
+        dark
+          ? 'border-cream-100/30 bg-maroc-900 text-cream-100'
+          : 'border-ink/25 bg-cream-100 text-ink'
+      }`}
+    >
+      <Icon
+        name="camera"
+        className={`h-5 w-5 shrink-0 sm:h-7 sm:w-7 ${dark ? 'text-gold-400' : 'text-gold-700'}`}
+      />
+      <p
+        className={`text-[10px] font-semibold uppercase leading-none tracking-[0.18em] sm:text-[11px] ${
+          dark ? 'text-gold-300' : 'text-gold-700'
+        }`}
+      >
+        FALTA FOTO
+      </p>
+      <p className="max-w-[18rem] text-[11px] leading-snug sm:text-[13px]">{label}</p>
+    </div>
+  )
+}
+
+/**
+ * Hueco de la web real (cuando aún no hay foto).
+ * No dice «FOTO PENDIENTE»: dibuja el zellige de la marca con el nombre del
+ * plato o del espacio. Cuando se coloque la foto en public/photos/, el
  * componente la sirve automáticamente.
  */
-export function PhotoPlaceholder({ title, note = 'Fotografía del restaurante', className = '' }) {
+function RealPlaceholder({ title, note = 'Fotografía del restaurante' }) {
   return (
     <div
       role="img"
       aria-label={`${title}. ${note}.`}
-      className={`relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-maroc-800 p-6 text-center text-gold-400 sm:p-8 ${className}`}
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-maroc-800 p-6 text-center text-gold-400 sm:p-8"
     >
       <ZelligePattern className="absolute inset-0 h-full w-full opacity-[0.11]" tile={96} />
       <div className="relative flex flex-col items-center">
@@ -35,15 +76,32 @@ export function PhotoPlaceholder({ title, note = 'Fotografía del restaurante', 
 }
 
 /**
+ * Hueco de foto. En el prototipo es un hueco etiquetado; en la web real
+ * mantiene el panel de zellige de siempre.
+ */
+export function PhotoPlaceholder({ label, title, note, tone = 'dark', className = '' }) {
+  if (PROTOTIPO) {
+    return (
+      <div className={`h-full w-full ${className}`}>
+        <PrototypePlaceholder label={label || title} tone={tone} />
+      </div>
+    )
+  }
+
+  return <RealPlaceholder title={title || 'Ambar'} note={note} />
+}
+
+/**
  * Fotografía responsive con variantes avif/webp/jpg generadas por sharp.
  * Mantiene width/height para CLS 0 y usa un fondo de baja resolución mientras
- * carga. Si la foto no existe, muestra el hueco intencional.
+ * carga. Si la foto no existe, muestra el hueco correspondiente.
  */
 export default function Photo({
   photoKey,
   alt,
   title,
   ratio,
+  tone = 'dark',
   className = '',
   imgClassName = '',
   eager = false,
@@ -58,9 +116,14 @@ export default function Photo({
   const objectPosition = position || asset?.position || spec?.position || 'center'
 
   if (!asset) {
+    const label = spec?.etiqueta || title || 'Fotografía del restaurante'
     return (
-      <div className={`relative overflow-hidden bg-maroc-800 ${aspect} ${className}`}>
-        <PhotoPlaceholder title={title || spec?.alt?.split(',')[0] || 'Ambar'} />
+      <div className={`relative overflow-hidden ${PROTOTIPO ? '' : 'bg-maroc-800'} ${aspect} ${className}`}>
+        <PhotoPlaceholder
+          label={label}
+          title={title || spec?.alt?.split(',')[0] || 'Ambar'}
+          tone={tone}
+        />
         {children}
       </div>
     )

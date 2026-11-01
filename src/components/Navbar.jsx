@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Icon from './Icons'
+import PrototypeBadge from './PrototypeBadge'
 import { business, telHref } from '../data/business'
+import { copy } from '../data/copy'
 
 const NAV = [
   { to: '/', label: 'Inicio' },
@@ -81,25 +83,29 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[75rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[72px] lg:px-12">
-        <Link
-          to="/"
-          className="flex shrink-0 items-center gap-3"
-          aria-label={`${business.name} — inicio`}
-        >
-          <span className="grid h-9 w-9 place-items-center rounded-full border border-gold-400/50 text-gold-400">
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <path d="M15.5 3.5a7 7 0 1 0 5 5 5.5 5.5 0 0 1-5-5Z" />
-            </svg>
-          </span>
-          <span className="leading-none">
-            <span className="block font-display text-[26px] font-semibold italic tracking-[-0.02em] text-cream-50">
-              Ambar
+        <div className="flex min-w-0 shrink-0 items-center gap-3">
+          <Link
+            to="/"
+            className="flex shrink-0 items-center gap-3"
+            aria-label={`${business.name} — inicio`}
+          >
+            <span className="grid h-9 w-9 place-items-center rounded-full border border-gold-400/50 text-gold-400">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                <path d="M15.5 3.5a7 7 0 1 0 5 5 5.5 5.5 0 0 1-5-5Z" />
+              </svg>
             </span>
-            <span className="mt-1 hidden text-[10px] uppercase tracking-[0.22em] text-gold-400 sm:block">
-              Restaurante halal · El Vendrell
+            <span className="leading-none">
+              <span className="block font-display text-[26px] font-semibold italic tracking-[-0.02em] text-cream-50">
+                Ambar
+              </span>
+              <span className="mt-1 hidden text-[10px] uppercase tracking-[0.22em] text-gold-400 sm:block">
+                {copy.nav.subtitle}
+              </span>
             </span>
-          </span>
-        </Link>
+          </Link>
+
+          <PrototypeBadge />
+        </div>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegación principal">
           {NAV.map((item) => (
@@ -185,8 +191,9 @@ export default function Navbar() {
             </a>
 
             <p className="mt-6 text-sm text-cream-200/70">
-              {business.address.street}, {business.address.number} · {business.address.postalCode}{' '}
-              {business.address.city}
+              {business.addressLines.length > 1
+                ? `${business.addressLines[0]} · ${business.addressLines[1]}`
+                : business.addressLines[0]}
             </p>
           </nav>
         </div>
