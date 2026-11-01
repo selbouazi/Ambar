@@ -1,5 +1,42 @@
 @import "tailwindcss";
 
+/* ── Tipografías propias ──────────────────────────────────────────────────
+   Se sirven desde el mismo dominio: sin peticiones a Google, sin cookies de
+   terceros y con precarga en <head> para que no haya salto de fuente (CLS). */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-normal.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-italic.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-normal.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @theme {
   /* Tipografía */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -12,7 +49,7 @@
   --color-maroc-700: #3b4130;
   --color-maroc-600: #4e5640;
 
-  /* Marrón tierra cálido */
+  /* Marrón tierra cálido (solo ilustración) */
   --color-terra-600: #6b4226;
   --color-terra-500: #8a5a3c;
   --color-terra-400: #a9774f;
@@ -20,6 +57,7 @@
   --color-terra-200: #e2cbb2;
 
   /* Dorado elegante */
+  --color-gold-700: #7d5a1c;
   --color-gold-600: #a97b2d;
   --color-gold-500: #c9973b;
   --color-gold-400: #e0b45c;
@@ -33,12 +71,20 @@
 
   /* Texto casi negro con matiz cálido */
   --color-ink: #262319;
+  --color-ink-soft: #57544a;
+  --color-ink-mute: #6b675c;
+
+  /* Estado en vivo */
+  --color-open: #6ea97a;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ── Base ─────────────────────────────────────────────────────────────── */
+
 html {
   scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
 }
 
 html.lenis,
@@ -54,8 +100,18 @@ body {
   background-color: var(--color-cream-50);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Reserva el hueco de la barra inferior móvil */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 ::selection {
@@ -65,10 +121,38 @@ body {
 
 :focus-visible {
   outline: 2px solid var(--color-gold-500);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Acento decorativo: subrayado de enlaces con línea dorada que crece */
+/* Cifras alineadas en precios y horarios */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Reveal sin dependencias ──────────────────────────────────────────────
+   Sin JavaScript el contenido queda visible: la clase .js solo la añade un
+   script inline en <head>. Si IntersectionObserver falla, el componente
+   marca todo como visible al montar. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-premium),
+    transform 0.7s var(--ease-premium);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ── Enlace con subrayado dorado que crece ──────────────────────────────── */
+
 .gold-underline {
   background-image: linear-gradient(var(--color-gold-500), var(--color-gold-500));
   background-size: 0% 1px;
@@ -77,12 +161,60 @@ body {
   transition: background-size 0.3s var(--ease-premium);
 }
 
-.gold-underline:hover {
+.gold-underline:hover,
+.gold-underline:focus-visible {
   background-size: 100% 1px;
 }
+
+/* ── Carta: línea punteada entre plato y precio ─────────────────────────── */
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.menu-leader {
+  border-bottom: 1px dotted color-mix(in srgb, var(--color-ink) 22%, transparent);
+  transition: border-color 0.25s var(--ease-premium);
+}
+
+.menu-row:hover .menu-leader,
+.menu-row:focus-within .menu-leader {
+  border-color: var(--color-gold-600);
+}
+
+/* ── Velo neutro sobre fotografía (única excepción a "sin degradados") ───── */
+
+.photo-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(23, 26, 17, 0.92) 0%,
+    rgba(23, 26, 17, 0.55) 45%,
+    rgba(23, 26, 17, 0.25) 100%
+  );
+}
+
+/* ── Accesibilidad: movimiento reducido ─────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
