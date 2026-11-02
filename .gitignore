@@ -15,3 +15,7 @@ skills-lock.json
 .audit/
 .playwright-cli/
 
+
+# Capturas y resultados de QA (generados en local)
+docs/qa/
+
