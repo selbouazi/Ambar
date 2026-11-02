@@ -1,32 +1,49 @@
+import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
-import { ZelligePattern } from '../components/Zellige'
-import { business, telHref } from '../data/business'
+import BrushLabel from '../components/BrushLabel'
+import { StarPattern } from '../components/Ornament'
+import { site, telHref } from '../data/site'
 import { copy } from '../data/copy'
 
 function LegalLayout({ title, description, path, children }) {
   return (
     <>
-      <Seo title={`${title} · ${business.name}`} description={description} path={path} />
+      <Seo title={`${title} · ${site.name}`} description={description} path={path} />
 
-      <header className="relative overflow-hidden bg-maroc-950 pb-12 pt-28 text-cream-50 sm:pb-14 lg:pt-36">
-        <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" tile={130} />
-        <div className="relative mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
+      <header className="relative overflow-hidden bg-night-950 pb-12 pt-28 sm:pb-14 lg:pt-36">
+        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={150} />
+        <div className="relative mx-auto max-w-[78rem] px-5 sm:px-8 lg:px-12">
           <Reveal priority>
-            <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-normal leading-[0.98] tracking-[-0.03em]">
+            <BrushLabel variant={1} size="sm">
+              Información legal
+            </BrushLabel>
+            <h1 className="mt-4 font-display text-[clamp(2.8rem,7vw,5rem)] uppercase leading-[0.9] text-cream-50">
               {title}
             </h1>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-cream-200/70">
+            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-cream-200/70">
               {description}
             </p>
           </Reveal>
         </div>
       </header>
 
-      <section className="bg-cream-50 py-16 sm:py-20">
-        <div className="mx-auto max-w-[46rem] px-5 sm:px-8">
-          <div className="space-y-8 text-[16px] leading-relaxed text-ink-soft [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:font-display [&_h2]:text-[24px] [&_h2]:font-medium [&_h2]:leading-snug [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+      <section className="bg-cream-50 py-16 text-ink sm:py-20">
+        <div className="mx-auto max-w-[48rem] px-5 sm:px-8">
+          <div className="space-y-9 text-[16px] leading-relaxed text-ink-soft [&_a]:font-medium [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:font-display [&_h2]:text-[26px] [&_h2]:uppercase [&_h2]:leading-tight [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
             {children}
+          </div>
+
+          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-ink/15 pt-6 text-[14px]">
+            <Link to="/aviso-legal" className="text-gold-700 underline underline-offset-4">
+              Aviso legal
+            </Link>
+            <Link to="/politica-de-cookies" className="text-gold-700 underline underline-offset-4">
+              Política de cookies
+            </Link>
+            <Link to="/el-local" className="text-gold-700 underline underline-offset-4">
+              Volver a El local
+            </Link>
           </div>
         </div>
       </section>
@@ -44,15 +61,10 @@ export function AvisoLegal() {
       <section>
         <h2>1. Titular del sitio</h2>
         <ul>
-          <li>Denominación: {business.name}</li>
+          <li>Denominación: {site.name}</li>
+          <li>Domicilio: {site.address.full}</li>
           <li>
-            Domicilio:{' '}
-            {business.addressLines.length > 2
-              ? `${business.addressLines[0]}, ${business.addressLines[1]} (${business.addressLines[2]})`
-              : business.addressLines.join(', ')}
-          </li>
-          <li>
-            Teléfono: <a href={telHref}>{business.phone.display}</a>
+            Teléfono: <a href={telHref}>{site.phone.display}</a>
           </li>
           {/* TODO(confirmar): el titular debe facilitar su NIF/CIF y, si procede,
               los datos registrales antes de publicar esta página. */}
@@ -71,11 +83,7 @@ export function AvisoLegal() {
 
       <section>
         <h2>3. Precios y disponibilidad</h2>
-        <p>
-          Los precios de la carta están expresados en euros y pueden variar por
-          temporada, disponibilidad de producto fresco o cambios del establecimiento.{' '}
-          {copy.legal.couscous}
-        </p>
+        <p>{copy.legal.prices}</p>
       </section>
 
       <section>
@@ -112,7 +120,7 @@ export function Cookies() {
     <LegalLayout
       title="Política de cookies"
       description={copy.legal.cookiesDescription}
-      path="/cookies"
+      path="/politica-de-cookies"
     >
       <section>
         <h2>1. Qué son las cookies</h2>
@@ -137,6 +145,10 @@ export function Cookies() {
         <ul>
           <li>
             <strong>Google Maps:</strong> {copy.legal.cookiesMap}
+          </li>
+          <li>
+            <strong>Instagram:</strong> los enlaces a Instagram abren una pestaña nueva.
+            Al visitarlos, se aplican la política de cookies y privacidad de Instagram.
           </li>
         </ul>
         <p className="mt-4">

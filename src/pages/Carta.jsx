@@ -3,17 +3,21 @@ import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
 import CTAButton from '../components/CTAButton'
 import MenuCategory from '../components/MenuCategory'
+import BrushLabel from '../components/BrushLabel'
 import Icon from '../components/Icons'
-import { ZelligePattern } from '../components/Zellige'
+import { StarPattern, Leaf, DottedRule } from '../components/Ornament'
 import { LiveStatus } from '../components/Hours'
 import { scrollToHash } from '../components/SmoothScroll'
-import { business, mapsHref, telHref } from '../data/business'
+import { site, mapsHref, telHref } from '../data/site'
 import { copy } from '../data/copy'
 import { menu } from '../data/menu'
 
-const n = business
+const CATEGORY_PHOTOS = {
+  entrantes: { key: 'marisco', caption: 'Marisco fresco, preparado al momento' },
+  platos: { key: 'cuscus', caption: 'Cuscús de los viernes' },
+  pescado: { key: 'lubina', caption: 'Pescado a la plancha' },
+}
 
-/** Resalta en la navegación la categoría visible. */
 function useScrollSpy(ids, enabled) {
   const [active, setActive] = useState(ids[0])
 
@@ -21,7 +25,7 @@ function useScrollSpy(ids, enabled) {
     if (!enabled) return
 
     const onScroll = () => {
-      const offset = 160
+      const offset = 180
       let current = ids[0]
       ids.forEach((id) => {
         const el = document.getElementById(id)
@@ -49,7 +53,6 @@ export default function Carta() {
   const [query, setQuery] = useState('')
   const searchRef = useRef(null)
   const searching = query.trim().length > 0
-  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
 
   const filtered = useMemo(() => {
     const term = normalize(query.trim())
@@ -78,15 +81,18 @@ export default function Carta() {
         withMenuJsonLd
       />
 
-      {/* Cabecera */}
-      <header className="relative overflow-hidden bg-maroc-950 pb-14 pt-28 text-cream-50 sm:pb-16 lg:pt-36">
-        <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.05]" tile={130} />
-        <div className="relative mx-auto max-w-[75rem] px-5 sm:px-8 lg:px-12">
+      <header className="relative overflow-hidden border-b border-gold-500/20 bg-night-900 pb-12 pt-28 sm:pb-14 lg:pt-36">
+        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={160} />
+        <Leaf className="pointer-events-none absolute -right-6 top-16 h-44 w-32 text-leaf opacity-20" />
+        <div className="relative mx-auto max-w-[78rem] px-5 sm:px-8 lg:px-12">
           <Reveal priority>
-            <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em]">
+            <BrushLabel variant={1} size="md">
+              {copy.menuCount} platos
+            </BrushLabel>
+            <h1 className="mt-4 font-display text-[clamp(3.4rem,9vw,6.5rem)] uppercase leading-[0.86] text-cream-50">
               La carta
             </h1>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-cream-200/70">
+            <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-cream-200/75">
               {copy.carta.headerLead}
             </p>
           </Reveal>
@@ -98,11 +104,9 @@ export default function Carta() {
                 <CTAButton href={telHref} variant="primary" icon="phone">
                   Llamar para pedir
                 </CTAButton>
-                {hasMaps && (
-                  <CTAButton href={mapsHref} external variant="onDark" icon="pin">
-                    Cómo llegar
-                  </CTAButton>
-                )}
+                <CTAButton href={mapsHref} external variant="onDark" icon="pin">
+                  Cómo llegar
+                </CTAButton>
               </div>
             </div>
           </Reveal>
@@ -110,9 +114,12 @@ export default function Carta() {
       </header>
 
       {/* Navegación de categorías */}
-      <div className="sticky top-16 z-30 border-b border-ink/10 bg-cream-50 lg:top-[72px]">
+      <div className="sticky top-16 z-30 border-b border-gold-500/25 bg-night-950/97 backdrop-blur-sm lg:top-[76px]">
         <div className="relative mx-auto max-w-[82rem] px-5 sm:px-8 lg:px-12">
-          <nav aria-label="Categorías de la carta" className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+          <nav
+            aria-label="Categorías de la carta"
+            className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
+          >
             <ul className="flex w-max items-center gap-1 py-2">
               {filtered.map((category) => {
                 const isActive = !searching && category.id === active
@@ -125,10 +132,10 @@ export default function Carta() {
                         window.setTimeout(() => scrollToHash(category.id), 0)
                       }}
                       aria-current={isActive ? 'true' : undefined}
-                      className={`flex min-h-11 items-center whitespace-nowrap rounded-full px-4 text-[14px] font-medium transition-colors ${
+                      className={`flex min-h-11 items-center whitespace-nowrap rounded-sm px-4 text-[12px] font-bold uppercase tracking-[0.08em] transition-colors ${
                         isActive
-                          ? 'bg-maroc-900 text-cream-50'
-                          : 'text-ink-soft hover:bg-cream-200 hover:text-ink'
+                          ? 'bg-gold-500 text-night-950'
+                          : 'text-cream-200/70 hover:bg-night-800 hover:text-cream-50'
                       }`}
                     >
                       {category.name}
@@ -140,19 +147,19 @@ export default function Carta() {
           </nav>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-cream-50 to-transparent lg:hidden"
+            className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-night-950 to-transparent lg:hidden"
           />
         </div>
       </div>
 
       {/* Buscador */}
-      <div className="border-b border-ink/10 bg-cream-100">
+      <div className="border-b border-cream-100/10 bg-night-900">
         <div className="mx-auto max-w-[46rem] px-5 py-5 sm:px-8">
           <label htmlFor="buscar-plato" className="sr-only">
             Buscar un plato en la carta
           </label>
-          <div className="flex items-center gap-3 border border-ink/20 bg-cream-50 px-4 focus-within:border-gold-600">
-            <Icon name="search" className="h-4 w-4 shrink-0 text-ink-mute" />
+          <div className="flex items-center gap-3 border border-cream-100/25 bg-night-950 px-4 focus-within:border-gold-500">
+            <Icon name="search" className="h-4 w-4 shrink-0 text-cream-200/60" />
             <input
               ref={searchRef}
               id="buscar-plato"
@@ -160,7 +167,7 @@ export default function Carta() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={copy.carta.searchPlaceholder}
-              className="min-h-11 w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-mute"
+              className="min-h-11 w-full bg-transparent text-[15px] text-cream-50 outline-none placeholder:text-cream-200/50"
             />
             {searching && (
               <button
@@ -169,7 +176,7 @@ export default function Carta() {
                   setQuery('')
                   searchRef.current?.focus()
                 }}
-                className="flex min-h-11 items-center gap-1 text-[13px] text-ink-mute hover:text-ink"
+                className="flex min-h-11 items-center gap-1 text-[13px] text-cream-200/70 hover:text-cream-50"
               >
                 Limpiar
                 <Icon name="close" className="h-3.5 w-3.5" />
@@ -177,67 +184,69 @@ export default function Carta() {
             )}
           </div>
           {searching && (
-            <p className="mt-2 text-[13px] text-ink-mute" role="status">
+            <p className="mt-2 text-[13px] text-cream-200/60" role="status">
               {resultCount === 0
                 ? 'No hay platos que coincidan. Prueba con otra palabra.'
-                : `${resultCount} ${resultCount === 1 ? 'plato' : 'platos'} encontrados.`}
+                : `${resultCount} ${resultCount === 1 ? 'plato encontrado' : 'platos encontrados'}.`}
             </p>
           )}
         </div>
       </div>
 
       {/* Categorías */}
-      <div className="bg-cream-50 pb-20 pt-12 sm:pb-24 sm:pt-16">
-        <div className="mx-auto max-w-[46rem] px-5 sm:px-8">
+      <div className="relative bg-night-950 pb-20 pt-12 sm:pb-24 sm:pt-16">
+        <StarPattern className="pointer-events-none absolute inset-x-0 top-0 h-96 star-texture" tile={190} />
+        <div className="relative mx-auto max-w-[50rem] px-5 sm:px-8">
           {resultCount === 0 ? (
-            <p className="py-16 text-center text-[17px] text-ink-soft">
-              {copy.carta.empty}
-            </p>
+            <p className="py-16 text-center text-[17px] text-cream-200/75">{copy.carta.empty}</p>
           ) : (
-            <div className="space-y-14 sm:space-y-16">
-              {filtered.map((category) => (
-                <MenuCategory
-                  key={category.id}
-                  category={category}
-                  headingId={`${category.id}-titulo`}
-                />
-              ))}
+            <div className="space-y-16 sm:space-y-20">
+              {filtered.map((category, index) => {
+                const photo = CATEGORY_PHOTOS[category.id]
+                return (
+                  <MenuCategory
+                    key={category.id}
+                    category={category}
+                    headingId={`${category.id}-titulo`}
+                    variant={index}
+                    photoKey={photo?.key}
+                    photoCaption={photo?.caption}
+                  />
+                )
+              })}
             </div>
           )}
 
-          <div className="mt-16 border-t border-ink/10 pt-8">
-            <p className="text-[14px] leading-relaxed text-ink-mute">
+          <div className="mt-16">
+            <DottedRule className="mb-8" />
+            <p className="text-[14px] leading-relaxed text-cream-200/70">
               {copy.carta.footnotePrefix}
-              <a href={telHref} className="gold-underline text-gold-700">
-                {n.phone.display}
+              <a href={telHref} className="font-semibold text-gold-400">
+                {site.phone.display}
               </a>
               .
             </p>
-            <p className="mt-2 text-[14px] text-ink-mute">{copy.carta.hoursNote}</p>
+            <p className="mt-2 text-[14px] text-cream-200/60">{copy.carta.hoursNote}</p>
           </div>
         </div>
       </div>
 
       {/* Cierre */}
-      <section className="bg-maroc-900 py-16 text-cream-50 sm:py-20">
-        <div className="mx-auto flex max-w-[75rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+      <section className="border-t border-gold-500/20 bg-night-900 py-16 sm:py-20">
+        <div className="mx-auto flex max-w-[78rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <div>
-            <h2 className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] font-normal leading-tight">
+            <h2 className="font-display text-[clamp(1.9rem,4vw,3rem)] uppercase leading-tight text-cream-50">
               {copy.carta.closingTitle}
             </h2>
-            <p className="mt-2 text-[15px] text-cream-200/65">
-              {copy.carta.closingText}
-            </p>
+            <p className="mt-2 text-[15px] text-cream-200/70">{copy.carta.closingText}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <CTAButton href={telHref} variant="primary" icon="phone">
               Llamar
             </CTAButton>
-            {hasMaps && (
-              <CTAButton href={mapsHref} external variant="onDark" icon="pin">
-                Cómo llegar
-              </CTAButton>
-            )}
+            <CTAButton href={site.links.directions} external variant="onDark" icon="pin">
+              Cómo llegar
+            </CTAButton>
           </div>
         </div>
       </section>

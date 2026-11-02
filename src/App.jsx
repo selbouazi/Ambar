@@ -13,36 +13,30 @@ import NoMatch from './pages/NoMatch'
 export default function App() {
   const location = useLocation()
 
-  // En el prototipo los botones de llamada y mapa no tienen destino real
-  // (`href="#"`). Este guardia evita que el navegador salte al inicio.
-  const guardDemoLinks = (event) => {
-    const anchor =
-      event.target instanceof Element ? event.target.closest('a[href="#"]') : null
-    if (anchor) event.preventDefault()
-  }
-
   return (
     <SmoothScroll>
       <a
         href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-[14px] focus:font-semibold focus:text-maroc-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-sm focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-[14px] focus:font-bold focus:uppercase focus:tracking-wide focus:text-night-950"
       >
         Saltar al contenido
       </a>
 
-      <div className="flex min-h-screen flex-col bg-cream-50 text-ink" onClickCapture={guardDemoLinks}>
+      <div className="flex min-h-screen flex-col bg-night-950 text-cream-50">
         <Navbar />
 
         <main id="contenido" key={location.pathname} className="flex-1">
           <Routes location={location}>
             <Route path="/" element={<Inicio />} />
             <Route path="/carta" element={<Carta />} />
+            <Route path="/el-local" element={<Informacion />} />
             <Route path="/resenas" element={<Resenas />} />
-            <Route path="/informacion" element={<Informacion />} />
-            {/* Ruta antigua: se conserva para no romper enlaces. */}
-            <Route path="/contacto" element={<Navigate to="/informacion#llegar" replace />} />
+            {/* Rutas antiguas: se conservan para no romper enlaces. */}
+            <Route path="/informacion" element={<Navigate to="/el-local" replace />} />
+            <Route path="/contacto" element={<Navigate to="/el-local#llegar" replace />} />
             <Route path="/aviso-legal" element={<AvisoLegal />} />
-            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/politica-de-cookies" element={<Cookies />} />
+            <Route path="/cookies" element={<Navigate to="/politica-de-cookies" replace />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </main>
