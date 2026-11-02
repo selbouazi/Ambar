@@ -2,24 +2,25 @@
 
 /* ── Tipografías propias ──────────────────────────────────────────────────
    Se sirven desde el mismo dominio: sin peticiones a Google, sin cookies de
-   terceros y con precarga en <head> para que no haya salto de fuente (CLS). */
+   terceros. Anton (display), Kaushan Script (pinceladas) e Inter (cuerpo)
+   son fuentes OFL. */
 
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-normal.woff2") format("woff2");
-  font-weight: 400 600;
+  font-family: "Anton";
+  src: url("/fonts/anton-latin.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-italic.woff2") format("woff2");
-  font-weight: 400 600;
-  font-style: italic;
+  font-family: "Kaushan Script";
+  src: url("/fonts/kaushan-script-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
@@ -31,51 +32,48 @@
   src: url("/fonts/inter-normal.woff2") format("woff2");
   font-weight: 400 600;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @theme {
-  /* Tipografía */
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  /* Tipografía: tres roles, sin mezclar más. */
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-brush: "Kaushan Script", "Segoe Script", cursive;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  /* Verde marroquí (bases oscuras) */
-  --color-maroc-950: #171a11;
-  --color-maroc-900: #1f2417;
-  --color-maroc-800: #2a2e1f;
-  --color-maroc-700: #3b4130;
-  --color-maroc-600: #4e5640;
+  /* Negro de la carta. */
+  --color-night-950: #070706;
+  --color-night-900: #0f0e0b;
+  --color-night-800: #1a1813;
+  --color-night-700: #26231b;
 
-  /* Marrón tierra cálido (solo ilustración) */
-  --color-terra-600: #6b4226;
-  --color-terra-500: #8a5a3c;
-  --color-terra-400: #a9774f;
-  --color-terra-300: #c49a74;
-  --color-terra-200: #e2cbb2;
+  /* Amarillo ámbar de la marca. */
+  --color-gold-700: #9d7c06;
+  --color-gold-600: #d0a70a;
+  --color-gold-500: #f4c816;
+  --color-gold-400: #ffd84d;
+  --color-gold-300: #ffe48a;
 
-  /* Dorado elegante */
-  --color-gold-700: #7d5a1c;
-  --color-gold-600: #a97b2d;
-  --color-gold-500: #c9973b;
-  --color-gold-400: #e0b45c;
-  --color-gold-300: #eac98a;
+  /* Blanco cálido. */
+  --color-cream-50: #fbf6e7;
+  --color-cream-100: #f3ead4;
+  --color-cream-200: #ded2b6;
+  --color-cream-300: #c4b797;
 
-  /* Crema / blanco roto */
-  --color-cream-50: #faf6ec;
-  --color-cream-100: #f7f1e3;
-  --color-cream-200: #efe6d2;
-  --color-cream-300: #e4d7bc;
+  /* Texto sobre fondo claro (legales). */
+  --color-ink: #17150f;
+  --color-ink-soft: #423d30;
+  --color-ink-mute: #625b4a;
 
-  /* Texto casi negro con matiz cálido */
-  --color-ink: #262319;
-  --color-ink-soft: #57544a;
-  --color-ink-mute: #6b675c;
+  /* Verde hoja: solo decoración vegetal. */
+  --color-leaf: #2f7d3a;
+  --color-leaf-soft: #4c9a55;
 
-  /* Estado en vivo */
-  --color-open: #6ea97a;
+  /* Estado en vivo. */
+  --color-open: #8ad495;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -97,8 +95,8 @@ html.lenis body {
 }
 
 body {
-  background-color: var(--color-cream-50);
-  color: var(--color-ink);
+  background-color: var(--color-night-950);
+  color: var(--color-cream-50);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.65;
@@ -107,7 +105,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Reserva el hueco de la barra inferior móvil */
+/* La barra inferior móvil ocupa 4rem: reservamos el hueco. */
 @media (max-width: 767px) {
   body {
     padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
@@ -116,7 +114,7 @@ body {
 
 ::selection {
   background-color: var(--color-gold-500);
-  color: var(--color-maroc-950);
+  color: var(--color-night-950);
 }
 
 :focus-visible {
@@ -125,15 +123,11 @@ body {
   border-radius: 2px;
 }
 
-/* Cifras alineadas en precios y horarios */
 .tnum {
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Reveal sin dependencias ──────────────────────────────────────────────
-   Sin JavaScript el contenido queda visible: la clase .js solo la añade un
-   script inline en <head>. Si IntersectionObserver falla, el componente
-   marca todo como visible al montar. */
+/* ── Reveal sin dependencias ────────────────────────────────────────────── */
 
 .js [data-reveal] {
   opacity: 0;
@@ -151,7 +145,7 @@ body {
   will-change: auto;
 }
 
-/* ── Enlace con subrayado dorado que crece ──────────────────────────────── */
+/* ── Enlaces con subrayado ámbar que crece ─────────────────────────────── */
 
 .gold-underline {
   background-image: linear-gradient(var(--color-gold-500), var(--color-gold-500));
@@ -166,7 +160,7 @@ body {
   background-size: 100% 1px;
 }
 
-/* ── Carta: línea punteada entre plato y precio ─────────────────────────── */
+/* ── Carta: puntos guía entre plato y precio ───────────────────────────── */
 
 .no-scrollbar {
   scrollbar-width: none;
@@ -176,28 +170,37 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .menu-leader {
-  border-bottom: 1px dotted color-mix(in srgb, var(--color-ink) 22%, transparent);
+  border-bottom: 1px dotted color-mix(in srgb, var(--color-gold-500) 38%, transparent);
   transition: border-color 0.25s var(--ease-premium);
 }
 
 .menu-row:hover .menu-leader,
 .menu-row:focus-within .menu-leader {
-  border-color: var(--color-gold-600);
+  border-color: var(--color-gold-500);
 }
 
-/* ── Velo neutro sobre fotografía (única excepción a "sin degradados") ───── */
+/* ── Velo cálido sobre fotografía ──────────────────────────────────────── */
 
 .photo-scrim {
-  background: linear-gradient(
-    to top,
-    rgba(23, 26, 17, 0.92) 0%,
-    rgba(23, 26, 17, 0.55) 45%,
-    rgba(23, 26, 17, 0.25) 100%
-  );
+  background:
+    linear-gradient(
+      to top,
+      rgba(7, 7, 6, 0.96) 0%,
+      rgba(7, 7, 6, 0.62) 46%,
+      rgba(7, 7, 6, 0.34) 100%
+    ),
+    linear-gradient(100deg, rgba(7, 7, 6, 0.82) 0%, rgba(7, 7, 6, 0.1) 70%);
 }
 
-/* ── Accesibilidad: movimiento reducido ─────────────────────────────────── */
+/* Trama de estrella octogonal, muy tenue, como la carta. */
+.star-texture {
+  color: var(--color-gold-500);
+  opacity: 0.055;
+}
+
+/* ── Accesibilidad: movimiento reducido ───────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   html {

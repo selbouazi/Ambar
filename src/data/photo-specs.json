@@ -1,189 +1,71 @@
 {
   "heroInterior": {
     "file": "hero-interior",
-    "alt": "Interior del restaurante Ambar, con mesas preparadas y luz cálida.",
+    "alt": "Interior del Restaurante Halal Ambar, con mesas preparadas, sofás y luz cálida.",
     "ratio": "16/9",
-    "section": "Portada (fondo a pantalla completa, 16:9 horizontal y vertical para móvil)",
+    "section": "Portada (fondo a pantalla completa)",
     "position": "center",
     "sizes": "100vw",
-    "priority": true,
-    "etiqueta": "Interior del restaurante"
+    "priority": true
   },
   "historiaInterior": {
-    "file": "historia-interior",
-    "alt": "Sala del restaurante Ambar, con su decoración marroquí y mesas familiares.",
+    "file": "comedor",
+    "alt": "Rincón del comedor de Ambar con mesas preparadas, sofás y luz cálida.",
     "ratio": "4/5",
-    "section": "Portada, bloque «Un rincón marroquí» (vertical 4:5)",
+    "section": "Portada, bloque «Un rincón marroquí»",
     "position": "center",
-    "sizes": "(min-width: 1024px) 40vw, 100vw",
-    "etiqueta": "Mesa del comedor"
-  },
-  "fachada": {
-    "file": "fachada",
-    "alt": "Fachada del Restaurante Halal Ambar en la Ctra. de Valls, 70, El Vendrell.",
-    "ratio": "3/2",
-    "section": "Cómo llegar (horizontal 3:2)",
-    "position": "center",
-    "sizes": "(min-width: 1024px) 45vw, 100vw",
-    "etiqueta": "Fachada del restaurante"
-  },
-  "tajin": {
-    "file": "tajin",
-    "alt": "Tajín de pollo servido en su recipiente de barro.",
-    "ratio": "4/3",
-    "section": "Carta destacada y galería (horizontal 4:3)",
-    "position": "center",
-    "sizes": "(min-width: 1024px) 33vw, 100vw",
-    "etiqueta": "Tajín servido en barro"
+    "sizes": "(min-width: 1024px) 38vw, 100vw"
   },
   "cuscus": {
     "file": "cuscus",
-    "alt": "Cuscús de los viernes con verduras y carne.",
+    "alt": "Cuscús con verduras y garbanzos, el plato de los viernes.",
     "ratio": "4/3",
-    "section": "Banner «Cuscús los viernes» (horizontal 4:3)",
+    "section": "Portada y carta, bloque de cuscús",
     "position": "center",
-    "sizes": "(min-width: 1024px) 40vw, 100vw",
-    "etiqueta": "Plato de cuscús"
+    "sizes": "(min-width: 1024px) 40vw, 100vw"
   },
   "lubina": {
     "file": "lubina",
-    "alt": "Lubina a la plancha, entera y recién hecha.",
+    "alt": "Pescado a la plancha con arroz y ensalada, servido en Ambar.",
     "ratio": "4/3",
-    "section": "Carta destacada (horizontal 4:3)",
+    "section": "Carta, categoría Pescado",
     "position": "center",
-    "sizes": "(min-width: 1024px) 33vw, 100vw",
-    "etiqueta": "Lubina a la plancha"
+    "sizes": "(min-width: 1024px) 45vw, 100vw"
   },
   "marisco": {
     "file": "marisco",
-    "alt": "Gambas y marisco fresco a la plancha.",
+    "alt": "Mariscada con gambas, mejillones y pescado.",
     "ratio": "4/3",
-    "section": "Carta destacada y galería (horizontal 4:3)",
+    "section": "Carta, categoría Entrantes",
     "position": "center",
-    "sizes": "(min-width: 1024px) 33vw, 100vw",
-    "etiqueta": "Gambas a la plancha"
-  },
-  "tacos": {
-    "file": "tacos",
-    "alt": "Tacos de pollo y ternera con patatas.",
-    "ratio": "4/3",
-    "section": "Carta destacada y galería (horizontal 4:3)",
-    "position": "center",
-    "sizes": "(min-width: 1024px) 33vw, 100vw",
-    "etiqueta": "Tacos con patatas"
-  },
-  "desayunoMsemmen": {
-    "file": "desayuno-msemmen",
-    "alt": "Msemmen con miel y queso, parte del desayuno marroquí.",
-    "ratio": "4/3",
-    "section": "Sección «Desayunos marroquíes» (horizontal 4:3)",
-    "position": "center",
-    "sizes": "(min-width: 1024px) 45vw, 100vw",
-    "etiqueta": "Msemmen con miel"
-  },
-  "teMarroqui": {
-    "file": "te-marroqui",
-    "alt": "Té marroquí a la menta servido en vaso, con la tetera.",
-    "ratio": "4/3",
-    "section": "Sección «Desayunos marroquíes» (horizontal 4:3)",
-    "position": "center",
-    "sizes": "(min-width: 1024px) 45vw, 100vw",
-    "etiqueta": "Té marroquí servido"
+    "sizes": "(min-width: 1024px) 45vw, 100vw"
   },
   "galeria01": {
     "file": "galeria-01",
-    "alt": "Detalle del interior del restaurante Ambar.",
+    "alt": "Bebidas con fruta y nata, servidas en el comedor de Ambar.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center",
-    "etiqueta": "Detalle del interior"
+    "position": "center"
   },
   "galeria02": {
     "file": "galeria-02",
-    "alt": "Plato de la carta del restaurante Ambar.",
+    "alt": "Mesa de Ambar con patatas, bocadillos y té.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center",
-    "etiqueta": "Plato de la carta"
+    "position": "center"
   },
   "galeria03": {
     "file": "galeria-03",
-    "alt": "Mesa preparada en el restaurante Ambar.",
+    "alt": "Pan y tajín servidos en una mesa del restaurante.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center",
-    "etiqueta": "Mesa preparada"
+    "position": "center"
   },
   "galeria04": {
     "file": "galeria-04",
-    "alt": "Detalle de la decoración marroquí del local.",
+    "alt": "Comedor del Restaurante Halal Ambar con mesas preparadas y luz cálida.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center",
-    "etiqueta": "Decoración marroquí"
-  },
-  "galeria05": {
-    "file": "galeria-05",
-    "alt": "Plato marroquí servido en Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Plato marroquí servido"
-  },
-  "galeria06": {
-    "file": "galeria-06",
-    "alt": "Rincón del comedor del restaurante Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Rincón del comedor"
-  },
-  "galeria07": {
-    "file": "galeria-07",
-    "alt": "Desayuno marroquí servido en Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Desayuno marroquí"
-  },
-  "galeria08": {
-    "file": "galeria-08",
-    "alt": "Detalle de un plato de la cocina de Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Detalle de un plato"
-  },
-  "galeria09": {
-    "file": "galeria-09",
-    "alt": "Ambiente del restaurante Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Ambiente del local"
-  },
-  "galeria10": {
-    "file": "galeria-10",
-    "alt": "Cocina marroquí de Ambar, recién servida.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Cocina recién servida"
-  },
-  "galeria11": {
-    "file": "galeria-11",
-    "alt": "Comedor del restaurante Ambar visto desde la entrada.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Comedor desde la entrada"
-  },
-  "galeria12": {
-    "file": "galeria-12",
-    "alt": "Detalle de la vajilla y el té en Ambar.",
-    "ratio": "4/3",
-    "section": "Galería",
-    "position": "center",
-    "etiqueta": "Vajilla y té"
+    "position": "center"
   }
 }

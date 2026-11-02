@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Icon from './Icons'
-import PrototypeBadge from './PrototypeBadge'
-import { business, telHref } from '../data/business'
+import { LogoMark, Wordmark } from './Brand'
+import { site, telHref } from '../data/site'
 import { copy } from '../data/copy'
 
 const NAV = [
   { to: '/', label: 'Inicio' },
   { to: '/carta', label: 'Carta' },
-  { to: '/informacion', label: 'El local' },
+  { to: '/el-local', label: 'El local' },
   { to: '/resenas', label: 'Reseñas' },
 ]
 
@@ -26,12 +26,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Cierra el menú al cambiar de ruta.
   useEffect(() => {
     setOpen(false)
   }, [location.pathname])
 
-  // Bloqueo de scroll, foco inicial y cierre con Escape.
   useEffect(() => {
     if (!open) return
 
@@ -50,9 +48,7 @@ export default function Navbar() {
 
       if (event.key !== 'Tab' || !panelRef.current) return
 
-      const focusables = panelRef.current.querySelectorAll(
-        'a[href], button:not([disabled])',
-      )
+      const focusables = panelRef.current.querySelectorAll('a[href], button:not([disabled])')
       if (focusables.length === 0) return
 
       const first = focusables[0]
@@ -77,35 +73,19 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        scrolled || open
-          ? 'border-cream-100/10 bg-maroc-950'
-          : 'border-transparent bg-transparent'
+        scrolled || open ? 'border-gold-500/25 bg-night-950' : 'border-transparent bg-night-950/35'
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-[75rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[72px] lg:px-12">
-        <div className="flex min-w-0 shrink-0 items-center gap-3">
-          <Link
-            to="/"
-            className="flex shrink-0 items-center gap-3"
-            aria-label={`${business.name} — inicio`}
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-full border border-gold-400/50 text-gold-400">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <path d="M15.5 3.5a7 7 0 1 0 5 5 5.5 5.5 0 0 1-5-5Z" />
-              </svg>
+      <div className="mx-auto flex h-16 max-w-[78rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[76px] lg:px-12">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — inicio`}>
+          <LogoMark className="h-10 w-10 shrink-0 sm:h-11 sm:w-11" />
+          <span className="leading-none">
+            <Wordmark className="block text-[27px] sm:text-[30px]">Ambar</Wordmark>
+            <span className="mt-1 hidden text-[9px] font-semibold uppercase tracking-[0.2em] text-cream-200/70 sm:block">
+              {copy.nav.subtitle}
             </span>
-            <span className="leading-none">
-              <span className="block font-display text-[26px] font-semibold italic tracking-[-0.02em] text-cream-50">
-                Ambar
-              </span>
-              <span className="mt-1 hidden text-[10px] uppercase tracking-[0.22em] text-gold-400 sm:block">
-                {copy.nav.subtitle}
-              </span>
-            </span>
-          </Link>
-
-          <PrototypeBadge />
-        </div>
+          </span>
+        </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegación principal">
           {NAV.map((item) => (
@@ -114,7 +94,7 @@ export default function Navbar() {
               to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
-                `relative py-2 text-[14px] font-medium transition-colors duration-200 ${
+                `relative py-2 text-[13px] font-semibold uppercase tracking-[0.1em] transition-colors duration-200 ${
                   isActive ? 'text-gold-400' : 'text-cream-100/85 hover:text-cream-50'
                 }`
               }
@@ -137,7 +117,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href={telHref}
-            className="hidden min-h-11 items-center gap-2 rounded-full bg-gold-500 px-5 text-[14px] font-semibold text-maroc-950 transition-colors duration-200 hover:bg-gold-400 sm:inline-flex"
+            className="hidden min-h-11 items-center gap-2 rounded-sm bg-gold-500 px-5 text-[13px] font-bold uppercase tracking-[0.08em] text-night-950 transition-colors duration-200 hover:bg-gold-400 sm:inline-flex"
           >
             <Icon name="phone" className="h-4 w-4" />
             Llamar
@@ -149,7 +129,7 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-            className="grid h-11 w-11 place-items-center rounded-full border border-cream-100/25 text-cream-100 transition-colors hover:border-gold-400 lg:hidden"
+            className="grid h-11 w-11 place-items-center rounded-sm border border-cream-100/25 text-cream-100 transition-colors hover:border-gold-400 lg:hidden"
           >
             <Icon name={open ? 'close' : 'menu'} className="h-5 w-5" />
           </button>
@@ -160,9 +140,9 @@ export default function Navbar() {
         <div
           id="menu-movil"
           ref={panelRef}
-          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-maroc-950 lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-night-950 lg:hidden"
         >
-          <nav aria-label="Navegación móvil" className="mx-auto max-w-[75rem] px-5 py-8 sm:px-8">
+          <nav aria-label="Navegación móvil" className="mx-auto max-w-[78rem] px-5 py-8 sm:px-8">
             <ul className="space-y-1">
               {NAV.map((item) => (
                 <li key={item.to}>
@@ -170,7 +150,7 @@ export default function Navbar() {
                     to={item.to}
                     end={item.to === '/'}
                     className={({ isActive }) =>
-                      `flex min-h-14 items-center justify-between border-b border-cream-100/10 py-3 font-display text-3xl italic transition-colors ${
+                      `flex min-h-14 items-center justify-between border-b border-cream-100/10 py-3 font-display text-3xl uppercase tracking-wide transition-colors ${
                         isActive ? 'text-gold-400' : 'text-cream-50 hover:text-gold-300'
                       }`
                     }
@@ -184,16 +164,14 @@ export default function Navbar() {
 
             <a
               href={telHref}
-              className="mt-8 flex min-h-12 items-center justify-center gap-2 rounded-full bg-gold-500 px-6 text-[15px] font-semibold text-maroc-950"
+              className="mt-8 flex min-h-12 items-center justify-center gap-2 rounded-sm bg-gold-500 px-6 text-[14px] font-bold uppercase tracking-[0.08em] text-night-950"
             >
               <Icon name="phone" className="h-4 w-4" />
-              Llamar · {business.phone.display.replace('+34 ', '')}
+              Llamar · {site.phone.display}
             </a>
 
             <p className="mt-6 text-sm text-cream-200/70">
-              {business.addressLines.length > 1
-                ? `${business.addressLines[0]} · ${business.addressLines[1]}`
-                : business.addressLines[0]}
+              {site.addressLines[0]} · {site.addressLines[1]}
             </p>
           </nav>
         </div>

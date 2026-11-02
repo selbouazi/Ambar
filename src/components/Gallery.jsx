@@ -1,29 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icons'
 import Photo from './Photo'
-import { PROTOTIPO } from '../config'
-import { galleryPhotos, photoSpecs, PROTOTYPE_GALLERY } from '../data/photos'
-
-/** Cuatro huecos etiquetados: así se ve dónde irán las fotos reales. */
-function GalleryPlaceholders({ className = '' }) {
-  return (
-    <div className={className}>
-      <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
-        {PROTOTYPE_GALLERY.map((key) => (
-          <li key={key}>
-            <Photo photoKey={key} ratio="4/3" tone="light" />
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+import { galleryPhotos, photoSpecs } from '../data/photos'
 
 /**
- * Galería de fotos reales del restaurante. Se alimenta sola de las claves
- * `galeria-*.jpg` del manifiesto y solo se renderiza si hay 4 o más.
+ * Galería de fotos reales del restaurante, con el marco amarillo de la carta.
+ * Se alimenta de las claves `galeria-*` del manifiesto y solo aparece si hay
+ * al menos cuatro fotos.
  */
-function RealGallery({ className = '' }) {
+export default function Gallery({ className = '' }) {
   const photos = galleryPhotos()
   const [index, setIndex] = useState(null)
   const closeRef = useRef(null)
@@ -76,22 +61,24 @@ function RealGallery({ className = '' }) {
 
   return (
     <div className={className}>
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {photos.map((key, i) => (
           <li key={key}>
             <button
               type="button"
               onClick={() => open(i)}
-              className="group block w-full text-left"
+              className="group relative block w-full border border-gold-500/80 p-1.5 text-left transition-colors hover:border-gold-400"
               aria-label={`Ampliar foto: ${photoSpecs[key].alt}`}
             >
               <Photo
                 photoKey={key}
                 ratio="4/3"
-                tone="light"
                 className="transition-opacity duration-300 group-hover:opacity-85"
-                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 50vw"
+                sizes="(min-width: 1024px) 25vw, 50vw"
               />
+              <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-night-950/80 text-gold-400 opacity-0 transition-opacity group-hover:opacity-100">
+                <Icon name="plus" className="h-4 w-4" />
+              </span>
             </button>
           </li>
         ))}
@@ -102,7 +89,7 @@ function RealGallery({ className = '' }) {
           role="dialog"
           aria-modal="true"
           aria-label="Galería de fotos del restaurante"
-          className="fixed inset-0 z-[60] flex flex-col bg-maroc-950/97"
+          className="fixed inset-0 z-[60] flex flex-col bg-night-950/97"
           onTouchStart={(event) => {
             touchStart.current = event.touches[0]?.clientX ?? null
           }}
@@ -121,7 +108,7 @@ function RealGallery({ className = '' }) {
               ref={closeRef}
               type="button"
               onClick={close}
-              className="grid h-11 w-11 place-items-center rounded-full border border-cream-100/30 hover:border-gold-400"
+              className="grid h-11 w-11 place-items-center rounded-sm border border-cream-100/30 hover:border-gold-400"
               aria-label="Cerrar galería"
             >
               <Icon name="close" className="h-5 w-5" />
@@ -132,7 +119,7 @@ function RealGallery({ className = '' }) {
             <button
               type="button"
               onClick={() => step(-1)}
-              className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
+              className="hidden h-12 w-12 shrink-0 place-items-center rounded-sm border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
               aria-label="Foto anterior"
             >
               <Icon name="arrow" className="h-5 w-5 rotate-180" />
@@ -142,7 +129,7 @@ function RealGallery({ className = '' }) {
               <Photo
                 photoKey={current}
                 ratio="4/3"
-                className="mx-auto max-h-[75vh] max-w-5xl"
+                className="mx-auto max-h-[75vh] max-w-5xl border border-gold-500/70 p-1.5"
                 sizes="90vw"
                 eager
               />
@@ -154,7 +141,7 @@ function RealGallery({ className = '' }) {
             <button
               type="button"
               onClick={() => step(1)}
-              className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
+              className="hidden h-12 w-12 shrink-0 place-items-center rounded-sm border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
               aria-label="Foto siguiente"
             >
               <Icon name="arrow" className="h-5 w-5" />
@@ -164,9 +151,4 @@ function RealGallery({ className = '' }) {
       )}
     </div>
   )
-}
-
-export default function Gallery({ className = '' }) {
-  if (PROTOTIPO) return <GalleryPlaceholders className={className} />
-  return <RealGallery className={className} />
 }

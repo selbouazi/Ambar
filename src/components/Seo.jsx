@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
-import { PROTOTIPO } from '../config'
-import { business, mapsHref } from '../data/business'
+import { site, mapsHref, instagramHref } from '../data/site'
 import { menu } from '../data/menu'
+import { copy } from '../data/copy'
 
-/**
- * TODO(confirmar): dominio definitivo. Se mantiene el de Vercel actual.
- */
+/** TODO: cambiar por el dominio definitivo si el titular registra uno. */
 export const SITE_URL = 'https://restaurante-halal-ambar.vercel.app'
 const OG_IMAGE = `${SITE_URL}/og.png`
 
@@ -30,9 +28,10 @@ const DAY_NAMES_SCHEMA = {
   sunday: 'Sunday',
 }
 
+/** Solo el horario confirmado: nunca inventar aperturas ni cierres. */
 function buildOpeningHours() {
-  return business.hours
-    .filter((day) => !day.closed)
+  return site.hours
+    .filter((day) => day.confirmed && !day.closed && day.opens && day.closes)
     .map((day) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: DAY_NAMES_SCHEMA[day.key],
@@ -42,48 +41,42 @@ function buildOpeningHours() {
 }
 
 export function buildRestaurantJsonLd() {
+  const hours = buildOpeningHours()
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
     '@id': `${SITE_URL}/#restaurante`,
-    name: business.name,
-    alternateName: business.shortName,
-    description: business.description,
+    name: site.name,
+    alternateName: site.shortName,
+    description: site.description,
     url: SITE_URL,
     image: [OG_IMAGE],
-    telephone: business.phone.display,
-    priceRange: business.priceRange,
+    telephone: `+${site.phone.uri.replace('+', '')}`,
+    priceRange: site.priceRange,
     currenciesAccepted: 'EUR',
     servesCuisine: ['Moroccan', 'Halal'],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: `${business.address.street}, ${business.address.number}`,
-      postalCode: business.address.postalCode,
-      addressLocality: business.address.city,
-      addressRegion: business.address.region,
-      addressCountry: business.address.countryCode,
+      streetAddress: `${site.address.street}, ${site.address.number}`,
+      postalCode: site.address.postalCode,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      addressCountry: site.address.countryCode,
     },
-    openingHoursSpecification: buildOpeningHours(),
-    ...(business.rating.score !== null && business.rating.count !== null
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: business.rating.score,
-            reviewCount: business.rating.count,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
-    acceptsReservations: false,
+    ...(hours.length ? { openingHoursSpecification: hours } : {}),
+    acceptsReservations: true,
     hasMap: mapsHref,
-    sameAs: [business.links.instagram, mapsHref],
+    sameAs: [instagramHref, mapsHref],
     amenityFeature: [
       { '@type': 'LocationFeatureSpecification', name: 'Cocina halal', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Apto para familias', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Menú infantil', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Terraza', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Para llevar', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Entrega a domicilio', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Local accesible', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Wi-Fi gratis', value: true },
     ],
     hasMenu: `${SITE_URL}/carta`,
   }
@@ -93,7 +86,7 @@ export function buildMenuJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Menu',
-    name: `Carta de ${business.name}`,
+    name: `Carta de ${site.name}`,
     inLanguage: 'es-ES',
     hasMenuSection: menu.map((category) => ({
       '@type': 'MenuSection',
@@ -117,12 +110,25 @@ export function buildMenuJsonLd() {
   }
 }
 
+export function buildFaqJsonLd(items) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+}
+
 export default function Seo({
   title,
   description,
   path = '/',
   image = OG_IMAGE,
   withMenuJsonLd = false,
+  withFaqJsonLd = false,
 }) {
   useEffect(() => {
     document.title = title
@@ -131,23 +137,13 @@ export default function Seo({
     upsertMeta('name', 'description', description)
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
-
-    // Prototipo: nada de indexación ni de datos estructurados.
-    if (PROTOTIPO) {
-      upsertMeta('name', 'robots', 'noindex, nofollow')
-      document.querySelector('link[rel="canonical"]')?.remove()
-      document.getElementById('jsonld-restaurant')?.remove()
-      document.getElementById('jsonld-menu')?.remove()
-      return
-    }
-
     upsertMeta('property', 'og:type', 'website')
     upsertMeta('property', 'og:url', full)
     upsertMeta('property', 'og:image', image)
     upsertMeta('property', 'og:image:width', '1200')
     upsertMeta('property', 'og:image:height', '630')
     upsertMeta('property', 'og:locale', 'es_ES')
-    upsertMeta('property', 'og:site_name', business.name)
+    upsertMeta('property', 'og:site_name', site.name)
     upsertMeta('name', 'twitter:card', 'summary_large_image')
     upsertMeta('name', 'twitter:title', title)
     upsertMeta('name', 'twitter:description', description)
@@ -172,17 +168,33 @@ export default function Seo({
     script.textContent = JSON.stringify(buildRestaurantJsonLd())
 
     const menuId = 'jsonld-menu'
-    const existingMenu = document.getElementById(menuId)
+    let menuScript = document.getElementById(menuId)
     if (withMenuJsonLd) {
-      const menuScript = existingMenu || document.createElement('script')
-      menuScript.type = 'application/ld+json'
-      menuScript.id = menuId
+      if (!menuScript) {
+        menuScript = document.createElement('script')
+        menuScript.type = 'application/ld+json'
+        menuScript.id = menuId
+        document.head.appendChild(menuScript)
+      }
       menuScript.textContent = JSON.stringify(buildMenuJsonLd())
-      if (!existingMenu) document.head.appendChild(menuScript)
-    } else if (existingMenu) {
-      existingMenu.remove()
+    } else if (menuScript) {
+      menuScript.remove()
     }
-  }, [title, description, path, image, withMenuJsonLd])
+
+    const faqId = 'jsonld-faq'
+    let faqScript = document.getElementById(faqId)
+    if (withFaqJsonLd) {
+      if (!faqScript) {
+        faqScript = document.createElement('script')
+        faqScript.type = 'application/ld+json'
+        faqScript.id = faqId
+        document.head.appendChild(faqScript)
+      }
+      faqScript.textContent = JSON.stringify(buildFaqJsonLd(copy.info.faq))
+    } else if (faqScript) {
+      faqScript.remove()
+    }
+  }, [title, description, path, image, withMenuJsonLd, withFaqJsonLd])
 
   return null
 }

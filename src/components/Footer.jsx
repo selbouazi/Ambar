@@ -1,115 +1,99 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icons'
-import PrototypeBadge from './PrototypeBadge'
-import { ZelligePattern } from './Zellige'
-import { LiveStatus } from './Hours'
-import { business, hoursSummary, mapsHref, telHref } from '../data/business'
+import { LogoMark, Wordmark } from './Brand'
+import { StarPattern, HalalSeal, Leaf } from './Ornament'
+import { site, hoursSummary, mapsHref, telHref, instagramHref } from '../data/site'
 import { copy } from '../data/copy'
 
 export default function Footer() {
   const year = new Date().getFullYear()
-  const hasMaps = Boolean(mapsHref) && mapsHref !== '#'
-  const hasInstagram = Boolean(business.links.instagram) && business.links.instagram !== '#'
-  const hasRating = business.rating.score !== null && business.rating.count !== null
 
   return (
-    <footer className="relative overflow-hidden bg-maroc-950 text-cream-200">
-      <ZelligePattern className="pointer-events-none absolute inset-0 h-full w-full text-gold-400 opacity-[0.04]" tile={140} />
+    <footer className="relative overflow-hidden border-t border-gold-500/20 bg-night-950 text-cream-200">
+      <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={170} />
+      <Leaf className="pointer-events-none absolute -bottom-4 -right-4 h-40 w-32 text-leaf opacity-20 sm:h-56 sm:w-44" />
 
-      <div className="relative mx-auto max-w-[75rem] px-5 pt-20 sm:px-8 lg:px-12 lg:pt-28">
-        <p className="font-display text-[clamp(3.5rem,8vw,6rem)] font-normal italic leading-none tracking-[-0.03em] text-cream-50">
-          Ambar
-        </p>
-        <p className="mt-4 max-w-md text-[17px] leading-relaxed text-cream-200/65">
-          {copy.footer.description}
-        </p>
-
-        <div className="mt-14 grid gap-12 border-t border-cream-100/10 pt-12 md:grid-cols-3">
+      <div className="relative mx-auto max-w-[78rem] px-5 pt-16 sm:px-8 lg:px-12 lg:pt-24">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-[15px] font-semibold text-cream-50">Contacto</h2>
+            <Wordmark className="block text-[clamp(4rem,12vw,7rem)]">Ambar</Wordmark>
+            <p className="mt-4 max-w-md text-[16px] leading-relaxed text-cream-200/70">
+              {copy.footer.description}
+            </p>
+          </div>
+          <div className="flex items-center gap-4">
+            <LogoMark className="h-16 w-16" />
+            <HalalSeal className="h-16 w-16 text-gold-500" />
+          </div>
+        </div>
+
+        <div className="mt-14 grid gap-10 border-t border-cream-100/10 pt-10 md:grid-cols-3">
+          <div>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.18em] text-gold-400">Contacto</h2>
             <ul className="mt-5 space-y-4 text-[15px]">
               <li>
-                <a href={telHref} className="gold-underline inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300">
+                <a
+                  href={telHref}
+                  className="inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300"
+                >
                   <Icon name="phone" className="h-4 w-4 text-gold-500" />
-                  {business.phone.display}
+                  {site.phone.display}
                 </a>
               </li>
               <li>
-                {hasMaps ? (
-                  <a
-                    href={mapsHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="gold-underline flex items-start gap-2.5 text-cream-100/85 hover:text-gold-300"
-                  >
-                    <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
-                    <span>
-                      {business.addressLines.slice(0, 2).map((line) => (
-                        <span key={line} className="block">
-                          {line}
-                        </span>
-                      ))}
-                    </span>
-                  </a>
-                ) : (
-                  <span className="flex items-start gap-2.5 text-cream-100/85">
-                    <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
-                    <span>
-                      {business.addressLines.slice(0, 2).map((line) => (
-                        <span key={line} className="block">
-                          {line}
-                        </span>
-                      ))}
-                    </span>
+                <a
+                  href={mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 text-cream-100/85 hover:text-gold-300"
+                >
+                  <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                  <span>
+                    <span className="block">{site.addressLines[0]}</span>
+                    <span className="block">{site.addressLines[1]}</span>
                   </span>
-                )}
+                </a>
               </li>
               <li>
-                {hasInstagram ? (
-                  <a
-                    href={business.links.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="gold-underline inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300"
-                    aria-label="Instagram del restaurante"
-                  >
-                    <Icon name="instagram" className="h-4 w-4 text-gold-500" />
-                    Instagram
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-2.5 text-cream-100/85">
-                    <Icon name="instagram" className="h-4 w-4 text-gold-500" />
-                    Instagram
-                  </span>
-                )}
+                <a
+                  href={instagramHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 text-cream-100/85 hover:text-gold-300"
+                  aria-label="Instagram de Ambar (@amb_ar2022)"
+                >
+                  <Icon name="instagram" className="h-4 w-4 text-gold-500" />
+                  @amb_ar2022
+                </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-[15px] font-semibold text-cream-50">Horario</h2>
-            <LiveStatus className="mt-5" />
-            {business.scheduleConfirmed && (
-              <p className="mt-2 text-sm text-cream-200/70">{hoursSummary}</p>
-            )}
-            <Link to="/informacion#horario" className="gold-underline mt-4 inline-block text-sm text-gold-400">
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.18em] text-gold-400">Horario</h2>
+            <p className="mt-5 text-[15px] text-cream-100/85">{hoursSummary}</p>
+            <p className="mt-1 text-[13px] text-cream-200/60">El resto del horario, por confirmar.</p>
+            <Link
+              to="/el-local#horario"
+              className="gold-underline mt-4 inline-block text-[14px] text-gold-400"
+            >
               Ver el horario completo
             </Link>
           </div>
 
           <div>
-            <h2 className="text-[15px] font-semibold text-cream-50">La casa</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.18em] text-gold-400">La casa</h2>
             <nav aria-label="Enlaces del pie" className="mt-5">
               <ul className="space-y-3 text-[15px]">
                 {[
                   { to: '/carta', label: 'La carta' },
-                  { to: '/informacion', label: 'El local y cómo llegar' },
-                  { to: '/resenas', label: 'Opiniones' },
+                  { to: '/el-local', label: 'El local y cómo llegar' },
+                  { to: '/resenas', label: 'Reseñas' },
                   { to: '/aviso-legal', label: 'Aviso legal' },
-                  { to: '/cookies', label: 'Política de cookies' },
+                  { to: '/politica-de-cookies', label: 'Política de cookies' },
                 ].map((link) => (
                   <li key={link.to}>
-                    <Link to={link.to} className="gold-underline text-cream-100/80 hover:text-gold-300">
+                    <Link to={link.to} className="text-cream-100/80 hover:text-gold-300">
                       {link.label}
                     </Link>
                   </li>
@@ -119,20 +103,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-cream-100/10 py-8 text-[13px] text-cream-200/65 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-cream-100/10 py-7 text-[13px] text-cream-200/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {business.name}
-            {business.address.city ? ` · ${business.address.city}` : ''}
+            © {year} {site.name} · {site.address.city}
           </p>
-          <div className="flex flex-wrap items-center gap-4">
-            {hasRating && (
-              <p className="tnum">
-                {business.rating.score.toString().replace('.', ',')} sobre 5 ·{' '}
-                {business.rating.count} reseñas en Google
-              </p>
-            )}
-            <PrototypeBadge full />
-          </div>
+          <p className="tnum">
+            {site.rating.score.toString().replace('.', ',')} sobre 5 · {site.rating.count} reseñas en Google ·{' '}
+            {site.rating.dateLabel}
+          </p>
         </div>
       </div>
     </footer>

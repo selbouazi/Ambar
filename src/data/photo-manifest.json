@@ -1,3 +1,345 @@
 {
-  "_comment": "Generado por npm run photos. No editar a mano."
+  "_comment": "Generado por npm run photos. No editar a mano.",
+  "comedor": {
+    "width": 960,
+    "height": 1199,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 799,
+          "src": "/photos/gen/comedor-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1199,
+          "src": "/photos/gen/comedor-960.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 799,
+          "src": "/photos/gen/comedor-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1199,
+          "src": "/photos/gen/comedor-960.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 799,
+          "src": "/photos/gen/comedor-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1199,
+          "src": "/photos/gen/comedor-960.jpg"
+        }
+      ]
+    }
+  },
+  "cuscus": {
+    "width": 361,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/cuscus-361.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/cuscus-361.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/cuscus-361.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-01": {
+    "width": 360,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-01-360.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-01-360.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-01-360.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-02": {
+    "width": 360,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-02-360.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-02-360.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 360,
+          "height": 640,
+          "src": "/photos/gen/galeria-02-360.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-03": {
+    "width": 361,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/galeria-03-361.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/galeria-03-361.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/galeria-03-361.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-04": {
+    "width": 1440,
+    "height": 1080,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 480,
+          "src": "/photos/gen/galeria-04-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 720,
+          "src": "/photos/gen/galeria-04-960.avif"
+        },
+        {
+          "width": 1440,
+          "height": 1080,
+          "src": "/photos/gen/galeria-04-1440.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 480,
+          "src": "/photos/gen/galeria-04-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 720,
+          "src": "/photos/gen/galeria-04-960.webp"
+        },
+        {
+          "width": 1440,
+          "height": 1080,
+          "src": "/photos/gen/galeria-04-1440.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 480,
+          "src": "/photos/gen/galeria-04-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 720,
+          "src": "/photos/gen/galeria-04-960.jpg"
+        },
+        {
+          "width": 1440,
+          "height": 1080,
+          "src": "/photos/gen/galeria-04-1440.jpg"
+        }
+      ]
+    }
+  },
+  "hero-interior": {
+    "width": 1920,
+    "height": 1080,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 360,
+          "src": "/photos/gen/hero-interior-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "src": "/photos/gen/hero-interior-960.avif"
+        },
+        {
+          "width": 1440,
+          "height": 810,
+          "src": "/photos/gen/hero-interior-1440.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "src": "/photos/gen/hero-interior-1920.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 360,
+          "src": "/photos/gen/hero-interior-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "src": "/photos/gen/hero-interior-960.webp"
+        },
+        {
+          "width": 1440,
+          "height": 810,
+          "src": "/photos/gen/hero-interior-1440.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "src": "/photos/gen/hero-interior-1920.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 360,
+          "src": "/photos/gen/hero-interior-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "src": "/photos/gen/hero-interior-960.jpg"
+        },
+        {
+          "width": 1440,
+          "height": 810,
+          "src": "/photos/gen/hero-interior-1440.jpg"
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "src": "/photos/gen/hero-interior-1920.jpg"
+        }
+      ]
+    }
+  },
+  "lubina": {
+    "width": 361,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/lubina-361.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/lubina-361.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/lubina-361.jpg"
+        }
+      ]
+    }
+  },
+  "marisco": {
+    "width": 361,
+    "height": 640,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/marisco-361.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/marisco-361.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 361,
+          "height": 640,
+          "src": "/photos/gen/marisco-361.jpg"
+        }
+      ]
+    }
+  }
 }

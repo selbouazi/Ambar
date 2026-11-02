@@ -1,90 +1,58 @@
-import { business, hoursSummary } from '../data/business'
-import { prettyTime, useOpenState, WEEK } from '../lib/hours'
+import { site, hoursSummary } from '../data/site'
+import { getMadridNow, prettyTime, WEEK } from '../lib/hours'
 
-/**
- * Indicador en vivo calculado en Europe/Madrid.
- * `tone` decide el color de texto según el campo sobre el que se apoya.
- *
- * Si el horario no está confirmado (prototipo), no se calcula nada: se muestra
- * un aviso neutro en lugar de «Abierto ahora».
- */
-export function LiveStatus({ tone = 'dark', className = '', showDetail = false }) {
-  const state = useOpenState()
-  const text = tone === 'dark' ? 'text-gold-300' : 'text-gold-700'
-  const detail = tone === 'dark' ? 'text-cream-200/70' : 'text-ink-mute'
-
-  if (!business.scheduleConfirmed) {
-    return (
-      <div className={className}>
-        <p role="status" className={`flex items-center gap-2.5 text-[15px] font-medium ${text}`}>
-          <span
-            aria-hidden="true"
-            className="inline-block h-2 w-2 shrink-0 rounded-full bg-current opacity-40"
-          />
-          {hoursSummary}
-        </p>
-      </div>
-    )
-  }
-
+/** Estado resumido del horario. No anuncia «abierto ahora» sin horario completo. */
+export function LiveStatus({ className = '', showDetail = false }) {
   return (
     <div className={className}>
-      <p role="status" className={`flex items-center gap-2.5 text-[15px] font-medium ${text}`}>
-        <span
-          aria-hidden="true"
-          className={`inline-block h-2 w-2 shrink-0 rounded-full ${
-            state.isOpen ? 'bg-[var(--color-open)]' : 'bg-current opacity-40'
-          }`}
-        />
-        {state.label}
+      <p role="status" className="flex items-center gap-2.5 text-[15px] font-medium text-gold-400">
+        <span aria-hidden="true" className="inline-block h-2 w-2 shrink-0 rounded-full bg-gold-500" />
+        {hoursSummary}
       </p>
-      {showDetail && <p className={`mt-1.5 text-sm ${detail}`}>{state.detail}</p>}
+      {showDetail && (
+        <p className="mt-1.5 text-sm text-cream-200/70">
+          El resto del horario está pendiente de confirmar. Llámanos si vienes desde lejos.
+        </p>
+      )}
     </div>
   )
 }
 
 /** Tabla de horario con el día actual resaltado. */
 export function HoursTable({ className = '' }) {
-  const state = useOpenState()
-  const confirmed = business.scheduleConfirmed
+  const today = getMadridNow().dayKey
 
   return (
     <div className={className}>
       <table className="w-full border-collapse text-left">
-        <caption className="sr-only">Horario semanal de {business.name}</caption>
+        <caption className="sr-only">Horario semanal de {site.name}</caption>
         <tbody>
           {WEEK.map((key) => {
-            const day = business.hours.find((d) => d.key === key)
-            const isToday = confirmed && key === state.todayKey
+            const day = site.hours.find((d) => d.key === key)
+            const isToday = key === today
             return (
               <tr
                 key={key}
-                className={
-                  isToday
-                    ? 'bg-maroc-900 text-cream-50'
-                    : 'text-ink'
-                }
+                className={isToday ? 'bg-gold-500 text-night-950' : 'border-b border-cream-100/10 last:border-0 text-cream-100'}
               >
                 <th
                   scope="row"
-                  className={`py-3 pl-4 pr-3 text-[15px] font-medium ${isToday ? 'text-cream-50' : 'text-ink'}`}
+                  className={`py-3 pl-4 pr-3 text-[15px] font-medium ${isToday ? 'text-night-950' : 'text-cream-50'}`}
                 >
                   {day.label}
-                  {isToday && <span className="ml-2 text-[13px] font-normal text-gold-300">hoy</span>}
+                  {isToday && <span className="ml-2 text-[12px] font-semibold uppercase tracking-wide">hoy</span>}
                 </th>
-                <td
-                  className={`tnum py-3 pr-4 text-right text-[15px] ${
-                    isToday ? 'text-cream-200/80' : 'text-ink-soft'
-                  }`}
-                >
-                  {!confirmed ? (
-                    '00:00 – 00:00'
-                  ) : day.closed ? (
-                    <span className={isToday ? 'text-cream-200/80' : 'text-ink-mute'}>Cerrado</span>
-                  ) : (
+                <td className={`py-3 pr-4 text-right text-[14px] ${isToday ? 'text-night-900' : 'text-cream-200/75'}`}>
+                  {day.closed ? (
+                    <span className={isToday ? 'text-night-900' : 'text-cream-200/60'}>Cerrado</span>
+                  ) : day.confirmed && day.opens && day.closes ? (
                     <>
                       {prettyTime(day.opens)} – {prettyTime(day.closes)}
                     </>
+                  ) : day.opens ? (
+                    <>Desde las {prettyTime(day.opens)} · cierre por confirmar</>
+                  ) : (
+                    'Por confirmar'
                   )}
                 </td>
               </tr>
@@ -92,38 +60,16 @@ export function HoursTable({ className = '' }) {
           })}
         </tbody>
       </table>
-      {/* TODO(confirmar): el lunes cerrado procede de la guía de Google My Business. */}
     </div>
   )
 }
 
-/** Aviso de cuscús con el día de la semana en vivo. */
+/** Aviso de cuscús, sin cálculo en vivo. */
 export function CouscousNotice({ className = '' }) {
-  const state = useOpenState()
-
-  if (!business.scheduleConfirmed) {
-    return (
-      <p className={className}>
-        Aquí irá el aviso sobre el día en que se sirve.
-      </p>
-    )
-  }
-
   return (
     <p className={className}>
-      {state.isCouscousDay ? (
-        <>
-          <span className="font-semibold text-gold-300">Hoy hay cuscús.</span>{' '}
-          <span className="text-cream-200/70">Se sirve mientras dure la olla.</span>
-        </>
-      ) : (
-        <>
-          <span className="font-semibold text-cream-100">
-            El próximo, el {state.nextCouscousLabel}.
-          </span>{' '}
-          <span className="text-cream-200/70">Solo se prepara ese día.</span>
-        </>
-      )}
+      <span className="font-semibold text-gold-400">Solo los viernes.</span>{' '}
+      <span className="text-cream-200/75">Se prepara ese día y se sirve mientras dure la olla.</span>
     </p>
   )
 }

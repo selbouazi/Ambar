@@ -7,7 +7,7 @@
  * - Genera variantes 640 / 960 / 1440 / 1920 en avif, webp y jpg dentro de
  *   `public/photos/gen/`.
  * - Reescribe `src/data/photo-manifest.json`, que es lo que consume <Photo>.
- * - Genera `FOTOS-PENDIENTES.md` con los huecos que quedan por rellenar.
+ * - Genera `docs/FOTOS-PENDIENTES.md` con el estado de las fotos.
  *
  * No descarga nada de internet: las fotos las coloca el propietario.
  */
@@ -21,7 +21,7 @@ const PHOTOS_DIR = path.join(ROOT, 'public', 'photos')
 const OUT_DIR = path.join(PHOTOS_DIR, 'gen')
 const MANIFEST_PATH = path.join(ROOT, 'src', 'data', 'photo-manifest.json')
 const SPECS_PATH = path.join(ROOT, 'src', 'data', 'photo-specs.json')
-const DOC_PATH = path.join(ROOT, 'FOTOS-PENDIENTES.md')
+const DOC_PATH = path.join(ROOT, 'docs', 'FOTOS-PENDIENTES.md')
 
 const WIDTHS = [640, 960, 1440, 1920]
 const EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif'])
@@ -137,10 +137,9 @@ Generado automáticamente por \`npm run photos\`. No editar a mano.
    tocar ningún componente.
 4. Vuelve a ejecutar \`npm run photos\` cada vez que cambies una foto.
 
-Mientras una foto no exista, el prototipo (PROTOTIPO = true) muestra un hueco
-con borde discontinuo, el texto «FALTA FOTO» y una descripción corta, con la
-proporción exacta de la foto final. La web real (PROTOTIPO = false) mantiene
-el panel de zellige de la marca.
+Mientras una foto no exista, la web muestra un panel de marca con el nombre del
+plato y la proporción exacta de la foto final: la maquetación nunca deja una
+caja vacía.
 
 **Derechos:** las fotos son del propietario del restaurante y se usan con su
 permiso. No se enlazan ni se descargan imágenes de Google Maps desde el código.
@@ -168,4 +167,4 @@ await writeFile(DOC_PATH, doc)
 
 console.log('')
 console.log(`Manifiesto: ${Object.keys(manifest).length} fotos procesadas.`)
-console.log(`Pendientes: ${missing.length}. Informe en FOTOS-PENDIENTES.md.`)
+console.log(`Pendientes: ${missing.length}. Informe en docs/FOTOS-PENDIENTES.md.`)

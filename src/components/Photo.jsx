@@ -1,7 +1,5 @@
-import { PROTOTIPO } from '../config'
 import { photoSpecs, getPhoto } from '../data/photos'
-import Icon from './Icons'
-import { ZelligePattern, StarMotif } from './Zellige'
+import { StarPattern, StarMotif } from './Ornament'
 
 const RATIOS = {
   '16/9': 'aspect-[16/9]',
@@ -11,97 +9,34 @@ const RATIOS = {
   '1/1': 'aspect-square',
 }
 
-/**
- * Hueco del prototipo.
- *
- * Mantiene la proporción exacta que tendrá la fotografía real (sin saltos de
- * layout), con borde discontinuo fino, icono de cámara y dos líneas:
- * «FALTA FOTO» y una descripción de como máximo cinco palabras.
- *
- * `tone` adapta los colores al fondo: `dark` sobre secciones oscuras y
- * `light` sobre crema. Nunca se usa zellige como sustituto de una foto.
- */
-function PrototypePlaceholder({ label, tone = 'dark' }) {
-  const dark = tone === 'dark'
-
-  return (
-    <div
-      role="img"
-      aria-label={`Falta foto: ${label}`}
-      className={`flex h-full w-full flex-col items-center justify-center gap-2 border border-dashed p-3 text-center sm:gap-3 sm:p-5 ${
-        dark
-          ? 'border-cream-100/30 bg-maroc-900 text-cream-100'
-          : 'border-ink/25 bg-cream-100 text-ink'
-      }`}
-    >
-      <Icon
-        name="camera"
-        className={`h-5 w-5 shrink-0 sm:h-7 sm:w-7 ${dark ? 'text-gold-400' : 'text-gold-700'}`}
-      />
-      <p
-        className={`text-[10px] font-semibold uppercase leading-none tracking-[0.18em] sm:text-[11px] ${
-          dark ? 'text-gold-300' : 'text-gold-700'
-        }`}
-      >
-        FALTA FOTO
-      </p>
-      <p className="max-w-[18rem] text-[11px] leading-snug sm:text-[13px]">{label}</p>
-    </div>
-  )
-}
-
-/**
- * Hueco de la web real (cuando aún no hay foto).
- * No dice «FOTO PENDIENTE»: dibuja el zellige de la marca con el nombre del
- * plato o del espacio. Cuando se coloque la foto en public/photos/, el
- * componente la sirve automáticamente.
- */
-function RealPlaceholder({ title, note = 'Fotografía del restaurante' }) {
+/** Panel de marca si todavía falta una foto: nunca una caja vacía. */
+function BrandPanel({ title, note = 'Fotografía del restaurante' }) {
   return (
     <div
       role="img"
       aria-label={`${title}. ${note}.`}
-      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-maroc-800 p-6 text-center text-gold-400 sm:p-8"
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-night-800 p-6 text-center text-gold-500"
     >
-      <ZelligePattern className="absolute inset-0 h-full w-full opacity-[0.11]" tile={96} />
+      <StarPattern className="absolute inset-0 h-full w-full star-texture" tile={110} />
       <div className="relative flex flex-col items-center">
-        <StarMotif className="h-10 w-10 opacity-80" />
-        <p className="mt-6 font-display text-3xl italic leading-tight text-cream-100 sm:text-4xl">
-          {title}
-        </p>
-        <p className="mt-3 max-w-[16rem] text-[13px] leading-relaxed text-cream-200/70">{note}</p>
+        <StarMotif className="h-9 w-9" />
+        <p className="mt-5 font-display text-2xl uppercase leading-tight text-cream-50">{title}</p>
+        <p className="mt-2 max-w-[16rem] text-[13px] leading-relaxed text-cream-200/70">{note}</p>
       </div>
     </div>
   )
-}
-
-/**
- * Hueco de foto. En el prototipo es un hueco etiquetado; en la web real
- * mantiene el panel de zellige de siempre.
- */
-export function PhotoPlaceholder({ label, title, note, tone = 'dark', className = '' }) {
-  if (PROTOTIPO) {
-    return (
-      <div className={`h-full w-full ${className}`}>
-        <PrototypePlaceholder label={label || title} tone={tone} />
-      </div>
-    )
-  }
-
-  return <RealPlaceholder title={title || 'Ambar'} note={note} />
 }
 
 /**
  * Fotografía responsive con variantes avif/webp/jpg generadas por sharp.
  * Mantiene width/height para CLS 0 y usa un fondo de baja resolución mientras
- * carga. Si la foto no existe, muestra el hueco correspondiente.
+ * carga. Si la foto no existe, muestra un panel de marca.
  */
 export default function Photo({
   photoKey,
   alt,
   title,
   ratio,
-  tone = 'dark',
   className = '',
   imgClassName = '',
   eager = false,
@@ -111,19 +46,13 @@ export default function Photo({
 }) {
   const spec = photoSpecs[photoKey]
   const asset = getPhoto(photoKey)
-  const aspect =
-    ratio === 'h-full' ? '' : RATIOS[ratio] || RATIOS[spec?.ratio || '4/3']
+  const aspect = ratio === 'h-full' ? '' : RATIOS[ratio] || RATIOS[spec?.ratio || '4/3']
   const objectPosition = position || asset?.position || spec?.position || 'center'
 
   if (!asset) {
-    const label = spec?.etiqueta || title || 'Fotografía del restaurante'
     return (
-      <div className={`relative overflow-hidden ${PROTOTIPO ? '' : 'bg-maroc-800'} ${aspect} ${className}`}>
-        <PhotoPlaceholder
-          label={label}
-          title={title || spec?.alt?.split(',')[0] || 'Ambar'}
-          tone={tone}
-        />
+      <div className={`relative overflow-hidden bg-night-800 ${aspect} ${className}`}>
+        <BrandPanel title={title || 'Ambar'} />
         {children}
       </div>
     )
@@ -138,12 +67,24 @@ export default function Photo({
 
   return (
     <div
-      className={`relative overflow-hidden bg-maroc-800 ${aspect} ${className}`}
-      style={placeholder ? { backgroundImage: `url(${placeholder})`, backgroundSize: 'cover', backgroundPosition: objectPosition } : undefined}
+      className={`relative overflow-hidden bg-night-800 ${aspect} ${className}`}
+      style={
+        placeholder
+          ? {
+              backgroundImage: `url(${placeholder})`,
+              backgroundSize: 'cover',
+              backgroundPosition: objectPosition,
+            }
+          : undefined
+      }
     >
       <picture>
-        {avif.length > 0 && <source type="image/avif" srcSet={toSrcSet(avif)} sizes={sizes || spec?.sizes || '100vw'} />}
-        {webp.length > 0 && <source type="image/webp" srcSet={toSrcSet(webp)} sizes={sizes || spec?.sizes || '100vw'} />}
+        {avif.length > 0 && (
+          <source type="image/avif" srcSet={toSrcSet(avif)} sizes={sizes || spec?.sizes || '100vw'} />
+        )}
+        {webp.length > 0 && (
+          <source type="image/webp" srcSet={toSrcSet(webp)} sizes={sizes || spec?.sizes || '100vw'} />
+        )}
         <img
           src={fallback?.src}
           srcSet={jpg.length > 0 ? toSrcSet(jpg) : undefined}
