@@ -1,12 +1,23 @@
 import sharp from 'sharp'
 import fs from 'node:fs'
 
+function star(cx, cy, outer, inner) {
+  const points = []
+  for (let i = 0; i < 16; i += 1) {
+    const radius = i % 2 === 0 ? outer : inner
+    const angle = (-90 + i * 22.5) * (Math.PI / 180)
+    points.push(`${(cx + radius * Math.cos(angle)).toFixed(2)},${(cy + radius * Math.sin(angle)).toFixed(2)}`)
+  }
+  return points.join(' ')
+}
+
 const svg = Buffer.from(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-    <rect width="32" height="32" fill="#171a11"/>
-    <g fill="#c9973b">
-      <rect x="9" y="9" width="14" height="14"/>
-      <rect x="9" y="9" width="14" height="14" transform="rotate(45 16 16)"/>
+    <rect width="32" height="32" fill="#070706"/>
+    <g transform="translate(16 16)">
+      <polygon points="${star(0, 0, 11, 4.6)}" fill="#f4c816"/>
+      <circle r="4.2" fill="#070706"/>
+      <circle r="1.9" fill="#f4c816"/>
     </g>
   </svg>`,
 )

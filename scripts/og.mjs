@@ -3,9 +3,8 @@
  *
  *   npm run og
  *
- * No usa fotografías de archivo: dibuja la retícula de zellige y el logotipo
- * con los colores de la marca. Cuando exista una foto real del local, se puede
- * sustituir este fondo por `public/photos/hero-interior.jpg`.
+ * Dibuja la trama de estrella octogonal y el logotipo con los colores de la
+ * marca. No usa fotografías de archivo.
  */
 
 import { writeFile } from 'node:fs/promises'
@@ -26,32 +25,35 @@ function star(cx, cy, outer, inner) {
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <pattern id="z" width="120" height="120" patternUnits="userSpaceOnUse">
-      <g fill="none" stroke="#c9973b" stroke-width="1" opacity="0.13">
-        <polygon points="${star(60, 60, 43, 18)}" />
+    <pattern id="z" width="130" height="130" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#f4c816" stroke-width="1" opacity="0.11">
+        <polygon points="${star(65, 65, 46, 19)}" />
         <polygon points="${star(0, 0, 9, 4)}" />
-        <polygon points="${star(120, 0, 9, 4)}" />
-        <polygon points="${star(0, 120, 9, 4)}" />
-        <polygon points="${star(120, 120, 9, 4)}" />
+        <polygon points="${star(130, 0, 9, 4)}" />
+        <polygon points="${star(0, 130, 9, 4)}" />
+        <polygon points="${star(130, 130, 9, 4)}" />
       </g>
     </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="#171a11" />
+  <rect width="1200" height="630" fill="#070706" />
   <rect width="1200" height="630" fill="url(#z)" />
 
-  <rect x="72" y="86" width="44" height="44" fill="#c9973b" opacity="0.9" />
-  <rect x="72" y="86" width="44" height="44" fill="#c9973b" opacity="0.9" transform="rotate(45 94 108)" />
+  <g transform="translate(104 108)">
+    <polygon points="${star(0, 0, 44, 18)}" fill="#f4c816" />
+    <circle r="16" fill="#070706" />
+    <circle r="7" fill="#f4c816" />
+  </g>
 
-  <text x="72" y="300" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="176" fill="#faf6ec" letter-spacing="-6">Ambar</text>
+  <text x="72" y="330" font-family="'Arial Black', Arial, Helvetica, sans-serif" font-weight="900" font-size="190" fill="#fbf6e7" letter-spacing="-4">AMBAR</text>
 
-  <rect x="72" y="352" width="120" height="2" fill="#c9973b" />
+  <rect x="74" y="368" width="140" height="6" fill="#f4c816" />
 
-  <text x="72" y="412" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#efe6d2">Cocina marroquí halal · El Vendrell</text>
-  <text x="72" y="460" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#efe6d2" opacity="0.62">Tajín · Cuscús los viernes · Marisco fresco · Desayunos</text>
+  <text x="74" y="428" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#fbf6e7">Cocina marroquí halal · El Vendrell</text>
+  <text x="74" y="474" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ded2b6" opacity="0.8">Tajín · Cuscús los viernes · Marisco fresco · Desayunos</text>
 
-  <text x="72" y="566" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e0b45c">4,9 sobre 5 · 153 reseñas en Google</text>
-  <text x="1128" y="566" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#efe6d2" opacity="0.55">Ctra. de Valls, 70</text>
+  <text x="74" y="566" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#f4c816">4,9 sobre 5 · 154 reseñas en Google</text>
+  <text x="1126" y="566" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ded2b6" opacity="0.65">Ctra. de Valls, 70</text>
 </svg>`
 
 const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer()
@@ -60,10 +62,11 @@ console.log(`✓ public/og.png (${Math.round(png.length / 1024)} KB)`)
 
 /* Icono para iOS (180 × 180), mismo motivo que el favicon. */
 const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-  <rect width="180" height="180" fill="#171a11" />
-  <g fill="#c9973b">
-    <rect x="52" y="52" width="76" height="76" />
-    <rect x="52" y="52" width="76" height="76" transform="rotate(45 90 90)" />
+  <rect width="180" height="180" fill="#070706" />
+  <g transform="translate(90 90)">
+    <polygon points="${star(0, 0, 62, 26)}" fill="#f4c816" />
+    <circle r="23" fill="#070706" />
+    <circle r="10" fill="#f4c816" />
   </g>
 </svg>`
 

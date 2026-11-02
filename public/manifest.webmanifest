@@ -1,0 +1,25 @@
+{
+  "name": "Restaurante Halal Ambar · El Vendrell",
+  "short_name": "Ambar",
+  "description": "Cocina marroquí halal en El Vendrell: tajín, parrilla, pescado, cuscús los viernes y desayunos marroquíes.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070706",
+  "theme_color": "#070706",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -15,7 +15,3 @@ skills-lock.json
 .audit/
 .playwright-cli/
 
-# Variantes generadas por npm run photos
-public/photos/gen/*
-!public/photos/gen/.gitkeep
-
