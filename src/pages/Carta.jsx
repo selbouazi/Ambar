@@ -14,8 +14,8 @@ import { menu } from '../data/menu'
 
 const CATEGORY_PHOTOS = {
   entrantes: { key: 'marisco', caption: 'Marisco fresco, preparado al momento' },
-  platos: { key: 'cuscus', caption: 'Cuscús de los viernes' },
-  pescado: { key: 'lubina', caption: 'Pescado a la plancha' },
+  platos: { key: 'tajine', caption: 'Tajín de carne con ciruelas y verduras' },
+  pescado: { key: 'lubina', caption: 'Pescado y marisco fresco' },
 }
 
 function useScrollSpy(ids, enabled) {

@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "photos": "node scripts/photos.mjs",
+    "brand": "node scripts/brand.mjs",
     "og": "node scripts/og.mjs",
     "qa": "node scripts/qa.mjs"
   },

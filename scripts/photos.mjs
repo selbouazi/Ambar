@@ -57,6 +57,10 @@ for (const entry of entries.sort()) {
   }
 
   const widths = WIDTHS.filter((width) => width <= meta.width)
+  // Añade el ancho nativo cuando cae entre dos tamaños estándar: así no se
+  // pierde resolución en originales de 1.000–1.900 px.
+  const native = Math.min(meta.width, WIDTHS[WIDTHS.length - 1])
+  if (native > 0 && !widths.includes(native)) widths.push(native)
   if (widths.length === 0) widths.push(meta.width)
 
   const formats = { avif: [], webp: [], jpg: [] }
@@ -113,7 +117,7 @@ const present = Object.entries(specs).filter(([, spec]) => found.has(spec.file))
 const rows = missing
   .map(
     ([, spec]) =>
-      `| \`public/photos/${spec.file}.jpg\` | ${spec.ratio} | ${spec.etiqueta} | ${spec.section} |`,
+      `| \`public/photos/${spec.file}.jpg\` | ${spec.ratio} | ${spec.etiqueta || spec.alt || '—'} | ${spec.section} |`,
   )
   .join('\n')
 

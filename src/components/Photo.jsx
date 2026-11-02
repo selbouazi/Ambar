@@ -19,9 +19,11 @@ function BrandPanel({ title, note = 'Fotografía del restaurante' }) {
     >
       <StarPattern className="absolute inset-0 h-full w-full star-texture" tile={110} />
       <div className="relative flex flex-col items-center">
-        <StarMotif className="h-9 w-9" />
-        <p className="mt-5 font-display text-2xl uppercase leading-tight text-cream-50">{title}</p>
-        <p className="mt-2 max-w-[16rem] text-[13px] leading-relaxed text-cream-200/70">{note}</p>
+        <StarMotif className="h-12 w-12" />
+        <p className="mt-6 max-w-[18rem] font-display text-[clamp(1.8rem,3vw,2.6rem)] uppercase leading-[0.95] text-cream-50">
+          {title}
+        </p>
+        <p className="mt-3 max-w-[17rem] text-[14px] leading-relaxed text-cream-200/75">{note}</p>
       </div>
     </div>
   )
@@ -36,6 +38,7 @@ export default function Photo({
   photoKey,
   alt,
   title,
+  note,
   ratio,
   className = '',
   imgClassName = '',
@@ -52,7 +55,7 @@ export default function Photo({
   if (!asset) {
     return (
       <div className={`relative overflow-hidden bg-night-800 ${aspect} ${className}`}>
-        <BrandPanel title={title || 'Ambar'} />
+        <BrandPanel title={title || 'Ambar'} note={note} />
         {children}
       </div>
     )

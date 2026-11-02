@@ -97,10 +97,16 @@ export default function Informacion() {
 
                     <figure className="hidden w-52 shrink-0 sm:block lg:w-56">
                       <div className="border-2 border-night-950 bg-night-950 p-1.5">
-                        <Photo photoKey="cuscus" ratio="4/3" sizes="224px" />
+                        <Photo
+                          photoKey="cuscus"
+                          title="Cuscús de los viernes"
+                          note="Se prepara ese día y se sirve mientras dure la olla."
+                          ratio="4/3"
+                          sizes="224px"
+                        />
                       </div>
                       <figcaption className="mt-2 text-[13px] leading-snug text-night-900/70">
-                        Cuscús con verduras y garbanzos.
+                        Cuscús, solo los viernes.
                       </figcaption>
                     </figure>
                   </div>

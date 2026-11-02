@@ -45,9 +45,13 @@ Queda por confirmar:
 ## 5. Fotos y marca
 
 - Autorización por escrito para publicar las fotos actuales.
+- Foto real de cuscús. Entre las fotos nuevas no hay ninguna; el bloque usa un
+  panel de marca y no se etiqueta otro plato como cuscús.
+- Original de la portada en 16:9 y al menos 1920 px. La actual tiene 1179 px de
+  ancho y puede verse blanda en pantallas grandes.
 - Fotos definitivas de terraza, fachada y más interiores.
-- Logotipo original en vector (SVG, AI o EPS). El actual es una recreación
-  dibujada para la web.
+- Logotipo en vector (SVG, AI o EPS). El logo real ya está integrado en PNG
+  desde `favicoin.png`, pero falta la versión vectorial.
 - Confirmar el nombre público: «Restaurante Halal Ambar» / «Ambar».
 
 ## 6. Publicación

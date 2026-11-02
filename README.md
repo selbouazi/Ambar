@@ -39,11 +39,21 @@ npm run photos
 Genera las variantes AVIF/WebP/JPG en `public/photos/gen/`, actualiza
 `src/data/photo-manifest.json` y el informe `docs/FOTOS-PENDIENTES.md`.
 
-Para la imagen social y los iconos:
+Para la imagen social:
 
 ```bash
 npm run og
 ```
+
+Para el logo del nav, el favicon y los iconos de iOS/PWA:
+
+```bash
+npm run brand
+```
+
+El original del logo está en
+`src/assets/photos/raw/propietario-2026-11/favicoin.png`; el script genera las
+variantes de `public/brand/` y los iconos cuadrados.
 
 ## QA
 

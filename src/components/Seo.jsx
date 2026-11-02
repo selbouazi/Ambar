@@ -52,6 +52,7 @@ export function buildRestaurantJsonLd() {
     description: site.description,
     url: SITE_URL,
     image: [OG_IMAGE],
+    logo: `${SITE_URL}/icon-512.png`,
     telephone: `+${site.phone.uri.replace('+', '')}`,
     priceRange: site.priceRange,
     currenciesAccepted: 'EUR',

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icons'
 import { LogoMark, Wordmark } from './Brand'
-import { StarPattern, HalalSeal, Leaf } from './Ornament'
+import { StarPattern, Leaf } from './Ornament'
 import { site, hoursSummary, mapsHref, telHref, instagramHref } from '../data/site'
 import { copy } from '../data/copy'
 
@@ -21,9 +21,8 @@ export default function Footer() {
               {copy.footer.description}
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <LogoMark className="h-16 w-16" />
-            <HalalSeal className="h-16 w-16 text-gold-500" />
+          <div className="flex items-center">
+            <LogoMark className="h-16" alt="" />
           </div>
         </div>
 

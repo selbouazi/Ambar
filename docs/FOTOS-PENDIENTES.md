@@ -19,23 +19,25 @@ caja vacía.
 **Derechos:** las fotos son del propietario del restaurante y se usan con su
 permiso. No se enlazan ni se descargan imágenes de Google Maps desde el código.
 
-## Huecos por rellenar (0)
+## Huecos por rellenar (1)
 
 | Archivo | Proporción ideal | Etiqueta | Dónde va |
 |---|---|---|---|
-| — | — | — | — |
+| `public/photos/cuscus.jpg` | 4/3 | Cuscús con verduras y garbanzos, el plato de los viernes. | Portada y carta, bloque de cuscús (foto pendiente) |
 
-## Fotos ya colocadas (9)
+## Fotos ya colocadas (11)
 
 - `hero-interior` — Portada (fondo a pantalla completa)
 - `comedor` — Portada, bloque «Un rincón marroquí»
-- `cuscus` — Portada y carta, bloque de cuscús
+- `tajine` — Carta, categoría Platos
 - `lubina` — Carta, categoría Pescado
 - `marisco` — Carta, categoría Entrantes
 - `galeria-01` — Galería
 - `galeria-02` — Galería
 - `galeria-03` — Galería
-- `galeria-04` — Galería
+- `galeria-04` — Galería y mapa
+- `galeria-05` — Galería
+- `galeria-06` — Galería
 
 ## Recomendaciones de captura
 

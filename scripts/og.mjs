@@ -60,16 +60,4 @@ const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer(
 await writeFile(OUT, png)
 console.log(`✓ public/og.png (${Math.round(png.length / 1024)} KB)`)
 
-/* Icono para iOS (180 × 180), mismo motivo que el favicon. */
-const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-  <rect width="180" height="180" fill="#070706" />
-  <g transform="translate(90 90)">
-    <polygon points="${star(0, 0, 62, 26)}" fill="#f4c816" />
-    <circle r="23" fill="#070706" />
-    <circle r="10" fill="#f4c816" />
-  </g>
-</svg>`
-
-const icon = await sharp(Buffer.from(iconSvg)).png({ compressionLevel: 9 }).toBuffer()
-await writeFile(path.join(process.cwd(), 'public', 'apple-touch-icon.png'), icon)
-console.log(`✓ public/apple-touch-icon.png (${Math.round(icon.length / 1024)} KB)`)
+/* Los iconos de iOS y PWA se generan con `npm run brand` desde el logo real. */

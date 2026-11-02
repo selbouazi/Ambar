@@ -4,7 +4,7 @@
     "alt": "Interior del Restaurante Halal Ambar, con mesas preparadas, sofás y luz cálida.",
     "ratio": "16/9",
     "section": "Portada (fondo a pantalla completa)",
-    "position": "center",
+    "position": "center 55%",
     "sizes": "100vw",
     "priority": true
   },
@@ -20,21 +20,29 @@
     "file": "cuscus",
     "alt": "Cuscús con verduras y garbanzos, el plato de los viernes.",
     "ratio": "4/3",
-    "section": "Portada y carta, bloque de cuscús",
+    "section": "Portada y carta, bloque de cuscús (foto pendiente)",
     "position": "center",
     "sizes": "(min-width: 1024px) 40vw, 100vw"
   },
+  "tajine": {
+    "file": "tajine",
+    "alt": "Tajín de carne con ciruelas, aceitunas y verduras.",
+    "ratio": "4/3",
+    "section": "Carta, categoría Platos",
+    "position": "center",
+    "sizes": "(min-width: 1024px) 45vw, 100vw"
+  },
   "lubina": {
     "file": "lubina",
-    "alt": "Pescado a la plancha con arroz y ensalada, servido en Ambar.",
+    "alt": "Pescado y marisco servidos en la mesa de Ambar.",
     "ratio": "4/3",
     "section": "Carta, categoría Pescado",
-    "position": "center",
+    "position": "center 55%",
     "sizes": "(min-width: 1024px) 45vw, 100vw"
   },
   "marisco": {
     "file": "marisco",
-    "alt": "Mariscada con gambas, mejillones y pescado.",
+    "alt": "Mariscada con gambas, mejillones, calamares y pescado.",
     "ratio": "4/3",
     "section": "Carta, categoría Entrantes",
     "position": "center",
@@ -42,21 +50,21 @@
   },
   "galeria01": {
     "file": "galeria-01",
-    "alt": "Bebidas con fruta y nata, servidas en el comedor de Ambar.",
+    "alt": "Vasos de té con hierbabuena y piñones en una bandeja.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center"
+    "position": "center 55%"
   },
   "galeria02": {
     "file": "galeria-02",
-    "alt": "Mesa de Ambar con patatas, bocadillos y té.",
+    "alt": "Mesa de Ambar con pan, aceitunas, salsas y té.",
     "ratio": "4/3",
     "section": "Galería",
-    "position": "center"
+    "position": "center 55%"
   },
   "galeria03": {
     "file": "galeria-03",
-    "alt": "Pan y tajín servidos en una mesa del restaurante.",
+    "alt": "Pollo con arroz, ensalada y pan servido en Ambar.",
     "ratio": "4/3",
     "section": "Galería",
     "position": "center"
@@ -65,7 +73,21 @@
     "file": "galeria-04",
     "alt": "Comedor del Restaurante Halal Ambar con mesas preparadas y luz cálida.",
     "ratio": "4/3",
+    "section": "Galería y mapa",
+    "position": "center"
+  },
+  "galeria05": {
+    "file": "galeria-05",
+    "alt": "Tajín de pollo con patatas fritas.",
+    "ratio": "4/3",
     "section": "Galería",
     "position": "center"
+  },
+  "galeria06": {
+    "file": "galeria-06",
+    "alt": "Batidos verdes con nata servidos en Ambar.",
+    "ratio": "4/3",
+    "section": "Galería",
+    "position": "center 45%"
   }
 }

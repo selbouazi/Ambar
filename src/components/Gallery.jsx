@@ -61,7 +61,7 @@ export default function Gallery({ className = '' }) {
 
   return (
     <div className={className}>
-      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
         {photos.map((key, i) => (
           <li key={key}>
             <button
@@ -74,7 +74,7 @@ export default function Gallery({ className = '' }) {
                 photoKey={key}
                 ratio="4/3"
                 className="transition-opacity duration-300 group-hover:opacity-85"
-                sizes="(min-width: 1024px) 25vw, 50vw"
+                sizes="(min-width: 768px) 33vw, 50vw"
               />
               <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-night-950/80 text-gold-400 opacity-0 transition-opacity group-hover:opacity-100">
                 <Icon name="plus" className="h-4 w-4" />

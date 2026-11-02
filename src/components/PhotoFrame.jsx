@@ -7,6 +7,8 @@ import Photo from './Photo'
 export default function PhotoFrame({
   photoKey,
   alt,
+  title,
+  note,
   caption,
   ratio = '4/3',
   tilt = 'left',
@@ -26,6 +28,8 @@ export default function PhotoFrame({
         <Photo
           photoKey={photoKey}
           alt={alt}
+          title={title}
+          note={note}
           ratio={ratio}
           sizes={sizes}
           eager={eager}

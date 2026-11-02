@@ -78,7 +78,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-[78rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[76px] lg:px-12">
         <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — inicio`}>
-          <LogoMark className="h-10 w-10 shrink-0 sm:h-11 sm:w-11" />
+          <LogoMark className="h-11 shrink-0 sm:h-12" alt="" />
           <span className="leading-none">
             <Wordmark className="block text-[27px] sm:text-[30px]">Ambar</Wordmark>
             <span className="mt-1 hidden text-[9px] font-semibold uppercase tracking-[0.2em] text-cream-200/70 sm:block">

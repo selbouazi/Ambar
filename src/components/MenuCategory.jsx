@@ -121,6 +121,7 @@ export default function MenuCategory({ category, headingId, variant = 0, photoKe
               photoKey={photoKey}
               ratio="4/3"
               caption={photoCaption}
+              sizes="(min-width: 1024px) 19rem, 100vw"
               tilt={variant % 2 === 0 ? 'left' : 'right'}
               className="mx-auto max-w-sm lg:sticky lg:top-40"
             />

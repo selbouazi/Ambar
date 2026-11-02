@@ -1,343 +1,639 @@
 {
   "_comment": "Generado por npm run photos. No editar a mano.",
   "comedor": {
-    "width": 960,
-    "height": 1199,
+    "width": 1179,
+    "height": 1551,
     "position": "center",
     "formats": {
       "avif": [
         {
           "width": 640,
-          "height": 799,
+          "height": 842,
           "src": "/photos/gen/comedor-640.avif"
         },
         {
           "width": 960,
-          "height": 1199,
+          "height": 1263,
           "src": "/photos/gen/comedor-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1551,
+          "src": "/photos/gen/comedor-1179.avif"
         }
       ],
       "webp": [
         {
           "width": 640,
-          "height": 799,
+          "height": 842,
           "src": "/photos/gen/comedor-640.webp"
         },
         {
           "width": 960,
-          "height": 1199,
+          "height": 1263,
           "src": "/photos/gen/comedor-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1551,
+          "src": "/photos/gen/comedor-1179.webp"
         }
       ],
       "jpg": [
         {
           "width": 640,
-          "height": 799,
+          "height": 842,
           "src": "/photos/gen/comedor-640.jpg"
         },
         {
           "width": 960,
-          "height": 1199,
+          "height": 1263,
           "src": "/photos/gen/comedor-960.jpg"
-        }
-      ]
-    }
-  },
-  "cuscus": {
-    "width": 361,
-    "height": 640,
-    "position": "center",
-    "formats": {
-      "avif": [
+        },
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/cuscus-361.avif"
-        }
-      ],
-      "webp": [
-        {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/cuscus-361.webp"
-        }
-      ],
-      "jpg": [
-        {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/cuscus-361.jpg"
+          "width": 1179,
+          "height": 1551,
+          "src": "/photos/gen/comedor-1179.jpg"
         }
       ]
     }
   },
   "galeria-01": {
-    "width": 360,
-    "height": 640,
-    "position": "center",
+    "width": 1179,
+    "height": 1560,
+    "position": "center 55%",
     "formats": {
       "avif": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-01-360.avif"
+          "width": 640,
+          "height": 847,
+          "src": "/photos/gen/galeria-01-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1270,
+          "src": "/photos/gen/galeria-01-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1560,
+          "src": "/photos/gen/galeria-01-1179.avif"
         }
       ],
       "webp": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-01-360.webp"
+          "width": 640,
+          "height": 847,
+          "src": "/photos/gen/galeria-01-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1270,
+          "src": "/photos/gen/galeria-01-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1560,
+          "src": "/photos/gen/galeria-01-1179.webp"
         }
       ],
       "jpg": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-01-360.jpg"
+          "width": 640,
+          "height": 847,
+          "src": "/photos/gen/galeria-01-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1270,
+          "src": "/photos/gen/galeria-01-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1560,
+          "src": "/photos/gen/galeria-01-1179.jpg"
         }
       ]
     }
   },
   "galeria-02": {
-    "width": 360,
-    "height": 640,
-    "position": "center",
+    "width": 1008,
+    "height": 1365,
+    "position": "center 55%",
     "formats": {
       "avif": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-02-360.avif"
+          "width": 640,
+          "height": 867,
+          "src": "/photos/gen/galeria-02-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1300,
+          "src": "/photos/gen/galeria-02-960.avif"
+        },
+        {
+          "width": 1008,
+          "height": 1365,
+          "src": "/photos/gen/galeria-02-1008.avif"
         }
       ],
       "webp": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-02-360.webp"
+          "width": 640,
+          "height": 867,
+          "src": "/photos/gen/galeria-02-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1300,
+          "src": "/photos/gen/galeria-02-960.webp"
+        },
+        {
+          "width": 1008,
+          "height": 1365,
+          "src": "/photos/gen/galeria-02-1008.webp"
         }
       ],
       "jpg": [
         {
-          "width": 360,
-          "height": 640,
-          "src": "/photos/gen/galeria-02-360.jpg"
+          "width": 640,
+          "height": 867,
+          "src": "/photos/gen/galeria-02-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1300,
+          "src": "/photos/gen/galeria-02-960.jpg"
+        },
+        {
+          "width": 1008,
+          "height": 1365,
+          "src": "/photos/gen/galeria-02-1008.jpg"
         }
       ]
     }
   },
   "galeria-03": {
-    "width": 361,
-    "height": 640,
+    "width": 1179,
+    "height": 1546,
     "position": "center",
     "formats": {
       "avif": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/galeria-03-361.avif"
+          "width": 640,
+          "height": 839,
+          "src": "/photos/gen/galeria-03-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1259,
+          "src": "/photos/gen/galeria-03-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1546,
+          "src": "/photos/gen/galeria-03-1179.avif"
         }
       ],
       "webp": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/galeria-03-361.webp"
+          "width": 640,
+          "height": 839,
+          "src": "/photos/gen/galeria-03-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1259,
+          "src": "/photos/gen/galeria-03-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1546,
+          "src": "/photos/gen/galeria-03-1179.webp"
         }
       ],
       "jpg": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/galeria-03-361.jpg"
+          "width": 640,
+          "height": 839,
+          "src": "/photos/gen/galeria-03-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1259,
+          "src": "/photos/gen/galeria-03-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1546,
+          "src": "/photos/gen/galeria-03-1179.jpg"
         }
       ]
     }
   },
   "galeria-04": {
-    "width": 1440,
-    "height": 1080,
+    "width": 1179,
+    "height": 661,
     "position": "center",
     "formats": {
       "avif": [
         {
           "width": 640,
-          "height": 480,
+          "height": 359,
           "src": "/photos/gen/galeria-04-640.avif"
         },
         {
           "width": 960,
-          "height": 720,
+          "height": 538,
           "src": "/photos/gen/galeria-04-960.avif"
         },
         {
-          "width": 1440,
-          "height": 1080,
-          "src": "/photos/gen/galeria-04-1440.avif"
+          "width": 1179,
+          "height": 661,
+          "src": "/photos/gen/galeria-04-1179.avif"
         }
       ],
       "webp": [
         {
           "width": 640,
-          "height": 480,
+          "height": 359,
           "src": "/photos/gen/galeria-04-640.webp"
         },
         {
           "width": 960,
-          "height": 720,
+          "height": 538,
           "src": "/photos/gen/galeria-04-960.webp"
         },
         {
-          "width": 1440,
-          "height": 1080,
-          "src": "/photos/gen/galeria-04-1440.webp"
+          "width": 1179,
+          "height": 661,
+          "src": "/photos/gen/galeria-04-1179.webp"
         }
       ],
       "jpg": [
         {
           "width": 640,
-          "height": 480,
+          "height": 359,
           "src": "/photos/gen/galeria-04-640.jpg"
         },
         {
           "width": 960,
-          "height": 720,
+          "height": 538,
           "src": "/photos/gen/galeria-04-960.jpg"
         },
         {
-          "width": 1440,
-          "height": 1080,
-          "src": "/photos/gen/galeria-04-1440.jpg"
+          "width": 1179,
+          "height": 661,
+          "src": "/photos/gen/galeria-04-1179.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-05": {
+    "width": 1179,
+    "height": 996,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 541,
+          "src": "/photos/gen/galeria-05-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 811,
+          "src": "/photos/gen/galeria-05-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 996,
+          "src": "/photos/gen/galeria-05-1179.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 541,
+          "src": "/photos/gen/galeria-05-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 811,
+          "src": "/photos/gen/galeria-05-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 996,
+          "src": "/photos/gen/galeria-05-1179.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 541,
+          "src": "/photos/gen/galeria-05-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 811,
+          "src": "/photos/gen/galeria-05-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 996,
+          "src": "/photos/gen/galeria-05-1179.jpg"
+        }
+      ]
+    }
+  },
+  "galeria-06": {
+    "width": 1179,
+    "height": 1449,
+    "position": "center 45%",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 787,
+          "src": "/photos/gen/galeria-06-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1180,
+          "src": "/photos/gen/galeria-06-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1449,
+          "src": "/photos/gen/galeria-06-1179.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 787,
+          "src": "/photos/gen/galeria-06-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1180,
+          "src": "/photos/gen/galeria-06-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1449,
+          "src": "/photos/gen/galeria-06-1179.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 787,
+          "src": "/photos/gen/galeria-06-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1180,
+          "src": "/photos/gen/galeria-06-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1449,
+          "src": "/photos/gen/galeria-06-1179.jpg"
         }
       ]
     }
   },
   "hero-interior": {
-    "width": 1920,
-    "height": 1080,
-    "position": "center",
+    "width": 1179,
+    "height": 874,
+    "position": "center 55%",
     "formats": {
       "avif": [
         {
           "width": 640,
-          "height": 360,
+          "height": 474,
           "src": "/photos/gen/hero-interior-640.avif"
         },
         {
           "width": 960,
-          "height": 540,
+          "height": 712,
           "src": "/photos/gen/hero-interior-960.avif"
         },
         {
-          "width": 1440,
-          "height": 810,
-          "src": "/photos/gen/hero-interior-1440.avif"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "src": "/photos/gen/hero-interior-1920.avif"
+          "width": 1179,
+          "height": 874,
+          "src": "/photos/gen/hero-interior-1179.avif"
         }
       ],
       "webp": [
         {
           "width": 640,
-          "height": 360,
+          "height": 474,
           "src": "/photos/gen/hero-interior-640.webp"
         },
         {
           "width": 960,
-          "height": 540,
+          "height": 712,
           "src": "/photos/gen/hero-interior-960.webp"
         },
         {
-          "width": 1440,
-          "height": 810,
-          "src": "/photos/gen/hero-interior-1440.webp"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "src": "/photos/gen/hero-interior-1920.webp"
+          "width": 1179,
+          "height": 874,
+          "src": "/photos/gen/hero-interior-1179.webp"
         }
       ],
       "jpg": [
         {
           "width": 640,
-          "height": 360,
+          "height": 474,
           "src": "/photos/gen/hero-interior-640.jpg"
         },
         {
           "width": 960,
-          "height": 540,
+          "height": 712,
           "src": "/photos/gen/hero-interior-960.jpg"
         },
         {
-          "width": 1440,
-          "height": 810,
-          "src": "/photos/gen/hero-interior-1440.jpg"
-        },
-        {
-          "width": 1920,
-          "height": 1080,
-          "src": "/photos/gen/hero-interior-1920.jpg"
+          "width": 1179,
+          "height": 874,
+          "src": "/photos/gen/hero-interior-1179.jpg"
         }
       ]
     }
   },
   "lubina": {
-    "width": 361,
-    "height": 640,
-    "position": "center",
+    "width": 1179,
+    "height": 1539,
+    "position": "center 55%",
     "formats": {
       "avif": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/lubina-361.avif"
+          "width": 640,
+          "height": 835,
+          "src": "/photos/gen/lubina-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1253,
+          "src": "/photos/gen/lubina-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1539,
+          "src": "/photos/gen/lubina-1179.avif"
         }
       ],
       "webp": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/lubina-361.webp"
+          "width": 640,
+          "height": 835,
+          "src": "/photos/gen/lubina-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1253,
+          "src": "/photos/gen/lubina-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1539,
+          "src": "/photos/gen/lubina-1179.webp"
         }
       ],
       "jpg": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/lubina-361.jpg"
+          "width": 640,
+          "height": 835,
+          "src": "/photos/gen/lubina-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1253,
+          "src": "/photos/gen/lubina-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1539,
+          "src": "/photos/gen/lubina-1179.jpg"
         }
       ]
     }
   },
   "marisco": {
-    "width": 361,
-    "height": 640,
+    "width": 1179,
+    "height": 1557,
     "position": "center",
     "formats": {
       "avif": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/marisco-361.avif"
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/marisco-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/marisco-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/marisco-1179.avif"
         }
       ],
       "webp": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/marisco-361.webp"
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/marisco-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/marisco-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/marisco-1179.webp"
         }
       ],
       "jpg": [
         {
-          "width": 361,
-          "height": 640,
-          "src": "/photos/gen/marisco-361.jpg"
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/marisco-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/marisco-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/marisco-1179.jpg"
+        }
+      ]
+    }
+  },
+  "tajine": {
+    "width": 1179,
+    "height": 1557,
+    "position": "center",
+    "formats": {
+      "avif": [
+        {
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/tajine-640.avif"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/tajine-960.avif"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/tajine-1179.avif"
+        }
+      ],
+      "webp": [
+        {
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/tajine-640.webp"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/tajine-960.webp"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/tajine-1179.webp"
+        }
+      ],
+      "jpg": [
+        {
+          "width": 640,
+          "height": 845,
+          "src": "/photos/gen/tajine-640.jpg"
+        },
+        {
+          "width": 960,
+          "height": 1268,
+          "src": "/photos/gen/tajine-960.jpg"
+        },
+        {
+          "width": 1179,
+          "height": 1557,
+          "src": "/photos/gen/tajine-1179.jpg"
         }
       ]
     }

@@ -69,7 +69,7 @@ function Hero() {
           <aside className="hidden lg:col-span-5 lg:block">
             <div className="ml-auto max-w-sm border border-gold-500/60 bg-night-950/75 p-6 backdrop-blur-sm">
               <div className="flex items-center justify-between gap-4">
-                <LogoMark className="h-14 w-14" />
+                <LogoMark className="h-14" alt="" />
                 <div className="text-right">
                   <p className="tnum font-display text-5xl leading-none text-gold-400">
                     {n.rating.score.toString().replace('.', ',')}
@@ -115,6 +115,7 @@ function Historia() {
             photoKey="historiaInterior"
             ratio="4/5"
             caption="El comedor de Ambar, tranquilo y climatizado."
+            sizes="(min-width: 1024px) 38vw, 100vw"
             className="mx-auto max-w-sm lg:max-w-none"
           />
         </Reveal>
@@ -252,9 +253,11 @@ function CouscousBanner() {
         <Reveal className="lg:col-span-4">
           <PhotoFrame
             photoKey="cuscus"
+            title="Cuscús de los viernes"
+            note="Se prepara ese día y se sirve mientras dure la olla."
             ratio="4/3"
             tilt="right"
-            caption="Cuscús con verduras y garbanzos"
+            caption="Cuscús, solo los viernes"
             sizes="(min-width: 1024px) 32vw, 100vw"
           />
         </Reveal>
