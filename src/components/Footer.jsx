@@ -72,7 +72,7 @@ export default function Footer() {
           <div>
             <h2 className="text-[12px] font-bold uppercase tracking-[0.18em] text-gold-400">Horario</h2>
             <p className="mt-5 text-[15px] text-cream-100/85">{hoursSummary}</p>
-            <p className="mt-1 text-[13px] text-cream-200/60">El resto del horario, por confirmar.</p>
+            <p className="mt-1 text-[13px] text-cream-200/60">En festivos puede cambiar.</p>
             <Link
               to="/el-local#horario"
               className="gold-underline mt-4 inline-block text-[14px] text-gold-400"

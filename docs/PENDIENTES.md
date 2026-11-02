@@ -1,19 +1,21 @@
 # Datos pendientes de confirmar
 
 Todo lo que aparece en la web sale de `src/data/site.ts` y `src/data/menu.json`.
-Lo que falta **no se ha inventado**: se muestra como «Por confirmar» o queda
+Lo que falta **no se ha inventado**: se muestra solo lo confirmado y queda
 pendiente en este documento.
 
 ## 1. Horario
 
-- Horario completo de martes a domingo (apertura y cierre).
-- Cierre real de los martes: ahora solo consta «desde las 12:30».
-- Horario de desayunos y de brunch.
-- Cierre por vacaciones y festivos.
-- Conviene confirmar si el horario cambia en verano.
+Confirmado por el titular el 2 de noviembre de 2026:
 
-Mientras no llegue, la web no anuncia «abierto ahora» y el JSON-LD no incluye
-horarios sin confirmar.
+- Lunes: cerrado.
+- Martes a domingo: de 12:30 a 24:00.
+
+Queda por confirmar:
+
+- Cierre por vacaciones y festivos.
+- Si el horario cambia en verano.
+- Los desayunos ya no se ofrecen y se han retirado de la web.
 
 ## 2. Datos fiscales y legales
 
@@ -43,7 +45,7 @@ horarios sin confirmar.
 ## 5. Fotos y marca
 
 - Autorización por escrito para publicar las fotos actuales.
-- Fotos definitivas de desayunos, terraza, fachada y más interiores.
+- Fotos definitivas de terraza, fachada y más interiores.
 - Logotipo original en vector (SVG, AI o EPS). El actual es una recreación
   dibujada para la web.
 - Confirmar el nombre público: «Restaurante Halal Ambar» / «Ambar».
@@ -63,7 +65,6 @@ horarios sin confirmar.
 - Carta física escaneada para un enlace «Ver la carta original». No se dispone
   de ella; por eso no hay enlace.
 - Fotos y textos de la terraza.
-- Horario y composición exacta del brunch.
 
 ## 8. Reseñas
 

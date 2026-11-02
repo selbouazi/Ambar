@@ -15,7 +15,7 @@ import { StarPattern, StarMotif, HalalSeal, Leaf, DottedRule } from '../componen
 import { LiveStatus, CouscousNotice } from '../components/Hours'
 import { site, hoursSummary, mapsHref, telHref, instagramHref } from '../data/site'
 import { copy } from '../data/copy'
-import { breakfastTeaser, findDishByTag, formatPrice, priceOf, starDishes } from '../data/menu'
+import { findDishByTag, priceOf, starDishes } from '../data/menu'
 
 const n = site
 
@@ -278,60 +278,6 @@ function CouscousBanner() {
   )
 }
 
-function Desayunos() {
-  return (
-    <section className="relative overflow-hidden bg-night-950 py-20 sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[78rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
-        <div className="lg:col-span-5">
-          <Reveal>
-            <BrushLabel variant={1}>Por la mañana</BrushLabel>
-          </Reveal>
-          <SectionHeading title={copy.desayunos.title} description={copy.desayunos.description} className="mt-5" />
-          <Reveal delay={140}>
-            <p className="mt-5 max-w-md text-[17px] leading-relaxed text-cream-200/75">
-              {copy.desayunos.body}
-            </p>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="mt-8 border border-gold-500/50 p-5">
-              <p className="font-brush text-[22px] leading-snug text-gold-300">También hay brunch</p>
-              <p className="mt-1 text-[14px] leading-relaxed text-cream-200/70">{copy.desayunos.note}</p>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="lg:col-span-7">
-          <ul>
-            {breakfastTeaser.map((item, i) => (
-              <Reveal as="li" key={item.name} delay={i * 70}>
-                <div className="menu-row flex items-baseline gap-3 border-b border-cream-100/12 py-5">
-                  <div className="min-w-0">
-                    <h3 className="font-display text-[22px] uppercase leading-snug tracking-wide text-cream-50">
-                      {item.name}
-                    </h3>
-                    <p className="mt-1 max-w-md text-[15px] leading-relaxed text-cream-200/70">
-                      {item.detail}
-                    </p>
-                  </div>
-                  <span aria-hidden="true" className="menu-leader mb-1 min-w-6 flex-1 self-end" />
-                  <span className="tnum shrink-0 text-[17px] font-semibold text-gold-400">
-                    {formatPrice(item.price)}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
-          <Reveal delay={240}>
-            <p className="mt-5 text-[13px] text-cream-200/55">
-              El horario de desayunos está pendiente de confirmar. Llámanos antes de venir.
-            </p>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Resenas() {
   return (
     <section className="bg-night-900 py-20 sm:py-28 lg:py-32">
@@ -521,7 +467,6 @@ export default function Inicio() {
       <Historia />
       <CartaDestacada />
       <CouscousBanner />
-      <Desayunos />
       <section className="bg-night-900 pb-20 pt-4 sm:pb-28 lg:pb-32">
         <div className="mx-auto max-w-[78rem] px-5 sm:px-8 lg:px-12">
           <div className="mb-9 flex items-center gap-4">

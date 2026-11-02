@@ -1,36 +1,6 @@
 {
   "categories": [
     {
-      "id": "desayuno",
-      "name": "Desayuno",
-      "intro": "Desde primera hora, con té, café o zumo de naranja natural.",
-      "items": [
-        {
-          "name": "Desayuno 1",
-          "description": "2 huevos con queso, mortadela, miel, aceitunas / mermelada, y té, café o zumo de naranja.",
-          "price": 6
-        },
-        {
-          "name": "Desayuno 2",
-          "description": "Msemmen + té o café.",
-          "price": 3.5
-        },
-        {
-          "name": "Desayuno 3",
-          "description": "Harxa + té o café.",
-          "price": 3.5
-        },
-        {
-          "name": "Msemmen con miel, queso",
-          "price": 1.5
-        },
-        {
-          "name": "Harxa con miel, queso",
-          "price": 1.5
-        }
-      ]
-    },
-    {
       "id": "batidos",
       "name": "Batidos",
       "items": [

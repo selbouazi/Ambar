@@ -9,6 +9,8 @@ Rama: `web-final`. Trabajo por fases, con commits pequeños.
 - `business.ts` se mantiene solo como reexportación de compatibilidad.
 - `src/data/menu.json` con la carta completa transcrita.
 - `src/data/copy.ts` con textos, FAQ y metadatos reales.
+- Horario confirmado: lunes cerrado; martes a domingo, de 12:30 a 24:00.
+- Desayunos y brunch retirados de la carta y de la web.
 
 ## Fase 2 — Fotos
 

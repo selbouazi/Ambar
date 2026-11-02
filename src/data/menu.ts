@@ -68,22 +68,6 @@ export const starDishes = [
     priceLabel: 'desde 8 €',
     categoryId: 'pescado',
   },
-  {
-    name: 'Msemmen con miel, queso',
-    detail: 'Recién hecho, con té o café. El desayuno marroquí de la casa.',
-    price: 1.5,
-    categoryId: 'desayuno',
-  },
-]
-
-export const breakfastTeaser = [
-  {
-    name: 'Desayuno 1',
-    detail: '2 huevos con queso, mortadela, miel, aceitunas / mermelada, y té, café o zumo.',
-    price: 6,
-  },
-  { name: 'Desayuno 2', detail: 'Msemmen + té o café.', price: 3.5 },
-  { name: 'Desayuno 3', detail: 'Harxa + té o café.', price: 3.5 },
 ]
 
 /** Formatea un precio al estilo español: 7 → "7 €", 3.5 → "3,50 €". */

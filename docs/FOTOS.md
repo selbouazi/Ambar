@@ -30,9 +30,8 @@ prueba de procedencia. No se publican.
 - Las fotos de Instagram son capturas de historias de 640 px de ancho. Varias
   llevan texto o marcas de la propia publicación. Aunque los recortes de la web
   evitan la mayor parte de esos elementos, **no son material definitivo**.
-- No hay fotos de desayunos (msemmen, harxa), de la terraza ni de la fachada.
-  Por eso el bloque de desayunos no lleva foto y la galería se limita a lo que
-  hay.
+- No hay fotos de la terraza ni de la fachada. Por eso la galería se limita a
+  lo que hay.
 
 ## Cómo sustituirlas
 
@@ -49,7 +48,7 @@ Recomendaciones para la sesión definitiva:
 - Luz natural o la luz cálida del local, sin flash directo.
 - Mínimo 1600 px en el lado largo.
 - Platos centrados y con aire alrededor.
-- Mezclar sala, platos, desayuno, terraza y fachada.
+- Mezclar sala, platos, terraza y fachada.
 
 ## Derechos
 

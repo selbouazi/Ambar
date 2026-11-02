@@ -77,6 +77,6 @@ dominio.
 
 ## Pendientes antes de publicar
 
-Ver `docs/PENDIENTES.md` (horario completo, NIF, precios que faltan, fotos
-definitivas, logo vectorial y dominio) y `docs/FOTOS.md` (procedencia y
-limitaciones de las fotos actuales).
+Ver `docs/PENDIENTES.md` (NIF, precios que faltan, fotos definitivas, logo
+vectorial y dominio) y `docs/FOTOS.md` (procedencia y limitaciones de las fotos
+actuales).

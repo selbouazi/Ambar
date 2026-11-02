@@ -133,7 +133,7 @@ export const site: Business = {
   shortName: 'Ambar',
   tagline: 'Cocina marroquí halal en El Vendrell',
   description:
-    'Restaurante halal en El Vendrell: cocina marroquí, parrilla, pescado, cuscús los viernes y desayunos de msemmen y harxa.',
+    'Restaurante halal en El Vendrell: cocina marroquí, parrilla, pescado, platos combinados y cuscús los viernes.',
 
   address: { ...ADDRESS },
   addressLines: ['Ctra. de Valls, 70', '43700 El Vendrell', 'Tarragona'],
@@ -161,8 +161,8 @@ export const site: Business = {
     terrace: true,
     tableService: true,
     barService: true,
-    breakfast: true,
-    brunch: true,
+    breakfast: false,
+    brunch: false,
     lunch: true,
     dinner: true,
     wifi: true,
@@ -175,8 +175,8 @@ export const site: Business = {
     nfc: true,
   },
 
-  // Confirmado: lunes cerrado y el martes abre a las 12:30.
-  // El resto del horario no se pudo verificar: queda como «Por confirmar».
+  // Horario confirmado por el titular: lunes cerrado y de martes a domingo
+  // de 12:30 a 24:00.
   hours: [
     { key: 'monday', label: 'Lunes', closed: true, confirmed: true, note: 'Cerrado' },
     {
@@ -184,16 +184,57 @@ export const site: Business = {
       label: 'Martes',
       closed: false,
       opens: '12:30',
-      confirmed: false,
-      note: 'Abre a las 12:30. Cierre por confirmar.',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
     },
-    { key: 'wednesday', label: 'Miércoles', closed: false, confirmed: false, note: 'Por confirmar' },
-    { key: 'thursday', label: 'Jueves', closed: false, confirmed: false, note: 'Por confirmar' },
-    { key: 'friday', label: 'Viernes', closed: false, confirmed: false, note: 'Por confirmar' },
-    { key: 'saturday', label: 'Sábado', closed: false, confirmed: false, note: 'Por confirmar' },
-    { key: 'sunday', label: 'Domingo', closed: false, confirmed: false, note: 'Por confirmar' },
+    {
+      key: 'wednesday',
+      label: 'Miércoles',
+      closed: false,
+      opens: '12:30',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
+    },
+    {
+      key: 'thursday',
+      label: 'Jueves',
+      closed: false,
+      opens: '12:30',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
+    },
+    {
+      key: 'friday',
+      label: 'Viernes',
+      closed: false,
+      opens: '12:30',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
+    },
+    {
+      key: 'saturday',
+      label: 'Sábado',
+      closed: false,
+      opens: '12:30',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
+    },
+    {
+      key: 'sunday',
+      label: 'Domingo',
+      closed: false,
+      opens: '12:30',
+      closes: '24:00',
+      confirmed: true,
+      note: '12:30–24:00',
+    },
   ],
-  scheduleConfirmed: false,
+  scheduleConfirmed: true,
 
   timezone: 'Europe/Madrid',
   couscousDay: 'friday',
@@ -217,7 +258,7 @@ export const site: Business = {
     'Terraza, servicio en mesa y servicio de barra.',
     'Wi-Fi gratis y pago con tarjeta o móvil (NFC).',
     'Acceso, aseo y aparcamiento adaptados.',
-    'Desayunos, brunch, comida y cena.',
+    'Comidas y cenas.',
   ],
 
   reviews: [
@@ -257,4 +298,4 @@ export const mapsHref = site.links.maps
 export const directionsHref = site.links.directions
 export const instagramHref = site.links.instagram
 
-export const hoursSummary = 'Lunes cerrado · Martes desde las 12:30'
+export const hoursSummary = 'Lunes cerrado · Martes a domingo, de 12:30 a 24:00'

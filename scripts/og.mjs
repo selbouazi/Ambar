@@ -50,7 +50,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <rect x="74" y="368" width="140" height="6" fill="#f4c816" />
 
   <text x="74" y="428" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#fbf6e7">Cocina marroquí halal · El Vendrell</text>
-  <text x="74" y="474" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ded2b6" opacity="0.8">Tajín · Cuscús los viernes · Marisco fresco · Desayunos</text>
+  <text x="74" y="474" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ded2b6" opacity="0.8">Tajín · Cuscús los viernes · Marisco fresco · Parrilla</text>
 
   <text x="74" y="566" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#f4c816">4,9 sobre 5 · 154 reseñas en Google</text>
   <text x="1126" y="566" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ded2b6" opacity="0.65">Ctra. de Valls, 70</text>

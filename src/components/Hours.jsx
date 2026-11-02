@@ -1,7 +1,7 @@
 import { site, hoursSummary } from '../data/site'
 import { getMadridNow, prettyTime, WEEK } from '../lib/hours'
 
-/** Estado resumido del horario. No anuncia «abierto ahora» sin horario completo. */
+/** Estado resumido del horario confirmado. */
 export function LiveStatus({ className = '', showDetail = false }) {
   return (
     <div className={className}>
@@ -11,7 +11,7 @@ export function LiveStatus({ className = '', showDetail = false }) {
       </p>
       {showDetail && (
         <p className="mt-1.5 text-sm text-cream-200/70">
-          El resto del horario está pendiente de confirmar. Llámanos si vienes desde lejos.
+          En festivos el horario puede cambiar. Llámanos si vienes desde lejos.
         </p>
       )}
     </div>

@@ -9,10 +9,10 @@ export const copy = {
 
   hero: {
     kicker: 'Cocina marroquí halal',
-    lead: 'Restaurante halal en El Vendrell: tajín, parrilla, pescado y desayunos marroquíes.',
+    lead: 'Restaurante halal en El Vendrell: tajín, parrilla, pescado y cuscús los viernes.',
     panelTitle: 'Halal, de la cocina a la mesa',
     panelText:
-      'Tajín a fuego lento, cuscús los viernes, marisco fresco y desayunos de msemmen y harxa.',
+      'Tajín a fuego lento, cuscús los viernes, marisco fresco y parrilla.',
   },
 
   historia: {
@@ -32,13 +32,6 @@ export const copy = {
     title: 'Cuscús, los viernes',
   },
 
-  desayunos: {
-    title: 'Desayunos marroquíes',
-    description: 'Msemmen y harxa recién hechos, con miel y queso, y un té que se sirve como en casa.',
-    body: 'Empieza el día sin prisa: té caliente, pan todavía tibio y el desayuno completo con huevos, queso y mortadela. También hay brunch.',
-    note: 'Msemmen o harxa con miel y queso: 1,50 €. Pregunta por el horario de desayunos.',
-  },
-
   resenas: {
     title: 'Quien viene, repite',
     description: `Opiniones reales de la ficha de Google · ${site.rating.score.toString().replace('.', ',')} sobre 5 con ${site.rating.count} reseñas.`,
@@ -52,7 +45,7 @@ export const copy = {
       { icon: 'moon', label: 'Cocina halal' },
       { icon: 'family', label: 'Menú infantil' },
       { icon: 'delivery', label: 'Para llevar y a domicilio' },
-      { icon: 'coffee', label: 'Desayuno y brunch' },
+      { icon: 'check', label: 'Servicio en mesa' },
       { icon: 'wheelchair', label: 'Acceso adaptado' },
       { icon: 'car', label: 'Aparcamiento en la calle' },
     ],
@@ -76,23 +69,23 @@ export const copy = {
 
   footer: {
     description:
-      'Cocina marroquí halal en El Vendrell. Tajín, cuscús de los viernes, parrilla, pescado y desayunos desde primera hora.',
+      'Cocina marroquí halal en El Vendrell. Tajín, cuscús de los viernes, parrilla, pescado y marisco.',
   },
 
   carta: {
     headerLead:
-      'Cocina marroquí, parrilla, pescado y desayunos. El cuscús solo se sirve los viernes. Precios en euros, IVA incluido salvo error.',
-    searchPlaceholder: 'Buscar en la carta: tajín, tacos, té…',
+      'Cocina marroquí, parrilla, pescado y platos combinados. El cuscús solo se sirve los viernes. Precios en euros, IVA incluido salvo error.',
+    searchPlaceholder: 'Buscar en la carta: tajín, tacos, pizza…',
     empty: 'No encontramos ese plato. Llámanos y te decimos si lo tenemos hoy.',
     footnotePrefix: 'Para alérgenos, consulta al personal. Pedidos y reservas: ',
-    hoursNote: `${hoursSummary}. El resto del horario, por confirmar.`,
+    hoursNote: hoursSummary,
     closingTitle: '¿Lo pides para llevar o te sientas a comer?',
     closingText: 'Hay servicio en el local, para llevar y entrega a domicilio.',
   },
 
   info: {
     lead: 'Todo lo práctico para tu visita: horario, cómo llegar, dónde aparcar y qué puedes pedir. Si te queda alguna duda, llámanos.',
-    horarioDesc: 'Lunes cerrado. Los martes abrimos a las 12:30; el resto del horario está pendiente de confirmar.',
+    horarioDesc: 'De martes a domingo, de 12:30 a 24:00. Los lunes cerramos.',
     horarioNote: 'El horario puede variar en festivos. Llámanos si vienes desde lejos.',
     couscousTitle: 'Cuscús, solo los viernes',
     couscousText: 'Se prepara ese día y se sirve mientras dure la olla.',
@@ -164,7 +157,7 @@ export const copy = {
       {
         question: '¿Cuál es el horario?',
         answer:
-          'Los lunes cerramos. Los martes abrimos a las 12:30; el resto del horario está pendiente de confirmar. Llámanos al 666 05 55 26 para asegurarte.',
+          'De martes a domingo, de 12:30 a 24:00. Los lunes cerramos. En festivos puede cambiar; llámanos al 666 05 55 26.',
       },
     ],
   },
@@ -197,12 +190,12 @@ export const copy = {
     home: {
       title: 'Restaurante Halal Ambar · Cocina marroquí halal en El Vendrell',
       description:
-        'Restaurante halal en El Vendrell: tajín, parrilla, pescado, cuscús los viernes y desayunos marroquíes. 4,9 sobre 5 con 154 reseñas en Google.',
+        'Restaurante halal en El Vendrell: tajín, parrilla, pescado, cuscús los viernes y platos combinados. 4,9 sobre 5 con 154 reseñas en Google.',
     },
     carta: {
       title: 'La carta · Restaurante Halal Ambar, El Vendrell',
       description:
-        'Carta completa de Ambar: desayunos marroquíes, tajín, cuscús de los viernes, tacos, pizzas, pescado fresco y marisco. Precios en euros.',
+        'Carta completa de Ambar: tajín, cuscús de los viernes, tacos, pizzas, pescado fresco, marisco y platos combinados. Precios en euros.',
     },
     info: {
       title: 'El local y cómo llegar · Restaurante Halal Ambar, El Vendrell',
