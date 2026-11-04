@@ -4,7 +4,7 @@ import { menu } from '../data/menu'
 import { copy } from '../data/copy'
 
 /** TODO: cambiar por el dominio definitivo si el titular registra uno. */
-export const SITE_URL = 'https://restaurante-halal-ambar.vercel.app'
+export const SITE_URL = 'https://ambar-nu-two.vercel.app'
 const OG_IMAGE = `${SITE_URL}/og.png`
 
 function upsertMeta(attr, key, content) {
