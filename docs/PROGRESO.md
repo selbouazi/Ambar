@@ -51,8 +51,8 @@ Tres fases, un commit por fase. Sin tocar contenido, rutas ni datos reales.
 
 | Ruta | LCP antes | LCP ahora | CLS | Rendimiento |
 | --- | --- | --- | --- | --- |
-| `/` | 5,0 s | **2,0 s** | 0 | 99 |
-| `/carta` | 3,3 s | **2,1 s** | 0 | 98 |
+| `/` | 5,0 s | **2,3 s** | 0 | 98 |
+| `/carta` | 3,3 s | **2,4 s** | 0 | 98 |
 | `/el-local` | 2,5 s | **2,1 s** | 0 | 99 |
 | `/resenas` | 2,4 s | **2,3 s** | 0 | 99 |
 
@@ -65,6 +65,8 @@ Accesibilidad, buenas prácticas y SEO: 100 en las cuatro. Cómo se consigue:
 - Sin `fetchpriority="high"` en la foto del hero (adelantaba la imagen al JS y
   a las fuentes) y logo del nav en WebP (32 KB → 7 KB).
 - Sin fondos de reserva en `Photo.jsx`: eran ocho fotos fuera de pantalla.
+- El elemento LCP de la portada es el titular en Anton (llega después que la
+  foto), no la foto: por eso las dos fuentes van precargadas.
 
 Comprobado con `.audit/checks.mjs`: sin scroll horizontal ni bloques
 invisibles a 390/768/1440, la portada se lee sin JavaScript y
