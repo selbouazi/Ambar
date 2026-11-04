@@ -63,7 +63,7 @@ export default function SmoothScroll({ children }) {
 }
 
 /** Desplaza la vista a un elemento, compensando la barra superior fija. */
-export function scrollToHash(id, offset = -96) {
+export function scrollToHash(id, offset = -150) {
   const el = document.getElementById(id)
   if (!el) return
   if (holder.current) holder.current.scrollTo(el, { offset })

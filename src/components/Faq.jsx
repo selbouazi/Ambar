@@ -27,11 +27,11 @@ export default function Faq({ items, className = '' }) {
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className="flex w-full items-center justify-between gap-6 py-5 text-left"
               >
-                <span className="font-display text-[19px] uppercase leading-snug tracking-wide text-cream-50 sm:text-[21px]">
+                <span className="text-[17px] font-medium leading-snug text-cream-50 sm:text-[18px]">
                   {item.question}
                 </span>
                 <span
-                  className={`grid h-9 w-9 shrink-0 place-items-center rounded-sm border transition-colors ${
+                  className={`grid h-9 w-9 shrink-0 place-items-center border ${
                     isOpen ? 'border-gold-500 bg-gold-500 text-night-950' : 'border-cream-100/30 text-cream-200'
                   }`}
                   aria-hidden="true"
@@ -48,7 +48,7 @@ export default function Faq({ items, className = '' }) {
               hidden={!isOpen}
               className="pb-6 pr-12"
             >
-              <p className="max-w-2xl text-[16px] leading-relaxed text-cream-200/75">{item.answer}</p>
+              <p className="max-w-2xl text-[16px] leading-relaxed text-cream-200">{item.answer}</p>
             </div>
           </div>
         )

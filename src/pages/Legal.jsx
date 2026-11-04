@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
-import BrushLabel from '../components/BrushLabel'
 import { StarPattern } from '../components/Ornament'
 import { site, telHref } from '../data/site'
+import { legalName, legalNif } from '../data/business'
 import { copy } from '../data/copy'
 
 function LegalLayout({ title, description, path, children }) {
@@ -11,17 +10,14 @@ function LegalLayout({ title, description, path, children }) {
     <>
       <Seo title={`${title} · ${site.name}`} description={description} path={path} />
 
-      <header className="relative overflow-hidden bg-night-950 pb-12 pt-28 sm:pb-14 lg:pt-36">
-        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={150} />
-        <div className="relative mx-auto max-w-[78rem] px-5 sm:px-8 lg:px-12">
+      <header className="relative overflow-hidden bg-night-950 pb-12 pt-28 text-cream-50 sm:pb-14 lg:pt-36">
+        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={190} />
+        <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
           <Reveal priority>
-            <BrushLabel variant={1} size="sm">
-              Información legal
-            </BrushLabel>
-            <h1 className="mt-4 font-display text-[clamp(2.8rem,7vw,5rem)] uppercase leading-[0.9] text-cream-50">
+            <h1 className="max-w-3xl font-display text-[clamp(2.8rem,7vw,5.4rem)] leading-[0.9] tracking-[-0.02em] text-cream-50">
               {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-cream-200/70">
+            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-cream-200">
               {description}
             </p>
           </Reveal>
@@ -30,20 +26,8 @@ function LegalLayout({ title, description, path, children }) {
 
       <section className="bg-cream-50 py-16 text-ink sm:py-20">
         <div className="mx-auto max-w-[48rem] px-5 sm:px-8">
-          <div className="space-y-9 text-[16px] leading-relaxed text-ink-soft [&_a]:font-medium [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:font-display [&_h2]:text-[26px] [&_h2]:uppercase [&_h2]:leading-tight [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+          <div className="space-y-9 text-[16px] leading-relaxed text-ink-soft [&_a]:font-medium [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-[22px] [&_h2]:font-medium [&_h2]:leading-tight [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
             {children}
-          </div>
-
-          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-ink/15 pt-6 text-[14px]">
-            <Link to="/aviso-legal" className="text-gold-700 underline underline-offset-4">
-              Aviso legal
-            </Link>
-            <Link to="/politica-de-cookies" className="text-gold-700 underline underline-offset-4">
-              Política de cookies
-            </Link>
-            <Link to="/el-local" className="text-gold-700 underline underline-offset-4">
-              Volver a El local
-            </Link>
           </div>
         </div>
       </section>
@@ -66,9 +50,8 @@ export function AvisoLegal() {
           <li>
             Teléfono: <a href={telHref}>{site.phone.display}</a>
           </li>
-          {/* TODO(confirmar): el titular debe facilitar su NIF/CIF y, si procede,
-              los datos registrales antes de publicar esta página. */}
-          <li>{copy.legal.nif}</li>
+          {legalName ? <li>Razón social: {legalName}</li> : null}
+          {legalNif ? <li>NIF/CIF: {legalNif}</li> : null}
         </ul>
       </section>
 

@@ -20,10 +20,10 @@ function BrandPanel({ title, note = 'Fotografía del restaurante' }) {
       <StarPattern className="absolute inset-0 h-full w-full star-texture" tile={110} />
       <div className="relative flex flex-col items-center">
         <StarMotif className="h-12 w-12" />
-        <p className="mt-6 max-w-[18rem] font-display text-[clamp(1.8rem,3vw,2.6rem)] uppercase leading-[0.95] text-cream-50">
+        <p className="mt-6 max-w-[18rem] font-display text-[clamp(1.8rem,3vw,2.6rem)] leading-[0.95] text-cream-50">
           {title}
         </p>
-        <p className="mt-3 max-w-[17rem] text-[14px] leading-relaxed text-cream-200/75">{note}</p>
+        <p className="mt-3 max-w-[17rem] text-[14px] leading-relaxed text-cream-200">{note}</p>
       </div>
     </div>
   )
@@ -31,11 +31,14 @@ function BrandPanel({ title, note = 'Fotografía del restaurante' }) {
 
 /**
  * Fotografía responsive con variantes avif/webp/jpg generadas por sharp.
- * Mantiene width/height para CLS 0 y usa un fondo de baja resolución mientras
- * carga. Si la foto no existe, muestra un panel de marca.
+ * Mantiene width/height para CLS 0. No usa fondo de baja resolución: esa
+ * segunda descarga competía con el JavaScript y con la foto grande, y solo se
+ * veía un instante. Mientras carga queda el fondo `night-800` de la caja.
+ * Si la foto no existe, muestra un panel de marca.
  */
 export default function Photo({
   photoKey,
+  mobilePhotoKey,
   alt,
   title,
   note,
@@ -49,6 +52,7 @@ export default function Photo({
 }) {
   const spec = photoSpecs[photoKey]
   const asset = getPhoto(photoKey)
+  const mobileAsset = mobilePhotoKey ? getPhoto(mobilePhotoKey) : undefined
   const aspect = ratio === 'h-full' ? '' : RATIOS[ratio] || RATIOS[spec?.ratio || '4/3']
   const objectPosition = position || asset?.position || spec?.position || 'center'
 
@@ -66,22 +70,26 @@ export default function Photo({
   const jpg = asset.formats.jpg ?? []
   const toSrcSet = (list) => list.map((v) => `${v.src} ${v.width}w`).join(', ')
   const fallback = jpg.at(-1) || webp.at(-1)
-  const placeholder = webp[0]?.src || fallback?.src
 
   return (
-    <div
-      className={`relative overflow-hidden bg-night-800 ${aspect} ${className}`}
-      style={
-        placeholder
-          ? {
-              backgroundImage: `url(${placeholder})`,
-              backgroundSize: 'cover',
-              backgroundPosition: objectPosition,
-            }
-          : undefined
-      }
-    >
+    <div className={`relative overflow-hidden bg-night-800 ${aspect} ${className}`}>
       <picture>
+        {mobileAsset?.formats.avif?.length ? (
+          <source
+            media="(max-width: 1023px)"
+            type="image/avif"
+            srcSet={toSrcSet(mobileAsset.formats.avif)}
+            sizes={sizes || '100vw'}
+          />
+        ) : null}
+        {mobileAsset?.formats.webp?.length ? (
+          <source
+            media="(max-width: 1023px)"
+            type="image/webp"
+            srcSet={toSrcSet(mobileAsset.formats.webp)}
+            sizes={sizes || '100vw'}
+          />
+        ) : null}
         {avif.length > 0 && (
           <source type="image/avif" srcSet={toSrcSet(avif)} sizes={sizes || spec?.sizes || '100vw'} />
         )}
@@ -96,7 +104,7 @@ export default function Photo({
           height={asset.height}
           alt={alt || spec?.alt || ''}
           loading={eager || spec?.priority ? 'eager' : 'lazy'}
-          fetchPriority={eager || spec?.priority ? 'high' : 'auto'}
+          fetchpriority={eager || spec?.priority ? 'high' : 'auto'}
           decoding="async"
           className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`}
           style={{ objectPosition }}

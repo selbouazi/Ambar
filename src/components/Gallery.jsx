@@ -3,13 +3,19 @@ import Icon from './Icons'
 import Photo from './Photo'
 import { galleryPhotos, photoSpecs } from '../data/photos'
 
+const ORDER = ['galeria04', 'galeria03', 'galeria05', 'galeria06', 'galeria01', 'galeria02']
+
 /**
- * Galería de fotos reales del restaurante, con el marco amarillo de la carta.
- * Se alimenta de las claves `galeria-*` del manifiesto y solo aparece si hay
- * al menos cuatro fotos.
+ * Galería de fotos reales del restaurante. Sin marcos ni sombras: la foto
+ * manda. La primera ocupa el doble de ancho para dar un punto de entrada.
  */
 export default function Gallery({ className = '' }) {
-  const photos = galleryPhotos()
+  const found = galleryPhotos()
+  const photos = [...found].sort((a, b) => {
+    const ai = ORDER.indexOf(a)
+    const bi = ORDER.indexOf(b)
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi)
+  })
   const [index, setIndex] = useState(null)
   const closeRef = useRef(null)
   const lastFocused = useRef(null)
@@ -63,20 +69,30 @@ export default function Gallery({ className = '' }) {
     <div className={className}>
       <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
         {photos.map((key, i) => (
-          <li key={key}>
+          <li
+            key={key}
+            className={
+              i === 0
+                ? 'col-span-2 md:col-span-2 md:row-span-2'
+                : i === photos.length - 1
+                  ? 'col-span-2 md:col-span-1'
+                  : ''
+            }
+          >
             <button
               type="button"
               onClick={() => open(i)}
-              className="group relative block w-full border border-gold-500/80 p-1.5 text-left transition-colors hover:border-gold-400"
+              className="group relative block w-full overflow-hidden text-left"
               aria-label={`Ampliar foto: ${photoSpecs[key].alt}`}
             >
               <Photo
                 photoKey={key}
                 ratio="4/3"
-                className="transition-opacity duration-300 group-hover:opacity-85"
-                sizes="(min-width: 768px) 33vw, 50vw"
+                className="transition-transform duration-200 ease-out group-hover:scale-[1.015]"
+                sizes={i === 0 ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'}
               />
-              <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-night-950/80 text-gold-400 opacity-0 transition-opacity group-hover:opacity-100">
+              <span className="pointer-events-none absolute inset-0 bg-night-950/15 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+              <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-night-950/80 text-gold-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                 <Icon name="plus" className="h-4 w-4" />
               </span>
             </button>
@@ -101,14 +117,14 @@ export default function Gallery({ className = '' }) {
           }}
         >
           <div className="flex items-center justify-between px-5 py-4 text-cream-100 sm:px-8">
-            <p className="text-sm text-cream-200/70">
+            <p className="text-sm text-cream-200">
               {index + 1} / {photos.length}
             </p>
             <button
               ref={closeRef}
               type="button"
               onClick={close}
-              className="grid h-11 w-11 place-items-center rounded-sm border border-cream-100/30 hover:border-gold-400"
+              className="grid h-11 w-11 place-items-center border border-cream-100/30 hover:border-gold-400"
               aria-label="Cerrar galería"
             >
               <Icon name="close" className="h-5 w-5" />
@@ -119,7 +135,7 @@ export default function Gallery({ className = '' }) {
             <button
               type="button"
               onClick={() => step(-1)}
-              className="hidden h-12 w-12 shrink-0 place-items-center rounded-sm border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
+              className="hidden h-12 w-12 shrink-0 place-items-center border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
               aria-label="Foto anterior"
             >
               <Icon name="arrow" className="h-5 w-5 rotate-180" />
@@ -129,11 +145,11 @@ export default function Gallery({ className = '' }) {
               <Photo
                 photoKey={current}
                 ratio="4/3"
-                className="mx-auto max-h-[75vh] max-w-5xl border border-gold-500/70 p-1.5"
+                className="mx-auto max-h-[75vh] max-w-5xl"
                 sizes="90vw"
                 eager
               />
-              <figcaption className="mx-auto mt-4 max-w-3xl text-center text-sm text-cream-200/65">
+              <figcaption className="mx-auto mt-4 max-w-3xl text-center text-sm text-cream-200">
                 {photoSpecs[current].alt}
               </figcaption>
             </figure>
@@ -141,7 +157,7 @@ export default function Gallery({ className = '' }) {
             <button
               type="button"
               onClick={() => step(1)}
-              className="hidden h-12 w-12 shrink-0 place-items-center rounded-sm border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
+              className="hidden h-12 w-12 shrink-0 place-items-center border border-cream-100/30 text-cream-100 hover:border-gold-400 sm:grid"
               aria-label="Foto siguiente"
             >
               <Icon name="arrow" className="h-5 w-5" />

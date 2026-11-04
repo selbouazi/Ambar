@@ -172,7 +172,6 @@ export const copy = {
   },
 
   legal: {
-    nif: 'NIF/CIF y razón social: pendiente de facilitar por el titular.',
     prices:
       'Los precios de la carta están expresados en euros e incluyen el IVA. Pueden variar por temporada o disponibilidad de producto fresco; para alérgenos, consulta al personal.',
     jurisdictionCity: site.address.city,

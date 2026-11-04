@@ -1,6 +1,240 @@
 {
   "categories": [
     {
+      "id": "entrantes",
+      "name": "Entrantes",
+      "items": [
+        {
+          "name": "Patatas bravas",
+          "price": 4
+        },
+        {
+          "name": "Croquetas / Fingers / Nuggets",
+          "pricePending": true,
+          "tags": [
+            "a-consultar"
+          ]
+        },
+        {
+          "name": "Alitas de pollo",
+          "price": 4.5
+        },
+        {
+          "name": "Ensalada marroquí",
+          "variants": [
+            {
+              "label": "1 persona",
+              "price": 4
+            },
+            {
+              "label": "2 personas",
+              "price": 8
+            }
+          ]
+        },
+        {
+          "name": "Pinchitos de carne / pollo / hígado",
+          "price": 3
+        }
+      ]
+    },
+    {
+      "id": "platos",
+      "name": "Platos",
+      "items": [
+        {
+          "name": "Tajín de carne",
+          "price": 7
+        },
+        {
+          "name": "Tajín de pollo",
+          "price": 7
+        },
+        {
+          "name": "Pollo a la brasa",
+          "price": 16
+        },
+        {
+          "name": "Patas de vaca",
+          "price": 7
+        },
+        {
+          "name": "Carne picada en brasa con ensalada",
+          "price": 9
+        },
+        {
+          "name": "Salchichas en brasa con ensalada",
+          "price": 9
+        },
+        {
+          "name": "Bistec en brasa con ensalada",
+          "price": 9
+        },
+        {
+          "name": "Cuscús (los viernes)",
+          "price": 7,
+          "tags": [
+            "solo-viernes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "platos-combinados",
+      "name": "Platos combinados",
+      "note": "Con ensalada y patatas fritas.",
+      "items": [
+        {
+          "name": "Pinchitos de pollo",
+          "price": 8
+        },
+        {
+          "name": "Carne picada",
+          "price": 8
+        },
+        {
+          "name": "Pinchitos de ternera",
+          "price": 8
+        },
+        {
+          "name": "Salchichas",
+          "price": 8
+        },
+        {
+          "name": "Pollo asado entero",
+          "price": 12
+        },
+        {
+          "name": "Pollo asado 1/2",
+          "price": 6
+        }
+      ]
+    },
+    {
+      "id": "tacos",
+      "name": "Tacos",
+      "menuExtra": "Menú: bebida + patatas, +2 €",
+      "items": [
+        {
+          "name": "Pollo · Ternera · Carne picada",
+          "price": 5
+        },
+        {
+          "name": "Mixto",
+          "price": 5.5
+        },
+        {
+          "name": "Marisco (gamba y calamar)",
+          "price": 6
+        }
+      ]
+    },
+    {
+      "id": "hamburguesas",
+      "name": "Hamburguesas",
+      "menuExtra": "Menú: bebida + patatas, +2 €",
+      "items": [
+        {
+          "name": "Pollo · Carne picada",
+          "price": 5
+        },
+        {
+          "name": "Doble",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "id": "bocadillos",
+      "name": "Bocadillos",
+      "menuExtra": "Menú: bebida + patatas, +2 €",
+      "items": [
+        {
+          "name": "Pechuga de pollo",
+          "price": 4.5
+        },
+        {
+          "name": "Carne picada",
+          "price": 5
+        },
+        {
+          "name": "Mixto",
+          "price": 5
+        },
+        {
+          "name": "Vegetal",
+          "price": 4.5
+        }
+      ]
+    },
+    {
+      "id": "pizzas",
+      "name": "Pizzas",
+      "note": "Ingredientes: gambas y atún, pollo, carne picada o 4 quesos.",
+      "items": [
+        {
+          "name": "Pizza pequeña",
+          "price": 7
+        },
+        {
+          "name": "Pizza mediana",
+          "price": 9
+        }
+      ]
+    },
+    {
+      "id": "pescado",
+      "name": "Pescado y marisco",
+      "items": [
+        {
+          "name": "Lubina a la plancha",
+          "price": 12
+        },
+        {
+          "name": "Dorada a la plancha",
+          "price": 12
+        },
+        {
+          "name": "Fritura",
+          "variants": [
+            {
+              "label": "1 persona",
+              "price": 14
+            },
+            {
+              "label": "2 personas",
+              "price": 28
+            }
+          ]
+        },
+        {
+          "name": "Gamba a la plancha (1/2 kg)",
+          "price": 10
+        },
+        {
+          "name": "Paella de marisco",
+          "variants": [
+            {
+              "label": "1 persona",
+              "price": 8
+            },
+            {
+              "label": "2 personas",
+              "price": 16
+            }
+          ]
+        },
+        {
+          "name": "Sardinas o boquerones fritos",
+          "price": 7
+        },
+        {
+          "name": "Sopa de marisco",
+          "price": 4.5
+        }
+      ]
+    },
+    {
       "id": "batidos",
       "name": "Batidos",
       "items": [
@@ -58,218 +292,6 @@
         {
           "name": "Agua grande",
           "price": 1.5
-        }
-      ]
-    },
-    {
-      "id": "entrantes",
-      "name": "Entrantes",
-      "items": [
-        {
-          "name": "Patatas bravas",
-          "price": 4
-        },
-        {
-          "name": "Croquetas / Fingers / Nuggets",
-          "pricePending": true,
-          "tags": ["a-consultar"]
-        },
-        {
-          "name": "Alitas de pollo",
-          "price": 4.5
-        },
-        {
-          "name": "Ensalada marroquí",
-          "variants": [
-            { "label": "1 persona", "price": 4 },
-            { "label": "2 personas", "price": 8 }
-          ]
-        },
-        {
-          "name": "Pinchitos de carne / pollo / hígado",
-          "price": 3
-        }
-      ]
-    },
-    {
-      "id": "platos-combinados",
-      "name": "Platos combinados",
-      "note": "Con ensalada y patatas fritas.",
-      "items": [
-        {
-          "name": "Pinchitos de pollo",
-          "price": 8
-        },
-        {
-          "name": "Carne picada",
-          "price": 8
-        },
-        {
-          "name": "Pinchitos de ternera",
-          "price": 8
-        },
-        {
-          "name": "Salchichas",
-          "price": 8
-        },
-        {
-          "name": "Pollo asado entero",
-          "price": 12
-        },
-        {
-          "name": "Pollo asado 1/2",
-          "price": 6
-        }
-      ]
-    },
-    {
-      "id": "tacos",
-      "name": "Tacos",
-      "menuExtra": "Menú: bebida + patatas, +2 €",
-      "items": [
-        {
-          "name": "Pollo · Ternera · Carne picada",
-          "price": 5
-        },
-        {
-          "name": "Mixto",
-          "price": 5.5
-        },
-        {
-          "name": "Marisco (gamba y calamar)",
-          "price": 6
-        }
-      ]
-    },
-    {
-      "id": "pizzas",
-      "name": "Pizzas",
-      "note": "Ingredientes: gambas y atún, pollo, carne picada o 4 quesos.",
-      "items": [
-        {
-          "name": "Pizza pequeña",
-          "price": 7
-        },
-        {
-          "name": "Pizza mediana",
-          "price": 9
-        }
-      ]
-    },
-    {
-      "id": "pescado",
-      "name": "Pescado",
-      "items": [
-        {
-          "name": "Lubina a la plancha",
-          "price": 12
-        },
-        {
-          "name": "Dorada a la plancha",
-          "price": 12
-        },
-        {
-          "name": "Fritura",
-          "variants": [
-            { "label": "1 persona", "price": 14 },
-            { "label": "2 personas", "price": 28 }
-          ]
-        },
-        {
-          "name": "Gamba a la plancha (1/2 kg)",
-          "price": 10
-        },
-        {
-          "name": "Paella de marisco",
-          "variants": [
-            { "label": "1 persona", "price": 8 },
-            { "label": "2 personas", "price": 16 }
-          ]
-        },
-        {
-          "name": "Sardinas o boquerones fritos",
-          "price": 7
-        },
-        {
-          "name": "Sopa de marisco",
-          "price": 4.5
-        }
-      ]
-    },
-    {
-      "id": "bocadillos",
-      "name": "Bocadillos",
-      "menuExtra": "Menú: bebida + patatas, +2 €",
-      "items": [
-        {
-          "name": "Pechuga de pollo",
-          "price": 4.5
-        },
-        {
-          "name": "Carne picada",
-          "price": 5
-        },
-        {
-          "name": "Mixto",
-          "price": 5
-        },
-        {
-          "name": "Vegetal",
-          "price": 4.5
-        }
-      ]
-    },
-    {
-      "id": "platos",
-      "name": "Platos",
-      "items": [
-        {
-          "name": "Tajín de carne",
-          "price": 7
-        },
-        {
-          "name": "Tajín de pollo",
-          "price": 7
-        },
-        {
-          "name": "Pollo a la brasa",
-          "price": 16
-        },
-        {
-          "name": "Patas de vaca",
-          "price": 7
-        },
-        {
-          "name": "Carne picada en brasa con ensalada",
-          "price": 9
-        },
-        {
-          "name": "Salchichas en brasa con ensalada",
-          "price": 9
-        },
-        {
-          "name": "Bistec en brasa con ensalada",
-          "price": 9
-        },
-        {
-          "name": "Cuscús (los viernes)",
-          "price": 7,
-          "tags": ["solo-viernes"]
-        }
-      ]
-    },
-    {
-      "id": "hamburguesas",
-      "name": "Hamburguesas",
-      "menuExtra": "Menú: bebida + patatas, +2 €",
-      "items": [
-        {
-          "name": "Pollo · Carne picada",
-          "price": 5
-        },
-        {
-          "name": "Doble",
-          "price": 7
         }
       ]
     }
