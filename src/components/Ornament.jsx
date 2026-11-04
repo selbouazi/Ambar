@@ -93,7 +93,7 @@ export function HalalSeal({ className = 'h-16 w-16' }) {
         </textPath>
       </text>
       <polygon points={octagramPoints(40, 40, 15, 6.4)} fill="currentColor" stroke="none" />
-      <polygon points={octagramPoints(40, 40, 7.5, 3.2)} fill="none" stroke="#070706" strokeWidth="1" />
+      <polygon points={octagramPoints(40, 40, 7.5, 3.2)} fill="none" stroke="#100f0c" strokeWidth="1" />
     </svg>
   )
 }
