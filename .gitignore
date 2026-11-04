@@ -19,3 +19,7 @@ skills-lock.json
 # Capturas y resultados de QA (generados en local)
 docs/qa/
 
+
+# Habilidades locales de diseño
+.taste-skill/
+
