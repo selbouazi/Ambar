@@ -11,6 +11,8 @@ if (typeof IntersectionObserver !== 'undefined') {
   document.documentElement.classList.add('js')
 }
 
+// Se pinta el arranque estático de la portada (index.html) con el HTML y el
+// CSS; React monta debajo, en #root, sin tocarlo.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#070706" />
+    <meta name="theme-color" content="#100f0c" />
     <meta name="robots" content="index, follow" />
 
     <title>Restaurante Halal Ambar · Cocina marroquí halal en El Vendrell</title>
@@ -42,7 +42,6 @@
 
     <!-- Tipografías propias: precarga para evitar el salto de fuente (CLS). -->
     <link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/kaushan-script-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Datos estructurados estáticos. Seo.jsx reescribe este mismo nodo. -->
@@ -88,7 +87,248 @@
     </script>
   </head>
   <body>
+    <!-- Hero estático de la portada: se pinta con el HTML y el CSS, antes de
+         descargar y ejecutar JavaScript, y React no lo toca (monta debajo, en
+         #root). Así el mayor contenido pintado de la primera pantalla no
+         depende de la app. En cualquier otra ruta se elimina justo debajo. -->
+    <div id="hero-estatico">
+      <section
+        class="relative flex min-h-[100svh] flex-col overflow-hidden bg-night-950 text-cream-50"
+      >
+        <div class="absolute inset-0" aria-hidden="true">
+          <div class="relative h-full w-full overflow-hidden bg-night-800" id="hero-foto">
+            <!-- Sin JavaScript la foto no se puede insertar desde la plantilla
+                 de debajo: queda esta, de un solo formato. -->
+            <noscript>
+              <img
+                src="/photos/gen/hero-interior-960.webp"
+                width="1179"
+                height="874"
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover"
+                style="object-position: center 72%"
+              />
+            </noscript>
+          </div>
+          <div class="photo-scrim absolute inset-0"></div>
+        </div>
+
+        <div
+          class="relative mx-auto flex w-full max-w-[86rem] flex-1 flex-col px-5 pb-24 pt-28 sm:px-8 md:pb-8 lg:px-12 lg:pt-36"
+        >
+          <div class="flex flex-1 flex-col justify-end pb-12 lg:justify-center lg:pb-20">
+            <div class="max-w-4xl">
+              <h1
+                class="font-display text-[clamp(5.4rem,21vw,14rem)] leading-[0.78] tracking-[-0.035em] text-cream-50"
+              >
+                Ambar
+              </h1>
+              <div class="mt-7 grid gap-7 lg:grid-cols-12 lg:items-end">
+                <p
+                  class="max-w-xl text-[17px] leading-relaxed text-cream-200 sm:text-[19px] lg:col-span-7"
+                >
+                  Restaurante halal en El Vendrell: tajín, parrilla, pescado y cuscús los viernes.
+                </p>
+                <div class="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
+                  <a
+                    href="/carta"
+                    class="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-[2px] bg-gold-500 px-6 py-3 text-[14px] font-semibold leading-none tracking-[0.01em] text-night-950 transition-transform duration-200 hover:bg-gold-400 active:translate-y-px"
+                  >
+                    Ver la carta<span class="h-4 w-4 shrink-0" aria-hidden="true"></span>
+                  </a>
+                  <a
+                    href="tel:+34666055526"
+                    class="group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-[2px] border border-cream-50/55 bg-night-950/25 px-6 py-3 text-[14px] font-semibold leading-none tracking-[0.01em] text-cream-50 backdrop-blur-[2px] transition-transform duration-200 hover:border-gold-400 hover:text-gold-300 active:translate-y-px"
+                  >
+                    Llamar<span class="h-4 w-4 shrink-0" aria-hidden="true"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="grid gap-5 border-t border-cream-100/25 pt-6 text-[14px] sm:grid-cols-3 sm:gap-8"
+          >
+            <div class="flex items-center gap-3">
+              <svg
+                viewBox="0 0 80 80"
+                class="h-9 w-9 shrink-0 text-gold-400"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="40" cy="40" r="37" stroke="currentColor" stroke-width="1.2" />
+                <circle
+                  cx="40"
+                  cy="40"
+                  r="32.5"
+                  stroke="currentColor"
+                  stroke-width="0.5"
+                  opacity="0.55"
+                />
+                <path
+                  id="sello-hero"
+                  d="M40 9.5a30.5 30.5 0 0 1 30.5 30.5"
+                  fill="none"
+                  stroke="none"
+                />
+                <text font-size="6.2" letter-spacing="1.7" fill="currentColor" font-weight="600">
+                  <textPath href="#sello-hero" startOffset="0">HALAL FOOD · REST. AMBAR ·</textPath>
+                </text>
+                <polygon
+                  points="40.00,25.00 42.45,34.09 50.61,29.39 45.91,37.55 55.00,40.00 45.91,42.45 50.61,50.61 42.45,45.91 40.00,55.00 37.55,45.91 29.39,50.61 34.09,42.45 25.00,40.00 34.09,37.55 29.39,29.39 37.55,34.09"
+                  fill="currentColor"
+                  stroke="none"
+                />
+                <polygon
+                  points="40.00,32.50 41.22,37.04 45.30,34.70 42.96,38.78 47.50,40.00 42.96,41.22 45.30,45.30 41.22,42.96 40.00,47.50 38.78,42.96 34.70,45.30 37.04,41.22 32.50,40.00 37.04,38.78 34.70,34.70 38.78,37.04"
+                  fill="none"
+                  stroke="#100f0c"
+                  stroke-width="1"
+                />
+              </svg>
+              <p class="text-cream-200">
+                <span class="text-cream-50">Cocina halal</span>
+                <span class="block text-[13px]">Tajín, parrilla y pescado</span>
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg
+                viewBox="0 0 48 48"
+                class="h-6 w-6 shrink-0 text-gold-400"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="1.4"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <polygon
+                  points="24.00,3.00 27.44,15.69 38.85,9.15 32.31,20.56 45.00,24.00 32.31,27.44 38.85,38.85 27.44,32.31 24.00,45.00 20.56,32.31 9.15,38.85 15.69,27.44 3.00,24.00 15.69,20.56 9.15,9.15 20.56,15.69"
+                />
+                <polygon
+                  points="24.00,11.50 25.99,19.20 32.84,15.16 28.80,22.01 36.50,24.00 28.80,25.99 32.84,32.84 25.99,28.80 24.00,36.50 22.01,28.80 15.16,32.84 19.20,25.99 11.50,24.00 19.20,22.01 15.16,15.16 22.01,19.20"
+                  opacity="0.55"
+                />
+              </svg>
+              <p class="text-cream-200">
+                <span class="tnum text-cream-50">4,9 sobre 5</span>
+                <span class="block text-[13px]">154 reseñas en Google</span>
+              </p>
+            </div>
+            <div class="flex items-center gap-3 sm:justify-end">
+              <svg
+                viewBox="0 0 24 24"
+                class="h-5 w-5 shrink-0 text-gold-400"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5V12l3 2" />
+              </svg>
+              <p class="text-cream-200">
+                <span class="text-cream-50">Martes a domingo</span>
+                <span class="block text-[13px]">12:30 – 24:00</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- La foto del hero vive en una plantilla: los navegadores no descargan
+         nada de lo que hay dentro de <template>, así que solo se pide en la
+         portada. El guion de debajo la inserta (o se lleva la plantilla si la
+         ruta no es la portada). -->
+    <template id="hero-foto-src">
+      <picture>
+        <source
+          media="(max-width: 1023px)"
+          type="image/avif"
+          sizes="100vw"
+          srcset="/photos/gen/galeria-03-640.avif 640w, /photos/gen/galeria-03-960.avif 960w, /photos/gen/galeria-03-1179.avif 1179w"
+        />
+        <source
+          media="(max-width: 1023px)"
+          type="image/webp"
+          sizes="100vw"
+          srcset="/photos/gen/galeria-03-640.webp 640w, /photos/gen/galeria-03-960.webp 960w, /photos/gen/galeria-03-1179.webp 1179w"
+        />
+        <source
+          type="image/avif"
+          sizes="100vw"
+          srcset="/photos/gen/hero-interior-640.avif 640w, /photos/gen/hero-interior-960.avif 960w, /photos/gen/hero-interior-1179.avif 1179w"
+        />
+        <source
+          type="image/webp"
+          sizes="100vw"
+          srcset="/photos/gen/hero-interior-640.webp 640w, /photos/gen/hero-interior-960.webp 960w, /photos/gen/hero-interior-1179.webp 1179w"
+        />
+        <img
+          src="/photos/gen/hero-interior-1179.jpg"
+          srcset="/photos/gen/hero-interior-640.jpg 640w, /photos/gen/hero-interior-960.jpg 960w, /photos/gen/hero-interior-1179.jpg 1179w"
+          sizes="100vw"
+          width="1179"
+          height="874"
+          alt=""
+          loading="eager"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover"
+          style="object-position: center 72%"
+        />
+      </picture>
+    </template>
+
     <div id="root"></div>
+
+    <script>
+      // Solo la portada tiene arranque estático: en cualquier otra ruta se
+      // elimina antes de pintar y React monta sobre #root vacío.
+      var plantilla = document.getElementById('hero-foto-src')
+      if (location.pathname === '/') {
+        window.__heroEstatico = true
+        document
+          .getElementById('hero-foto')
+          .appendChild(plantilla.content.cloneNode(true))
+      } else {
+        document.getElementById('hero-estatico').remove()
+      }
+      plantilla.remove()
+    </script>
+
+    <!-- Sin JavaScript la app no puede montarse: al menos no dejamos la página
+         en blanco. Datos copiados de src/data/site.ts (teléfono, horario,
+         dirección). -->
+    <noscript>
+      <div
+        style="
+          background: #100f0c;
+          color: #f5efe3;
+          font-family: system-ui, -apple-system, sans-serif;
+          line-height: 1.6;
+          padding: 32px 24px;
+          text-align: center;
+        "
+      >
+        <p style="margin: 0 0 6px">
+          <strong>Restaurante Halal Ambar</strong> · Ctra. de Valls, 70 · 43700 El Vendrell
+        </p>
+        <p style="margin: 0 0 6px">Martes a domingo, de 12:30 a 24:00 · Lunes cerrado</p>
+        <p style="margin: 0">
+          Teléfono:
+          <a href="tel:+34666055526" style="color: #e5cf9c">666 05 55 26</a>
+        </p>
+        <p style="color: #c8bca8; font-size: 14px; margin: 14px 0 0">
+          Esta web necesita JavaScript para mostrar la carta completa.
+        </p>
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

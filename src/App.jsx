@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import SmoothScroll from './components/SmoothScroll'
 import Navbar from './components/Navbar'
@@ -13,11 +14,21 @@ import NoMatch from './pages/NoMatch'
 export default function App() {
   const location = useLocation()
 
+  // El hero pintado en el HTML solo corresponde a la portada. Al navegar fuera
+  // se retira (y se marca) para que, si se vuelve a la portada, Inicio pinte el
+  // suyo con React como en cualquier otra página.
+  useLayoutEffect(() => {
+    if (location.pathname === '/') return
+    const hero = document.getElementById('hero-estatico')
+    if (hero) hero.remove()
+    window.__heroEstatico = false
+  }, [location.pathname])
+
   return (
     <SmoothScroll>
       <a
         href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-sm focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-[14px] focus:font-bold focus:uppercase focus:tracking-wide focus:text-night-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-[2px] focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-[14px] focus:font-semibold focus:text-night-950"
       >
         Saltar al contenido
       </a>
