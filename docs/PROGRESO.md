@@ -82,10 +82,18 @@ alérgenos, horario de festivos y la carta escaneada.
 ### Instagram
 
 La portada tiene un bloque «Lo último, en vídeo» con los tres vídeos más
-recientes. Las URL de cada reel se pegan en `src/data/instagram.ts`: en cuanto
-una tarjeta tiene `reelUrl`, se reproduce con el reproductor oficial de
-Instagram **al pulsarla** (nada de Meta se carga antes, igual que el mapa).
-Mientras no haya URL, la tarjeta muestra una foto real y enlaza al perfil.
+recientes. `npm run instagram` los saca del embed público del perfil
+(`instagram.com/amb_ar2022/embed/`, que sí entrega los *shortcodes* sin cuenta),
+descarga su portada y reescribe `src/data/instagram.ts` y las imágenes de
+`public/photos/gen/instagram-N-{480,640}.{webp,jpg}`. Se ejecuta a mano cuando
+haya vídeos nuevos y el resultado se versiona.
+
+Al pulsar una tarjeta se inserta el reproductor oficial de Instagram
+(`/reel/CODIGO/embed/captioned/`) y el vídeo se reproduce dentro de la propia
+página. Nada de Meta se carga antes del clic, igual que el mapa. Probado en
+Chromium: el iframe arranca, el `<video>` pasa a `paused: false` y avanza el
+tiempo. Si un reel no tuviera portada, la tarjeta cae en una foto real del
+restaurante y enlaza al perfil.
 
 ## Fase 4 — Páginas
 

@@ -1,41 +1,53 @@
 /**
- * Los tres últimos vídeos de Instagram.
- *
- * Mientras una entrada no tenga `reelUrl`, la tarjeta muestra una foto real del
- * restaurante y enlaza al perfil. En cuanto se pega la URL del reel
- * (`https://www.instagram.com/reel/XXXXXXX/`), esa tarjeta pasa a reproducir el
- * vídeo con el reproductor oficial de Instagram, que solo se carga al pulsar
- * (igual que el mapa): no se incrusta nada de Meta hasta que el visitante lo
- * pide.
+ * Los últimos vídeos de Instagram, con su portada servida desde el propio
+ * dominio. Lo genera `npm run instagram` (scripts/instagram.mjs); no se toca a
+ * mano. Para refrescarlo cuando haya vídeos nuevos, vuelve a ejecutarlo.
  */
 
 export interface InstagramPost {
-  /** Identificador interno, estable. */
+  /** Identificador interno, estable (el shortcode del reel). */
   id: string
-  /** Pie corto que se ve sobre la foto. */
+  /** Pie corto que se ve sobre la portada. Puede ir vacío. */
   title: string
-  /** Foto de portada mientras no hay vídeo incrustado. */
-  photoKey: string
-  /** URL pública del reel. Vacío = todavía no lo tenemos. */
+  /** URL pública del reel. */
   reelUrl?: string
+  /** Portada local. Si falta, la tarjeta cae en `photoKey`. */
+  cover?: { base: string; width: number; height: number }
+  /** Foto de respaldo cuando todavía no hay portada descargada. */
+  photoKey?: string
 }
 
 export const instagramHandle = '@amb_ar2022'
 
 export const instagramPosts: InstagramPost[] = [
   {
-    id: 'reel-1',
-    title: 'Tajín de pollo con patatas',
-    photoKey: 'galeria05',
+    "id": "DNb4wSDI_PY",
+    "title": "",
+    "reelUrl": "https://www.instagram.com/reel/DNb4wSDI_PY/",
+    "cover": {
+      "base": "/photos/gen/instagram-1",
+      "width": 720,
+      "height": 1280
+    }
   },
   {
-    id: 'reel-2',
-    title: 'Pollo con arroz, ensalada y pan',
-    photoKey: 'galeria03',
+    "id": "DNEFdD4M0l7",
+    "title": "maroqui",
+    "reelUrl": "https://www.instagram.com/reel/DNEFdD4M0l7/",
+    "cover": {
+      "base": "/photos/gen/instagram-2",
+      "width": 720,
+      "height": 1280
+    }
   },
   {
-    id: 'reel-3',
-    title: 'Té con hierbabuena, pan y aceitunas',
-    photoKey: 'galeria02',
-  },
+    "id": "DM0xk-AIAJI",
+    "title": "مغربي",
+    "reelUrl": "https://www.instagram.com/reel/DM0xk-AIAJI/",
+    "cover": {
+      "base": "/photos/gen/instagram-3",
+      "width": 576,
+      "height": 1024
+    }
+  }
 ]
