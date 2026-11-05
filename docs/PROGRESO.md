@@ -79,6 +79,14 @@ como estaban. Faltan datos que solo puede dar él: NIF/CIF y razón social,
 política de reservas, WhatsApp, precios de croquetas, fingers y nuggets, IVA y
 alérgenos, horario de festivos y la carta escaneada.
 
+### Instagram
+
+La portada tiene un bloque «Lo último, en vídeo» con los tres vídeos más
+recientes. Las URL de cada reel se pegan en `src/data/instagram.ts`: en cuanto
+una tarjeta tiene `reelUrl`, se reproduce con el reproductor oficial de
+Instagram **al pulsarla** (nada de Meta se carga antes, igual que el mapa).
+Mientras no haya URL, la tarjeta muestra una foto real y enlaza al perfil.
+
 ## Fase 4 — Páginas
 
 - `/` portada completa.

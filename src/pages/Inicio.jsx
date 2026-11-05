@@ -7,12 +7,14 @@ import Photo from '../components/Photo'
 import PhotoFrame from '../components/PhotoFrame'
 import ReviewCard from '../components/ReviewCard'
 import Gallery from '../components/Gallery'
+import InstagramReels from '../components/InstagramReels'
 import MapEmbed from '../components/MapEmbed'
 import Icon from '../components/Icons'
 import { StarPattern, StarMotif, HalalSeal, Leaf } from '../components/Ornament'
 import { CouscousNotice } from '../components/Hours'
 import { site, mapsHref, telHref, instagramHref } from '../data/site'
 import { copy } from '../data/copy'
+import { instagramHandle } from '../data/instagram'
 import { findDishByTag, priceOf, starDishes } from '../data/menu'
 import useListoTrasPintar from '../useListoTrasPintar'
 
@@ -250,6 +252,38 @@ function CouscousBanner() {
   )
 }
 
+function Instagram() {
+  return (
+    <section className="bg-night-950 pb-20 pt-4 text-cream-50 sm:pb-28 lg:pb-32">
+      <div className="mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-8 border-t border-cream-100/15 pt-14 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="lg:col-span-8">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-gold-400">
+              Instagram
+            </p>
+            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.15rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.012em] text-cream-50">
+              Lo último, en vídeo
+            </h2>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-cream-200">
+              Los tres últimos vídeos que publicamos en {instagramHandle}: platos, el local y el
+              día a día. Se reproducen aquí mismo, sin salir de la web.
+            </p>
+          </div>
+          <div className="lg:col-span-4 lg:justify-self-end">
+            <CTAButton href={instagramHref} external variant="onDark" icon="instagram">
+              Seguir en Instagram
+            </CTAButton>
+          </div>
+        </div>
+
+        <Reveal delay={80} className="mt-10">
+          <InstagramReels />
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Resenas() {
   return (
     <section className="bg-cream-50 pb-20 pt-4 text-ink sm:pb-28 lg:pb-32">
@@ -453,6 +487,7 @@ export default function Inicio() {
               <Gallery />
             </div>
           </section>
+          <Instagram />
           <Resenas />
           <Familias />
           <Llegar />
