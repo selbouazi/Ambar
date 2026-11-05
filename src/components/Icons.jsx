@@ -111,20 +111,28 @@ const paths = {
   ),
 }
 
+/** Logotipos que se dibujan rellenos, no a trazo. */
+const filledPaths = {
+  tiktok: (
+    <path d="M16.6 3h-2.9v11.3a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8.7a5.6 5.6 0 1 0 4.7 5.5V9.6a6.7 6.7 0 0 0 3.9 1.2V7.8a3.8 3.8 0 0 1-3.9-3.8V3Z" />
+  ),
+}
+
 export default function Icon({ name, className = 'h-6 w-6' }) {
+  const filled = Boolean(filledPaths[name])
   return (
     <svg
       viewBox="0 0 24 24"
       className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke={filled ? 'none' : 'currentColor'}
+      strokeWidth={filled ? undefined : '1.5'}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
     >
-      {paths[name] || paths.info}
+      {filled ? filledPaths[name] : paths[name] || paths.info}
     </svg>
   )
 }

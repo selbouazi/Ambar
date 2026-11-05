@@ -104,6 +104,7 @@ export interface Business {
     mapsEmbed: string
     directions: string
     instagram: string
+    tiktok: string
   }
   /** Hechos respaldados por la ficha de Google y las reseñas reales. */
   familyFacts: string[]
@@ -250,6 +251,7 @@ export const site: Business = {
     mapsEmbed: `https://www.google.com/maps?q=${MAPS_QUERY}&output=embed&hl=es`,
     directions: `https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`,
     instagram: 'https://www.instagram.com/amb_ar2022',
+    tiktok: 'https://www.tiktok.com/@restaurantambar',
   },
 
   familyFacts: [
@@ -297,5 +299,6 @@ export const telHref = `tel:${site.phone.uri}`
 export const mapsHref = site.links.maps
 export const directionsHref = site.links.directions
 export const instagramHref = site.links.instagram
+export const tiktokHref = site.links.tiktok
 
 export const hoursSummary = 'Lunes cerrado · Martes a domingo, de 12:30 a 24:00'

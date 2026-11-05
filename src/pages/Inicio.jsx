@@ -12,7 +12,7 @@ import MapEmbed from '../components/MapEmbed'
 import Icon from '../components/Icons'
 import { StarPattern, StarMotif, HalalSeal, Leaf } from '../components/Ornament'
 import { CouscousNotice } from '../components/Hours'
-import { site, mapsHref, telHref, instagramHref } from '../data/site'
+import { site, mapsHref, telHref, instagramHref, tiktokHref } from '../data/site'
 import { copy } from '../data/copy'
 import { instagramHandle } from '../data/instagram'
 import { findDishByTag, priceOf, starDishes } from '../data/menu'
@@ -448,6 +448,9 @@ function Cierre() {
                 </CTAButton>
                 <CTAButton href={instagramHref} external variant="onDark">
                   Instagram
+                </CTAButton>
+                <CTAButton href={tiktokHref} external variant="onDark">
+                  TikTok
                 </CTAButton>
               </div>
             </div>

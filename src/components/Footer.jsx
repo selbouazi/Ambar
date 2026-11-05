@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Icon from './Icons'
 import { LogoMark, Wordmark } from './Brand'
 import { StarPattern, Leaf } from './Ornament'
-import { site, hoursSummary, mapsHref, telHref, instagramHref } from '../data/site'
+import { site, hoursSummary, mapsHref, telHref, instagramHref, tiktokHref } from '../data/site'
 import { copy } from '../data/copy'
 
 export default function Footer() {
@@ -63,6 +63,18 @@ export default function Footer() {
                 >
                   <Icon name="instagram" className="h-4 w-4 text-gold-500" />
                   @amb_ar2022
+                </a>
+              </li>
+              <li>
+                <a
+                  href={tiktokHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 text-cream-100 hover:text-gold-300"
+                  aria-label="@restaurantambar en TikTok"
+                >
+                  <Icon name="tiktok" className="h-4 w-4 text-gold-500" />
+                  @restaurantambar
                 </a>
               </li>
             </ul>
