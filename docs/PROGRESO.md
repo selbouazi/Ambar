@@ -82,18 +82,19 @@ alérgenos, horario de festivos y la carta escaneada.
 ### Instagram
 
 La portada tiene un bloque «Lo último, en vídeo» con los tres vídeos más
-recientes. `npm run instagram` los saca del embed público del perfil
-(`instagram.com/amb_ar2022/embed/`, que sí entrega los *shortcodes* sin cuenta),
-descarga su portada y reescribe `src/data/instagram.ts` y las imágenes de
-`public/photos/gen/instagram-N-{480,640}.{webp,jpg}`. Se ejecuta a mano cuando
-haya vídeos nuevos y el resultado se versiona.
+recientes. `npm run instagram` saca sus URL del embed público del perfil
+(`instagram.com/amb_ar2022/embed/`, que sí entrega los *shortcodes* sin cuenta)
+y reescribe `src/data/instagram.ts`. Se ejecuta a mano cuando haya vídeos nuevos
+y el resultado se versiona.
 
-Al pulsar una tarjeta se inserta el reproductor oficial de Instagram
-(`/reel/CODIGO/embed/captioned/`) y el vídeo se reproduce dentro de la propia
-página. Nada de Meta se carga antes del clic, igual que el mapa. Probado en
-Chromium: el iframe arranca, el `<video>` pasa a `paused: false` y avanza el
-tiempo. Si un reel no tuviera portada, la tarjeta cae en una foto real del
-restaurante y enlaza al perfil.
+No hay tarjetas intermedias: se ve el reproductor oficial de Instagram
+(`/reel/CODIGO/embed/captioned/`) desde el principio, con su portada y su botón
+de reproducción. Arranca **en pausa** y solo suena al pulsar. Los iframes usan
+`loading="lazy"`, así que no se piden a Meta hasta que el bloque se acerca a la
+pantalla; la primera pantalla no carga nada de Instagram.
+
+Probado en Chromium a 390 y 1440: los tres iframes aparecen con `paused: true`,
+y al pulsar Play el `<video>` pasa a `paused: false` y avanza el tiempo.
 
 ## Fase 4 — Páginas
 
