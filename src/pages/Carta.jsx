@@ -138,12 +138,26 @@ export default function Carta() {
 /** Todo lo que va debajo de la cabecera: entra en el segundo compromiso de
  *  render, después del primer pintado de la página. */
 function Resto({ query, setQuery, searchRef, searching, filtered, active, resultCount }) {
+  const navRef = useRef(null)
+
+  // En móvil la barra de categorías se desborda: la categoría activa se
+  // desplaza a la vista para que siempre se vea dónde estás.
+  useEffect(() => {
+    const nav = navRef.current
+    const chip = nav?.querySelector(`[data-cat="${active}"]`)
+    if (!nav || !chip || nav.scrollWidth <= nav.clientWidth) return
+    const target = chip.offsetLeft - (nav.clientWidth - chip.offsetWidth) / 2
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    nav.scrollTo({ left: Math.max(0, target), behavior: reduce ? 'auto' : 'smooth' })
+  }, [active])
+
   return (
     <>
       {/* Navegación de categorías */}
       <div className="sticky top-16 z-30 border-b border-ink/15 bg-cream-50/95 backdrop-blur-md lg:top-[76px]">
         <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
           <nav
+            ref={navRef}
             aria-label="Categorías de la carta"
             className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
           >
@@ -154,6 +168,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
                   <li key={category.id}>
                     <button
                       type="button"
+                      data-cat={category.id}
                       onClick={() => {
                         setQuery('')
                         window.setTimeout(() => scrollToHash(category.id), 0)

@@ -1,4 +1,4 @@
-﻿import Reveal from './Reveal'
+import Reveal from './Reveal'
 import Photo from './Photo'
 import { formatPrice, priceOf } from '../data/menu'
 
@@ -27,7 +27,7 @@ function Tags({ tags }) {
 }
 
 function Leader() {
-  return <span aria-hidden="true" className="menu-leader mb-1 min-w-6 flex-1 self-end" />
+  return <span aria-hidden="true" className="menu-leader mb-[0.4em] min-w-6 flex-1 self-end" />
 }
 
 function MenuItemRow({ item }) {
@@ -50,11 +50,13 @@ function MenuItemRow({ item }) {
         </>
       ) : (
         <>
-          <div className="flex items-baseline gap-3">
-            <h3 className="text-[17px] font-medium leading-snug text-ink">{item.name}</h3>
+          {/* items-end: puntos y precio quedan en la última línea del nombre
+              cuando este ocupa dos líneas, como en una carta impresa. */}
+          <div className="flex items-end gap-3">
+            <h3 className="min-w-0 text-[17px] font-medium leading-snug text-ink">{item.name}</h3>
             <Tags tags={item.tags} />
             <Leader />
-            <span className="tnum shrink-0 text-[18px] font-semibold text-gold-700">
+            <span className="tnum shrink-0 text-[18px] font-semibold leading-snug text-gold-700">
               {priceOf(item)}
             </span>
           </div>
