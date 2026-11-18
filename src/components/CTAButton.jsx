@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom'
 import Icon from './Icons'
 
 const base =
-  'group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-[2px] px-6 py-3 text-[14px] font-semibold leading-none tracking-[0.01em] transition-transform duration-200 active:translate-y-px'
+  'group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-ui px-6 py-3 text-meta font-semibold leading-none transition-transform duration-200 active:translate-y-px'
 
 const variants = {
   /* Acción principal: el dorado del logotipo. */
   primary: `${base} bg-gold-500 text-night-950 hover:bg-gold-400`,
   /* Secundario sobre fondo oscuro. */
-  onDark: `${base} border border-cream-50/55 bg-night-950/25 text-cream-50 backdrop-blur-[2px] hover:border-gold-400 hover:text-gold-300`,
+  onDark: `${base} border border-cream-50/55 bg-night-950/40 text-cream-50 hover:border-gold-400 hover:text-gold-300`,
   /* Secundario sobre papel. */
   onCream: `${base} border border-ink/25 text-ink hover:border-gold-700 hover:text-gold-700`,
   /* Enlace discreto. */

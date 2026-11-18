@@ -17,7 +17,7 @@ function Tags({ tags }) {
       {visible.map((tag) => (
         <span
           key={tag}
-          className="whitespace-nowrap border border-gold-700/35 px-2 py-0.5 text-[13px] font-medium text-gold-700"
+          className="whitespace-nowrap border border-gold-700/35 px-2 py-0.5 text-label font-medium text-gold-700"
         >
           {TAG_LABEL[tag] || tag}
         </span>
@@ -35,13 +35,13 @@ function MenuItemRow({ item }) {
     <li className="menu-row border-b border-ink/12 py-4">
       {item.variants?.length ? (
         <>
-          <h3 className="text-[17px] font-medium leading-snug text-ink">{item.name}</h3>
+          <h3 className="text-body font-medium leading-snug text-ink">{item.name}</h3>
           <ul className="mt-1.5 space-y-1">
             {item.variants.map((variant) => (
               <li key={variant.label} className="flex items-baseline gap-3">
-                <span className="text-[15px] text-ink-soft">{variant.label}</span>
+                <span className="text-body-sm text-ink-soft">{variant.label}</span>
                 <Leader />
-                <span className="tnum shrink-0 text-[18px] font-semibold text-gold-700">
+                <span className="tnum shrink-0 text-lg font-semibold text-gold-700">
                   {formatPrice(variant.price)}
                 </span>
               </li>
@@ -53,15 +53,15 @@ function MenuItemRow({ item }) {
           {/* items-end: puntos y precio quedan en la última línea del nombre
               cuando este ocupa dos líneas, como en una carta impresa. */}
           <div className="flex items-end gap-3">
-            <h3 className="min-w-0 text-[17px] font-medium leading-snug text-ink">{item.name}</h3>
+            <h3 className="min-w-0 text-body font-medium leading-snug text-ink">{item.name}</h3>
             <Tags tags={item.tags} />
             <Leader />
-            <span className="tnum shrink-0 text-[18px] font-semibold leading-snug text-gold-700">
+            <span className="tnum shrink-0 text-lg font-semibold leading-snug text-gold-700">
               {priceOf(item)}
             </span>
           </div>
           {item.description && (
-            <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-ink-mute">
+            <p className="mt-1 max-w-xl text-meta leading-relaxed text-ink-mute">
               {item.description}
             </p>
           )}
@@ -89,11 +89,11 @@ export default function MenuCategory({ category, headingId, photoKey, photoCapti
         <div className="flex items-end justify-between gap-6 border-b border-ink/20 pb-4">
           <h2
             id={headingId}
-            className="font-display text-[clamp(2.2rem,4.8vw,3.6rem)] leading-none tracking-[-0.015em] text-ink"
+            className="font-display text-h3 text-ink"
           >
             {category.name}
           </h2>
-          <span className="tnum pb-1 text-[13px] text-ink-mute">
+          <span className="tnum pb-1 text-label text-ink-mute">
             {category.items.length} {category.items.length === 1 ? 'plato' : 'platos'}
           </span>
         </div>
@@ -101,11 +101,11 @@ export default function MenuCategory({ category, headingId, photoKey, photoCapti
 
       {(category.intro || category.note || category.menuExtra) && (
         <Reveal delay={40}>
-          <div className="mt-4 space-y-2 text-[15px] leading-relaxed text-ink-soft">
+          <div className="mt-4 space-y-2 text-body-sm leading-relaxed text-ink-soft">
             {category.intro && <p>{category.intro}</p>}
             {category.note && <p>{category.note}</p>}
             {category.menuExtra && (
-              <p className="inline-block border border-gold-700/35 px-3 py-1 text-[13px] font-medium text-gold-700">
+              <p className="inline-block border border-gold-700/35 px-3 py-1 text-label font-medium text-gold-700">
                 {category.menuExtra}
               </p>
             )}
@@ -123,7 +123,7 @@ export default function MenuCategory({ category, headingId, photoKey, photoCapti
               className="w-full"
             />
             {photoCaption && (
-              <figcaption className="mt-2 text-[13px] text-ink-mute">{photoCaption}</figcaption>
+              <figcaption className="mt-2 text-label text-ink-mute">{photoCaption}</figcaption>
             )}
           </figure>
         </Reveal>

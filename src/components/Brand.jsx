@@ -28,10 +28,10 @@ export function LogoMark({ className = 'h-11', alt = 'Ambar · restaurante halal
   )
 }
 
-/** Logotipo textual: Anton, sin degradado ni mayúsculas forzadas. */
+/** Logotipo textual: Inter en negrita, interletraje cerrado, sin degradado. */
 export function Wordmark({ className = '', as: Tag = 'span' }) {
   return (
-    <Tag className={`font-display leading-none tracking-[-0.015em] text-cream-50 ${className}`}>
+    <Tag className={`font-display font-bold leading-none tracking-tighter text-cream-50 ${className}`}>
       Ambar
     </Tag>
   )

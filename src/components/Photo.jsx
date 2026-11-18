@@ -1,5 +1,5 @@
 import { photoSpecs, getPhoto } from '../data/photos'
-import { StarPattern, StarMotif } from './Ornament'
+import { StarMotif } from './Ornament'
 
 const RATIOS = {
   '16/9': 'aspect-[16/9]',
@@ -17,13 +17,12 @@ function BrandPanel({ title, note = 'Fotografía del restaurante' }) {
       aria-label={`${title}. ${note}.`}
       className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-night-800 p-6 text-center text-gold-500"
     >
-      <StarPattern className="absolute inset-0 h-full w-full star-texture" tile={110} />
       <div className="relative flex flex-col items-center">
         <StarMotif className="h-12 w-12" />
-        <p className="mt-6 max-w-[18rem] font-display text-[clamp(1.8rem,3vw,2.6rem)] leading-[0.95] text-cream-50">
+        <p className="mt-6 max-w-72 font-display text-h4 text-cream-50">
           {title}
         </p>
-        <p className="mt-3 max-w-[17rem] text-[14px] leading-relaxed text-cream-200">{note}</p>
+        <p className="mt-3 max-w-68 text-meta leading-relaxed text-cream-200">{note}</p>
       </div>
     </div>
   )

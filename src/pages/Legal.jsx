@@ -1,6 +1,5 @@
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
-import { StarPattern } from '../components/Ornament'
 import { site, telHref } from '../data/site'
 import { legalName, legalNif } from '../data/business'
 import { copy } from '../data/copy'
@@ -11,22 +10,21 @@ function LegalLayout({ title, description, path, children }) {
       <Seo title={`${title} · ${site.name}`} description={description} path={path} />
 
       <header className="relative overflow-hidden bg-night-950 pb-12 pt-28 text-cream-50 sm:pb-14 lg:pt-36">
-        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={190} />
-        <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+        <div className="relative mx-auto max-w-page px-gutter">
           <Reveal priority>
-            <h1 className="max-w-3xl font-display text-[clamp(2.8rem,7vw,5.4rem)] leading-[0.9] tracking-[-0.02em] text-cream-50">
+            <h1 className="max-w-3xl font-display text-h1 text-cream-50">
               {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-cream-200">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-cream-200">
               {description}
             </p>
           </Reveal>
         </div>
       </header>
 
-      <section className="bg-cream-50 py-16 text-ink sm:py-20">
-        <div className="mx-auto max-w-[48rem] px-5 sm:px-8">
-          <div className="space-y-9 text-[16px] leading-relaxed text-ink-soft [&_a]:font-medium [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-[22px] [&_h2]:font-medium [&_h2]:leading-tight [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+      <section className="bg-cream-50 py-section-compact text-ink">
+        <div className="mx-auto max-w-3xl px-gutter">
+          <div className="space-y-9 text-base leading-relaxed text-ink-soft [&_a]:font-medium [&_a]:text-gold-700 [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-title [&_h2]:font-medium [&_h2]:leading-tight [&_h2]:text-ink [&_li]:pl-1 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
             {children}
           </div>
         </div>

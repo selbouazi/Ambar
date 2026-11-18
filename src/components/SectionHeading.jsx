@@ -1,7 +1,7 @@
 import Reveal from './Reveal'
 
 /**
- * Titular de sección en Anton. Sin mayúsculas forzadas, sin etiqueta encima:
+ * Titular de sección: Inter en negrita (token text-h3). Sin mayúsculas forzadas, sin etiqueta encima:
  * el peso lo lleva el titular y el texto describe sin competir.
  */
 export default function SectionHeading({
@@ -22,14 +22,14 @@ export default function SectionHeading({
       <Reveal>
         <Tag
           id={id}
-          className={`font-display text-[clamp(2.15rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.012em] ${titleColor}`}
+          className={`font-display text-h3 ${titleColor}`}
         >
           {title}
         </Tag>
       </Reveal>
       {description && (
         <Reveal delay={60}>
-          <p className={`mt-5 text-[17px] leading-relaxed sm:text-[18px] ${descColor}`}>{description}</p>
+          <p className={`mt-5 text-body leading-relaxed sm:text-lg ${descColor}`}>{description}</p>
         </Reveal>
       )}
     </div>

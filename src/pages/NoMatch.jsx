@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
 import CTAButton from '../components/CTAButton'
-import { StarPattern } from '../components/Ornament'
 import { telHref } from '../data/site'
 import { copy } from '../data/copy'
 
@@ -16,16 +15,15 @@ export default function NoMatch() {
       />
 
       <section className="relative flex min-h-[85svh] items-center overflow-hidden bg-night-950 py-24 text-cream-50">
-        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={190} />
-        <div className="relative mx-auto w-full max-w-[86rem] px-5 sm:px-8 lg:px-12">
+        <div className="relative mx-auto w-full max-w-page px-gutter">
           <Reveal priority>
-            <p className="tnum font-display text-[clamp(6rem,20vw,14rem)] leading-[0.78] text-gold-500/20">
+            <p className="tnum font-display text-hero text-gold-500/20">
               404
             </p>
-            <h1 className="mt-3 max-w-2xl font-display text-[clamp(2.4rem,6vw,4.6rem)] leading-[0.94] tracking-[-0.02em]">
+            <h1 className="mt-3 max-w-2xl font-display text-h2">
               Esta página no está en la carta
             </h1>
-            <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-cream-200">
+            <p className="mt-4 max-w-xl text-body leading-relaxed text-cream-200">
               {copy.noMatch.lead}
             </p>
 
@@ -41,7 +39,7 @@ export default function NoMatch() {
               </CTAButton>
             </div>
 
-            <p className="mt-10 text-[14px] text-cream-200">
+            <p className="mt-10 text-meta text-cream-200">
               También puedes{' '}
               <Link to="/el-local" className="gold-underline text-gold-300">
                 ver cómo llegar

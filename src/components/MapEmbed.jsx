@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import Icon from './Icons'
 import Photo from './Photo'
 import { site, mapsHref, directionsHref } from '../data/site'
@@ -34,19 +34,19 @@ export default function MapEmbed({ className = '' }) {
           <div className="absolute inset-0 bg-night-950/65" aria-hidden="true" />
 
           <div className="relative flex items-start gap-4">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold-500 text-night-950">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-ui bg-gold-500 text-night-950">
               <Icon name="pin" className="h-5 w-5" />
             </span>
             <address className="not-italic">
-              <p className="font-display text-[22px] leading-tight text-cream-50">
+              <p className="font-display text-title font-semibold tracking-tight text-cream-50">
                 Restaurante Halal Ambar
               </p>
               {site.addressLines.map((line) => (
-                <span key={line} className="block text-[14px] leading-relaxed text-cream-200">
+                <span key={line} className="block text-meta leading-relaxed text-cream-200">
                   {line}
                 </span>
               ))}
-              <span className="mt-1 block text-[13px] text-cream-200">
+              <span className="mt-1 block text-label text-cream-200">
                 Plus Code {site.address.plusCode}
               </span>
             </address>
@@ -57,7 +57,7 @@ export default function MapEmbed({ className = '' }) {
               <button
                 type="button"
                 onClick={() => setLoaded(true)}
-                className="min-h-11 rounded-[2px] bg-gold-500 px-5 text-[13px] font-semibold text-night-950 hover:bg-gold-400"
+                className="min-h-11 rounded-ui bg-gold-500 px-5 text-label font-semibold text-night-950 hover:bg-gold-400"
               >
                 Cargar mapa
               </button>
@@ -65,7 +65,7 @@ export default function MapEmbed({ className = '' }) {
                 href={directionsHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-[2px] border border-cream-100/35 px-4 text-[13px] font-medium text-cream-50 hover:border-gold-400 hover:text-gold-300"
+                className="inline-flex min-h-11 items-center gap-2 rounded-ui border border-cream-100/35 px-4 text-label font-medium text-cream-50 hover:border-gold-400 hover:text-gold-300"
               >
                 <Icon name="arrow" className="h-4 w-4" />
                 Cómo llegar
@@ -74,12 +74,12 @@ export default function MapEmbed({ className = '' }) {
                 href={mapsHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="gold-underline inline-flex min-h-11 items-center text-[13px] text-cream-200 hover:text-gold-300"
+                className="gold-underline inline-flex min-h-11 items-center text-label text-cream-200 hover:text-gold-300"
               >
                 Abrir en Google Maps
               </a>
             </div>
-            <p className="mt-3 text-[13px] leading-relaxed text-cream-200">
+            <p className="mt-3 text-label leading-relaxed text-cream-200">
               Al cargarlo, Google puede usar cookies. Si no quieres, abre el mapa en una pestaña nueva.
             </p>
           </div>

@@ -29,7 +29,7 @@ export default function PhotoFrame({
         imgClassName="transition-transform duration-200 ease-out hover:scale-[1.01]"
       />
       {caption && (
-        <figcaption className={`mt-3 text-[13px] leading-snug ${tone === 'light' ? 'text-ink-mute' : 'text-cream-200'}`}>
+        <figcaption className={`mt-3 text-label leading-snug ${tone === 'light' ? 'text-ink-mute' : 'text-cream-200'}`}>
           {caption}
         </figcaption>
       )}

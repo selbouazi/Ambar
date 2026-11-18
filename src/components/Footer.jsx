@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icons'
 import { LogoMark, Wordmark } from './Brand'
-import { StarPattern, Leaf } from './Ornament'
 import { site, hoursSummary, mapsHref, telHref, instagramHref, tiktokHref } from '../data/site'
 import { copy } from '../data/copy'
 
@@ -9,15 +8,13 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden border-t border-gold-500/20 bg-night-950 text-cream-200">
-      <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={170} />
-      <Leaf className="pointer-events-none absolute -bottom-4 -right-4 h-40 w-32 text-leaf opacity-20 sm:h-56 sm:w-44" />
+    <footer className="relative overflow-hidden border-t border-cream-100/15 bg-night-950 text-cream-200">
 
-      <div className="relative mx-auto max-w-[86rem] px-5 pt-16 sm:px-8 lg:px-12 lg:pt-24">
+      <div className="relative mx-auto max-w-page px-gutter pt-16 lg:pt-24">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Wordmark className="block text-[clamp(4rem,12vw,7rem)]">Ambar</Wordmark>
-            <p className="mt-4 max-w-md text-[16px] leading-relaxed text-cream-200">
+            <Wordmark className="block text-h1">Ambar</Wordmark>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-cream-200">
               {copy.footer.description}
             </p>
           </div>
@@ -28,8 +25,8 @@ export default function Footer() {
 
         <div className="mt-14 grid gap-10 border-t border-cream-100/15 pt-10 md:grid-cols-3">
           <div>
-            <h2 className="text-[14px] font-medium text-gold-300">Contacto</h2>
-            <ul className="mt-5 space-y-4 text-[15px]">
+            <h2 className="text-meta font-medium text-gold-300">Contacto</h2>
+            <ul className="mt-5 space-y-4 text-body-sm">
               <li>
                 <a
                   href={telHref}
@@ -81,21 +78,21 @@ export default function Footer() {
           </div>
 
           <div>
-            <h2 className="text-[14px] font-medium text-gold-300">Horario</h2>
-            <p className="mt-5 text-[15px] text-cream-100">{hoursSummary}</p>
-            <p className="mt-1 text-[13px] text-cream-200">En festivos puede cambiar.</p>
+            <h2 className="text-meta font-medium text-gold-300">Horario</h2>
+            <p className="mt-5 text-body-sm text-cream-100">{hoursSummary}</p>
+            <p className="mt-1 text-label text-cream-200">En festivos puede cambiar.</p>
             <Link
               to="/el-local#horario"
-              className="gold-underline mt-4 inline-flex min-h-7 items-center text-[14px] text-gold-300"
+              className="gold-underline mt-4 inline-flex min-h-7 items-center text-meta text-gold-300"
             >
               Ver el horario completo
             </Link>
           </div>
 
           <div>
-            <h2 className="text-[14px] font-medium text-gold-300">La casa</h2>
+            <h2 className="text-meta font-medium text-gold-300">La casa</h2>
             <nav aria-label="Enlaces del pie" className="mt-5">
-              <ul className="space-y-3 text-[15px]">
+              <ul className="space-y-3 text-body-sm">
                 {[
                   { to: '/carta', label: 'La carta' },
                   { to: '/el-local', label: 'El local y cómo llegar' },
@@ -117,7 +114,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-cream-100/15 py-7 text-[13px] text-cream-200 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-cream-100/15 py-7 text-label text-cream-200 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.name} · {site.address.city}
           </p>

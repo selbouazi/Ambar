@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Icon from './Icons'
 import { LogoMark, Wordmark } from './Brand'
@@ -78,12 +78,12 @@ export default function Navbar() {
           : 'border-transparent bg-night-950/35'
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-[86rem] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[76px] lg:px-12">
+      <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-4 px-gutter lg:h-19">
         <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={`${site.name} — inicio`}>
           <LogoMark className="h-11 shrink-0 sm:h-12" alt="" />
           <span className="leading-none">
-            <Wordmark className="block text-[28px] sm:text-[31px]">Ambar</Wordmark>
-            <span className="mt-1 hidden text-[13px] font-medium text-cream-200 sm:block">
+            <Wordmark className="block text-2xl sm:text-3xl">Ambar</Wordmark>
+            <span className="mt-1 hidden text-label font-medium text-cream-200 sm:block">
               {copy.nav.subtitle}
             </span>
           </span>
@@ -96,7 +96,7 @@ export default function Navbar() {
               to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
-                `relative inline-flex min-h-11 items-center py-2 text-[14px] font-medium ${
+                `relative inline-flex min-h-11 items-center py-2 text-meta font-medium ${
                   isActive ? 'text-gold-300' : 'text-cream-100 hover:text-cream-50'
                 }`
               }
@@ -119,7 +119,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href={telHref}
-            className="hidden min-h-11 items-center gap-2 rounded-[2px] border border-cream-50/40 px-5 text-[13px] font-semibold text-cream-50 hover:border-gold-400 hover:text-gold-300 sm:inline-flex"
+            className="hidden min-h-11 items-center gap-2 rounded-ui border border-cream-50/40 px-5 text-label font-semibold text-cream-50 hover:border-gold-400 hover:text-gold-300 sm:inline-flex"
           >
             <Icon name="phone" className="h-4 w-4" />
             Llamar
@@ -131,7 +131,7 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-            className="grid h-11 w-11 place-items-center rounded-[2px] border border-cream-100/25 text-cream-100 hover:border-gold-400 lg:hidden"
+            className="grid h-11 w-11 place-items-center rounded-ui border border-cream-100/25 text-cream-100 hover:border-gold-400 lg:hidden"
           >
             <Icon name={open ? 'close' : 'menu'} className="h-5 w-5" />
           </button>
@@ -144,7 +144,7 @@ export default function Navbar() {
           ref={panelRef}
           className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-night-950 lg:hidden"
         >
-          <nav aria-label="Navegación móvil" className="mx-auto max-w-[86rem] px-5 py-8 sm:px-8">
+          <nav aria-label="Navegación móvil" className="mx-auto max-w-page px-gutter py-8">
             <ul className="space-y-1">
               {NAV.map((item) => (
                 <li key={item.to}>
@@ -152,7 +152,7 @@ export default function Navbar() {
                     to={item.to}
                     end={item.to === '/'}
                     className={({ isActive }) =>
-                      `flex min-h-14 items-center justify-between border-b border-cream-100/10 py-3 font-display text-3xl ${
+                      `flex min-h-14 items-center justify-between border-b border-cream-100/10 py-3 font-display text-3xl font-bold tracking-tight ${
                         isActive ? 'text-gold-300' : 'text-cream-50 hover:text-gold-300'
                       }`
                     }
@@ -166,7 +166,7 @@ export default function Navbar() {
 
             <a
               href={telHref}
-              className="mt-8 flex min-h-12 items-center justify-center gap-2 rounded-[2px] bg-gold-500 px-6 text-[14px] font-semibold text-night-950"
+              className="mt-8 flex min-h-12 items-center justify-center gap-2 rounded-ui bg-gold-500 px-6 text-meta font-semibold text-night-950"
             >
               <Icon name="phone" className="h-4 w-4" />
               Llamar · {site.phone.display}

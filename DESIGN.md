@@ -4,172 +4,155 @@ Guía visual del sitio. Sirve para revisar cambios y para que cualquier
 modificación futura mantenga la misma dirección. El contenido, las rutas y los
 datos reales no se tocan aquí: eso vive en `src/data/`.
 
-- Dirección elegida: **«The name as monument»**, adaptada a la marca.
-- Referencia principal: `design-taste-frontend`.
+- Dirección: **Minimalismo y estilo suizo** (`ui-ux-pro-max-skill`,
+  estilo `minimalism-and-swiss-style`), con el dorado del logotipo como único
+  acento.
+- Todos los valores viven como tokens en `src/index.css`, bloque `@theme`.
+  En los componentes se usan las utilidades que generan esos tokens
+  (`text-h2`, `py-section`, `max-w-page`, `rounded-ui`…), no valores sueltos.
 - Fuentes de verdad de datos: `src/data/site.ts`, `src/data/menu.json`,
   `src/data/copy.ts`.
 
 ## 1. Dirección
 
-El nombre manda. **Ambar** se escribe en grande, en Anton, sobre fotografía real
-del local: la primera pantalla es el logotipo tipográfico, no un titular de
-marketing. Alrededor, dos superficies que se alternan —negro cálido y papel— y
-el dorado del logotipo como única acentuación.
+Claridad, retícula y tipografía. Lo esencial, sin adornos.
 
-Lo que define la dirección:
-
-1. **Monumento tipográfico.** El nombre ocupa la portada a `clamp(5.4rem, 21vw,
-   14rem)`. Los titulares de sección van en Anton, siempre en minúscula de
-   caja alta natural, con `leading` corto (0.86–1.02).
-2. **Dos superficies.** Secciones alternas de negro cálido (`night-950`,
-   `night-900`) y papel (`cream-50`). Nunca fondos amarillos, nunca degradados
-   de marca.
-3. **Dorado del logotipo, no amarillo.** El ámbar se extrajo del PNG del
-   titular (rango `#a07028`–`#e8c870`). El amarillo puro está prohibido.
-4. **Fotografía sin adornos.** Fotos reales, proporciones fijas, sin marcos
-   girados, sin sombras duras, sin viñetas. La foto se sirve en su resolución
-   nativa como máximo (ver `docs/FOTOS-PENDIENTES.md`).
-5. **Trama de estrella.** El motivo octogonal del logotipo se repite al 4.5 %
-   de opacidad como textura de fondo; es el único patrón decorativo.
+1. **Una familia grotesca.** Inter variable en negrita para titulares e Inter
+   regular para todo lo demás. El nombre **Ambar** es el monumento de la
+   portada (`text-hero`).
+2. **Monocromo.** Secciones alternas de negro neutro (`night-950`,
+   `night-900`) y papel blanco roto (`cream-50`). Sin tintes cálidos en los
+   neutros.
+3. **Un solo acento.** El dorado del logotipo (`gold-*`). Nada más compite con
+   él: ni amarillo puro, ni segundos acentos, ni degradados de marca.
+4. **Sin decoración.** Sin tramas, sin hojas, sin sombras, sin desenfoques,
+   sin esquinas redondeadas (`--radius-ui: 0`). Las líneas finas
+   (`border-*/15`) son la única estructura visible.
+5. **Retícula de 12 columnas**, alineación a la izquierda, mucho aire entre
+   bloques (`--spacing-section`).
 
 ## 2. Color
 
-Tokens en `src/index.css`, bloque `@theme`.
-
 | Token | Valor | Uso | Contraste |
 |---|---|---|---|
-| `night-950` | `#100f0c` | Fondo principal, pie, barras | — |
-| `night-900` | `#17150f` | Superficie elevada sobre oscuro | — |
-| `night-800` | `#211e17` | Bordes y paneles | — |
-| `cream-50` | `#f5efe3` | Papel: secciones claras | 16.74 con `night-950` |
-| `cream-200` | `#c8bca8` | Texto secundario sobre oscuro | 10.24 con `night-950` |
-| `ink` | `#17140f` | Texto sobre papel | 16.04 con `cream-50` |
-| `ink-soft` | `#454033` | Texto largo sobre papel | 9.01 con `cream-50` |
-| `ink-mute` | `#5f5748` | Notas y etiquetas sobre papel | 6.23 con `cream-50` |
-| `gold-500` | `#c8a35a` | Acento principal, CTA, iconos | 8.07 con `night-950` |
-| `gold-400` | `#d6b46c` | Acento sobre oscuro | 9.68 con `night-950` |
-| `gold-300` | `#e5cf9c` | Enlaces sobre oscuro | 12.54 con `night-950` |
-| `gold-700` | `#7c5a23` | Acento sobre papel | 5.48 con `cream-50` |
+| `night-950` | `#0d0d0d` | Fondo principal, pie, barras | — |
+| `night-900` | `#161616` | Superficie elevada sobre oscuro | — |
+| `night-800` | `#232323` | Paneles y huecos de foto | — |
+| `cream-50` | `#fafaf8` | Papel; texto principal sobre oscuro | 18.60 con `night-950` |
+| `cream-100` | `#ececea` | Panel sobre papel; texto sobre oscuro | 15.30 con `night-900` |
+| `cream-200` | `#b8b8b3` | Texto secundario sobre oscuro | 9.76 con `night-950` · 7.89 con `night-800` |
+| `ink` | `#0d0d0d` | Texto sobre papel | 18.60 con `cream-50` |
+| `ink-soft` | `#3b3b38` | Texto largo sobre papel | 10.75 con `cream-50` |
+| `ink-mute` | `#5a5a56` | Notas sobre papel | 6.63 con `cream-50` · 5.86 con `cream-100` |
+| `gold-500` | `#c8a35a` | CTA principal, iconos sobre oscuro | 8.18 con `night-950` |
+| `gold-400` | `#d6b46c` | Acento sobre oscuro | 9.81 con `night-950` |
+| `gold-300` | `#e5cf9c` | Enlaces sobre oscuro | 12.71 con `night-950` |
+| `gold-700` | `#7c5a23` | Acento sobre papel | 6.01 con `cream-50` · 5.31 con `cream-100` |
+| `focus-on-dark` | `= gold-500` | Anillo de foco sobre negro | 8.18 |
+| `focus-on-light` | `= ink` | Anillo de foco sobre papel | 18.60 |
+| `scrim` / `scrim-soft` | negro al 88 % / 38 % | Velo sobre la foto del hero | — |
 
 Reglas:
 
-- Sobre papel, el acento es **siempre `gold-700`** (`gold-600` da 3.31 y no se
-  usa para texto).
-- Sobre oscuro, el acento es `gold-500`/`gold-400`; los enlaces, `gold-300`.
-- Todo el texto cumple AA (≥ 4.5) y el texto grande AAA.
-- Verde hoja (`leaf`) y verde de estado (`open`) son decorativos y de estado:
-  nunca compiten con el dorado.
+- Sobre papel, el acento es **siempre `gold-700`**. `gold-500` sobre papel da
+  2.27 y no se usa ni para texto ni para el foco.
+- Todo el texto cumple AA (≥ 4.5); casi todo, AAA.
+- `open` (verde) solo marca el estado «Abierto ahora», siempre con texto.
 
 ## 3. Tipografía
 
-Dos familias, ambas servidas desde el propio dominio (sin peticiones a Google,
-sin cookies de terceros):
+Inter variable (pesos 400–800), servida desde el propio dominio.
 
-- **Anton** (`font-display`) — titulares, cifras y el nombre. Una sola
-  variante, peso 400.
-- **Inter** (`font-sans`) — texto, botones, menús, precios, reseñas. Pesos
-  400–600.
+| Token | Tamaño | Uso |
+|---|---|---|
+| `text-hero` | `clamp(5rem, 24vw, 13rem)` · 700 · −0.055em | El nombre en portada, el 404 |
+| `text-h1` | `clamp(3rem, 7.5vw, 6.5rem)` · 700 | Titular de página |
+| `text-h2` | `clamp(2.4rem, 5.4vw, 4.75rem)` · 700 | Titulares de sección grandes, precios destacados |
+| `text-h3` | `clamp(1.9rem, 3.6vw, 3.1rem)` · 700 | `SectionHeading`, categorías de la carta, cierres |
+| `text-h4` | `clamp(1.5rem, 2.6vw, 2.25rem)` · 600 | Dirección, teléfono grande |
+| `text-title` | 22 px | Reseña destacada, titulares pequeños |
+| `text-lead` | 19 px | Entradillas |
+| `text-body` | 17 px | Texto largo |
+| `text-body-sm` | 15 px | Texto secundario |
+| `text-meta` | 14 px | Pies y datos |
+| `text-label` | 13 px | Etiquetas y notas |
 
-Escala práctica:
+Cada token de titular ya lleva su interlineado, interletraje y peso: no se
+añaden `leading-[…]` ni `tracking-[…]` encima.
 
-| Uso | Clase habitual |
-|---|---|
-| Nombre de portada | `text-[clamp(5.4rem,21vw,14rem)] leading-[0.78]` |
-| H1 de página | `text-[clamp(3.4rem,8vw,7rem)] leading-[0.88]` |
-| H2 de sección | `text-[clamp(2.8rem,6.8vw,6rem)] leading-[0.94]` |
-| H3 de plato / tarjeta | `text-[17–19px] font-medium` |
-| Texto largo | `text-[16–17px] leading-relaxed` |
-| Notas y pies | `text-[13–14px]` |
+Prohibido: segunda familia, cursiva decorativa, `uppercase` en reseñas o
+titulares. La única versalita es la etiqueta pequeña con `tracking-label`.
 
-Prohibido:
+## 4. Espaciado, retícula y forma
 
-- Tercera familia, cursiva decorativa o fuente manuscrita.
-- `uppercase` forzado en reseñas, titulares o navegación: las reseñas van en
-  capitalización normal, en Inter.
-- `tracking` negativo agresivo más allá de `-0.035em`.
+| Token | Valor | Utilidad |
+|---|---|---|
+| `--spacing-gutter` | `clamp(1.25rem, 3.2vw + 0.5rem, 3rem)` | `px-gutter` |
+| `--spacing-section` | `clamp(5rem, 8vw, 8rem)` | `py-section`, `pb-section` |
+| `--spacing-section-sm` | `clamp(5rem, 7vw, 7rem)` | `py-section-sm` (páginas interiores) |
+| `--spacing-section-compact` | `clamp(4rem, 6vw, 6rem)` | `py-section-compact` (cierres) |
+| `--container-page` | `86rem` | `max-w-page` |
+| `--container-menu` | `74rem` | `max-w-menu` (carta) |
+| `--radius-ui` | `0` | `rounded-ui` |
 
-## 4. Composición
+Sin sombras en todo el sitio.
+
+## 5. Composición
 
 ### Portada
 
-- Hero a `100svh`, foto de sala o de comida a sangre, con `.photo-scrim`
-  (degradado vertical + diagonal) para que el texto se lea.
-- Orden: nombre → entradilla → CTA → barra de datos (halal, valoración,
-  horario). Sin etiqueta de ceja sobre el nombre.
-- Variante móvil con `mobilePhotoKey` para no mostrar el techo.
-- Una sola CTA primaria en pantalla; el resto, secundaria (`onDark`/`onCream`).
+- Hero a `100svh`, foto real a sangre con `.photo-scrim` (un solo velo
+  vertical negro). Orden: nombre → entradilla → CTA → barra de datos.
+- Una sola CTA primaria por pantalla; el resto, secundaria (`onDark`/`onCream`).
+- La copia estática del hero vive en `index.html` y usa los mismos tokens.
 
 ### Secciones
 
-- Alternan `night-950` → `cream-50` → `night-950`. Una sección clara nunca da
-  a otra clara.
-- Rejilla de 12 columnas en escritorio (`lg:grid-cols-12`), con contenido a
-  `max-w-[86rem]` y `px-12`.
-- Cada bloque entra con `Reveal`: `translateY(14px)` + `opacity`, 220 ms,
-  escalonado de 40–60 ms. Fallback sin JS visible por defecto.
+- Alternan `night-950` → `cream-50` → `night-950`.
+- Rejilla de 12 columnas en escritorio, `max-w-page` y `px-gutter`.
+- Los datos en fila (4,9 · 154 · Viernes) van en `flex-wrap`, no en
+  columnas fijas: Inter en negrita es más ancha que una condensada.
 
 ### Carta
 
-- Cabecera oscura → barra de categorías `sticky` → buscador → categorías en
-  papel → cierre oscuro → pie.
-- Orden fijo: Entrantes, Platos, Platos combinados, Tacos, Hamburguesas,
-  Bocadillos, Pizzas, Pescado y marisco, Batidos, Bebidas.
-- Categoría con > 5 platos: dos columnas en escritorio.
-- Precio a la derecha, `tnum`, con línea de puntos (`.menu-leader`) entre plato
-  y precio. Precio pendiente: el texto «Consultar», nunca un número inventado.
-- Foto de categoría: una por categoría, 4/3, sin marco.
+- Cabecera oscura → barra de categorías `sticky` (fondo sólido) → buscador →
+  categorías en papel → cierre oscuro → pie.
+- Precio a la derecha, `tnum`, con puntos guía (`.menu-leader`) alineados con
+  la última línea del plato. Precio pendiente: «Consultar».
 
 ### Reseñas
 
-- Texto en Inter, capitalización normal, comillas tipográficas `« »`.
-- Nunca mayúsculas condensadas ni tipografía de titular en el cuerpo de la
-  reseña. El nombre va en `truncate`, la fuente debajo.
+- Texto en Inter, comillas `« »`, tarjetas de esquina recta con línea fina.
 - No se pintan estrellas por reseña individual (no está verificado).
 
 ### Fotos
 
-- `Photo` sirve avif/webp/jpg con `srcset`, `width`/`height` y `loading="lazy"`
-  salvo el hero (`eager` + `fetchpriority="high"`).
-- `ratio` fijo (`16/9`, `4/5`, `4/3`, `3/2`, `1/1`): nada de alturas libres que
-  provoquen salto de diseño.
-- Sin ampliar: el manifiesto solo genera tamaños ≤ ancho nativo.
-- Falta la foto → panel de marca con el nombre del plato, nunca un hueco.
+- `Photo` sirve avif/webp/jpg con `srcset`, `width`/`height` y
+  `loading="lazy"` salvo el hero. Proporciones fijas. Sin ampliar.
 
-### Mosaico de galería
+## 6. Movimiento e interacción
 
-- Móvil: primera foto a todo el ancho, pares siguientes, última a todo el
-  ancho.
-- Escritorio (`md+`): primera foto ocupando 2 × 2, dos apiladas a su derecha y
-  tres en la fila inferior. Sin huecos en la rejilla.
+- Solo `transform` y `opacity`, 150–250 ms, `--ease-premium`.
+- Hover: cambio de color o desplazamiento de 1–2 px; foto a escala 1.01.
+- Foco: `outline: 2px` con `offset 3px` en `var(--focus-ring)`, que cada
+  superficie fija (`bg-night-*` → dorado, `bg-cream-*` → tinta). Toda
+  superficie nueva debe usar una de esas clases de fondo para heredar el foco
+  correcto.
+- Todo lo pulsable lleva `cursor: pointer` y `touch-action: manipulation`.
+- `prefers-reduced-motion: reduce` desactiva reveal, transiciones y Lenis.
 
-## 5. Movimiento
+## 7. Accesibilidad y rendimiento
 
-- Solo `transform` y `opacity`. Duración 150–250 ms, easing
-  `--ease-premium: cubic-bezier(0.22, 1, 0.36, 1)`.
-- Sin rebotes, sin `scale` agresivo, sin desplazamientos largos.
-- Hover: desplazamiento de 1–2 px o cambio de escala de 1.015 en la foto.
-  Focus: `outline: 2px solid gold-500` con `offset 3px` en todo el sitio.
-- `prefers-reduced-motion: reduce` desactiva reveal, transiciones y animaciones.
-- Sin parallax de desplazamiento: el hero no se mueve al hacer scroll.
+- Contraste AA en todos los textos; foco ≥ 3:1 en ambas superficies.
+- Objetivos táctiles ≥ 44 px. Sin scroll horizontal a 390, 768 y 1440 px.
+- Menú móvil con foco atrapado y `Escape`; FAQ con `aria-expanded`; galería
+  como `role="dialog"`; mapa sin cargar hasta que se pulsa.
 
-## 6. Accesibilidad y rendimiento
+## 8. Prohibido
 
-- Contraste AA en todos los textos; objetivos táctiles ≥ 44 px
-  (`min-h-11`/`min-h-12`).
-- Sin scroll horizontal a 390, 768 y 1440 px.
-- `Reveal` es visible sin JavaScript y con temporizador de seguridad a 3 s.
-- Menú móvil: foco atrapado, `Escape` cierra, `aria-expanded` correcto.
-- FAQ: botón con `aria-expanded`/`aria-controls`, panel oculto con `hidden`.
-- Galería: `role="dialog"`, flechas de teclado, cierre con `Escape`.
-- Mapa sin incrustar hasta que el visitante pulsa «Cargar mapa».
-
-## 7. Prohibido
-
-- Amarillo puro, fondos amarillos de sección, pastillas de color.
-- Fuente manuscrita, marcos tipo polaroid, sombras duras, bordes girados.
-- Tercera familia tipográfica.
+- Segundo acento, amarillo puro, degradados, sombras, desenfoques, esquinas
+  redondeadas, tramas u ornamentos decorativos.
+- Valores sueltos en componentes cuando existe un token.
 - Más de una CTA primaria por pantalla.
-- Mayúsculas condensadas en reseñas; comillas `<< >>` en lugar de `« »`.
-- Ampliar fotos por debajo de su resolución nativa; fotos de stock.
 - Datos nuevos: precios, horarios, servicios o reseñas que no estén en
   `src/data/`.

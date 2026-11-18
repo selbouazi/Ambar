@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
@@ -10,7 +10,7 @@ import Gallery from '../components/Gallery'
 import InstagramReels from '../components/InstagramReels'
 import MapEmbed from '../components/MapEmbed'
 import Icon from '../components/Icons'
-import { StarPattern, StarMotif, HalalSeal, Leaf } from '../components/Ornament'
+import { StarMotif, HalalSeal } from '../components/Ornament'
 import { CouscousNotice } from '../components/Hours'
 import { site, mapsHref, telHref, instagramHref, tiktokHref } from '../data/site'
 import { copy } from '../data/copy'
@@ -22,7 +22,7 @@ const n = site
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-night-950 text-cream-50">
+    <section className="relative flex min-h-svh flex-col overflow-hidden bg-night-950 text-cream-50">
       <div className="absolute inset-0" aria-hidden="true">
         <Photo
           photoKey="heroInterior"
@@ -37,14 +37,14 @@ function Hero() {
         <div className="photo-scrim absolute inset-0" />
       </div>
 
-      <div className="relative mx-auto flex w-full max-w-[86rem] flex-1 flex-col px-5 pb-24 pt-28 sm:px-8 md:pb-8 lg:px-12 lg:pt-36">
+      <div className="relative mx-auto flex w-full max-w-page flex-1 flex-col px-gutter pb-24 pt-28 md:pb-8 lg:pt-36">
         <div className="flex flex-1 flex-col justify-end pb-12 lg:justify-center lg:pb-20">
           <div className="max-w-4xl">
-            <h1 className="font-display text-[clamp(5.4rem,21vw,14rem)] leading-[0.78] tracking-[-0.035em] text-cream-50">
+            <h1 className="font-display text-hero text-cream-50">
               Ambar
             </h1>
             <div className="mt-7 grid gap-7 lg:grid-cols-12 lg:items-end">
-              <p className="max-w-xl text-[17px] leading-relaxed text-cream-200 sm:text-[19px] lg:col-span-7">
+              <p className="max-w-xl text-body leading-relaxed text-cream-200 sm:text-lead lg:col-span-7">
                 {copy.hero.lead}
               </p>
               <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
@@ -59,12 +59,12 @@ function Hero() {
           </div>
         </div>
 
-        <div className="grid gap-5 border-t border-cream-100/25 pt-6 text-[14px] sm:grid-cols-3 sm:gap-8">
+        <div className="grid gap-5 border-t border-cream-100/25 pt-6 text-meta sm:grid-cols-3 sm:gap-8">
           <div className="flex items-center gap-3">
             <HalalSeal className="h-9 w-9 shrink-0 text-gold-400" />
             <p className="text-cream-200">
               <span className="text-cream-50">Cocina halal</span>
-              <span className="block text-[13px]">Tajín, parrilla y pescado</span>
+              <span className="block text-label">Tajín, parrilla y pescado</span>
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -73,14 +73,14 @@ function Hero() {
               <span className="tnum text-cream-50">
                 {n.rating.score.toString().replace('.', ',')} sobre 5
               </span>
-              <span className="block text-[13px]">{n.rating.count} reseñas en Google</span>
+              <span className="block text-label">{n.rating.count} reseñas en Google</span>
             </p>
           </div>
           <div className="flex items-center gap-3 sm:justify-end">
             <Icon name="clock" className="h-5 w-5 shrink-0 text-gold-400" />
             <p className="text-cream-200">
               <span className="text-cream-50">Martes a domingo</span>
-              <span className="block text-[13px]">12:30 – 24:00</span>
+              <span className="block text-label">12:30 – 24:00</span>
             </p>
           </div>
         </div>
@@ -91,8 +91,8 @@ function Hero() {
 
 function Historia() {
   return (
-    <section className="bg-cream-50 py-20 text-ink sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[86rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:items-center lg:gap-20 lg:px-12">
+    <section className="bg-cream-50 py-section text-ink">
+      <div className="mx-auto grid max-w-page gap-12 px-gutter lg:grid-cols-12 lg:items-center lg:gap-20">
         <Reveal className="lg:col-span-5">
           <PhotoFrame
             photoKey="historiaInterior"
@@ -112,28 +112,28 @@ function Historia() {
           />
 
           <Reveal delay={80}>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">
+            <p className="mt-5 max-w-xl text-body leading-relaxed text-ink-soft">
               {copy.historia.body}
             </p>
           </Reveal>
 
           <Reveal delay={120}>
-            <dl className="mt-10 grid max-w-xl grid-cols-3 gap-5 border-t border-ink/15 pt-6">
+            <dl className="mt-10 flex max-w-xl flex-wrap gap-x-10 gap-y-6 border-t border-ink/15 pt-6">
               <div>
-                <dt className="text-[13px] text-ink-mute">Google</dt>
-                <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
+                <dt className="text-label text-ink-mute">Google</dt>
+                <dd className="tnum mt-1 font-display text-4xl font-bold tracking-tighter leading-none text-gold-700">
                   {n.rating.score.toString().replace('.', ',')}
                 </dd>
               </div>
               <div>
-                <dt className="text-[13px] text-ink-mute">Reseñas</dt>
-                <dd className="tnum mt-1 font-display text-4xl leading-none text-gold-700">
+                <dt className="text-label text-ink-mute">Reseñas</dt>
+                <dd className="tnum mt-1 font-display text-4xl font-bold tracking-tighter leading-none text-gold-700">
                   {n.rating.count}
                 </dd>
               </div>
               <div>
-                <dt className="text-[13px] text-ink-mute">Cuscús</dt>
-                <dd className="mt-1 font-display text-4xl leading-none text-gold-700">Viernes</dd>
+                <dt className="text-label text-ink-mute">Cuscús</dt>
+                <dd className="mt-1 font-display text-4xl font-bold tracking-tighter leading-none text-gold-700">Viernes</dd>
               </div>
             </dl>
           </Reveal>
@@ -143,7 +143,7 @@ function Historia() {
               <CTAButton to="/carta" variant="onCream" icon="arrow">
                 La carta completa
               </CTAButton>
-              <p className="max-w-xs text-[14px] leading-relaxed text-ink-mute">
+              <p className="max-w-xs text-meta leading-relaxed text-ink-mute">
                 {copy.historia.reserveNote}
               </p>
             </div>
@@ -156,9 +156,8 @@ function Historia() {
 
 function CartaDestacada() {
   return (
-    <section className="relative overflow-hidden bg-night-950 py-20 text-cream-50 sm:py-28 lg:py-32">
-      <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={190} />
-      <div className="relative mx-auto grid max-w-[86rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-20 lg:px-12">
+    <section className="relative overflow-hidden bg-night-950 py-section text-cream-50">
+      <div className="relative mx-auto grid max-w-page gap-12 px-gutter lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-7">
           <SectionHeading
             title={copy.cartaDestacada.title}
@@ -174,21 +173,21 @@ function CartaDestacada() {
                 >
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-2.5">
-                      <h3 className="text-[18px] font-medium leading-snug text-cream-50">
+                      <h3 className="text-lg font-medium leading-snug text-cream-50">
                         {dish.name}
                       </h3>
                       {dish.tags?.includes('solo-viernes') && (
-                        <span className="border border-gold-500/50 px-2 py-0.5 text-[13px] font-medium text-gold-300">
+                        <span className="border border-gold-500/50 px-2 py-0.5 text-label font-medium text-gold-300">
                           Solo viernes
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 max-w-md text-[15px] leading-relaxed text-cream-200">
+                    <p className="mt-1 max-w-md text-body-sm leading-relaxed text-cream-200">
                       {dish.detail}
                     </p>
                   </div>
                   <span aria-hidden="true" className="menu-leader mb-1 min-w-6 flex-1 self-end" />
-                  <span className="tnum shrink-0 text-[19px] font-semibold text-gold-400">
+                  <span className="tnum shrink-0 text-lead font-semibold text-gold-400">
                     {dish.priceLabel || priceOf(dish)}
                   </span>
                 </Link>
@@ -224,20 +223,20 @@ function CouscousBanner() {
   const featuredPrice = featured ? priceOf(featured) : '7,00 €'
 
   return (
-    <section className="bg-cream-50 py-20 text-ink sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[86rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:items-end lg:gap-20 lg:px-12">
+    <section className="bg-cream-50 py-section text-ink">
+      <div className="mx-auto grid max-w-page gap-10 px-gutter lg:grid-cols-12 lg:items-end lg:gap-20">
         <div className="lg:col-span-7">
           <Reveal>
-            <h2 className="max-w-2xl font-display text-[clamp(2.8rem,6.8vw,6rem)] leading-[0.94] tracking-[-0.02em] text-ink">
+            <h2 className="max-w-2xl font-display text-h2 text-ink">
               {copy.couscous.title}
             </h2>
-            <CouscousNotice tone="light" className="mt-5 max-w-xl text-[16px] leading-relaxed" />
+            <CouscousNotice tone="light" className="mt-5 max-w-xl text-base leading-relaxed" />
           </Reveal>
         </div>
 
         <Reveal delay={100} className="lg:col-span-5">
           <div className="border-t border-ink/20 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <p className="tnum font-display text-[clamp(3.6rem,7vw,5.5rem)] leading-none text-gold-700">
+            <p className="tnum font-display text-h2 leading-none text-gold-700">
               {featuredPrice}
             </p>
             <div className="mt-6">
@@ -254,17 +253,17 @@ function CouscousBanner() {
 
 function Instagram() {
   return (
-    <section className="bg-night-950 pb-20 pt-4 text-cream-50 sm:pb-28 lg:pb-32">
-      <div className="mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+    <section className="bg-night-950 pb-section pt-4 text-cream-50">
+      <div className="mx-auto max-w-page px-gutter">
         <div className="grid gap-8 border-t border-cream-100/15 pt-14 lg:grid-cols-12 lg:items-end lg:gap-16">
           <div className="lg:col-span-8">
-            <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-gold-400">
+            <p className="text-label font-semibold uppercase tracking-label text-gold-400">
               Instagram
             </p>
-            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.15rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.012em] text-cream-50">
+            <h2 className="mt-3 max-w-2xl font-display text-h3 text-cream-50">
               Lo último, en vídeo
             </h2>
-            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-cream-200">
+            <p className="mt-4 max-w-xl text-body-sm leading-relaxed text-cream-200">
               Los tres últimos vídeos que publicamos en {instagramHandle}: platos, el local y el
               día a día. Se reproducen aquí mismo, sin salir de la web.
             </p>
@@ -286,8 +285,8 @@ function Instagram() {
 
 function Resenas() {
   return (
-    <section className="bg-cream-50 pb-20 pt-4 text-ink sm:pb-28 lg:pb-32">
-      <div className="mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+    <section className="bg-cream-50 pb-section pt-4 text-ink">
+      <div className="mx-auto max-w-page px-gutter">
         <div className="grid gap-10 border-t border-ink/15 pt-16 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-4">
             <SectionHeading
@@ -297,7 +296,7 @@ function Resenas() {
             />
             <Reveal delay={100}>
               <div className="mt-8 flex items-end gap-4">
-                <p className="tnum font-display text-7xl leading-none text-gold-700">
+                <p className="tnum font-display text-7xl font-bold tracking-tighter leading-none text-gold-700">
                   {n.rating.score.toString().replace('.', ',')}
                 </p>
                 <div className="pb-1">
@@ -306,7 +305,7 @@ function Resenas() {
                       <StarMotif key={i} className="h-4 w-4" filled />
                     ))}
                   </div>
-                  <p className="mt-1 text-[14px] text-ink-mute">
+                  <p className="mt-1 text-meta text-ink-mute">
                     {n.rating.count} reseñas · {n.rating.dateLabel}
                   </p>
                 </div>
@@ -336,16 +335,14 @@ function Resenas() {
 
 function Familias() {
   return (
-    <section className="relative overflow-hidden bg-night-900 py-20 text-cream-50 sm:py-28 lg:py-32">
-      <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={200} />
-      <Leaf className="pointer-events-none absolute -right-10 bottom-0 h-56 w-40 text-leaf opacity-20" />
-      <div className="relative mx-auto grid max-w-[86rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-20 lg:px-12">
+    <section className="relative overflow-hidden bg-night-900 py-section text-cream-50">
+      <div className="relative mx-auto grid max-w-page gap-12 px-gutter lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <SectionHeading title={copy.familias.title} description={copy.familias.description} />
           <Reveal delay={80}>
             <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3">
               {copy.familias.services.map((service) => (
-                <span key={service.label} className="flex items-center gap-2 text-[14px] text-cream-200">
+                <span key={service.label} className="flex items-center gap-2 text-meta text-cream-200">
                   <Icon name={service.icon} className="h-4 w-4 text-gold-400" />
                   {service.label}
                 </span>
@@ -359,8 +356,8 @@ function Familias() {
             {n.familyFacts.map((fact, i) => (
               <Reveal as="li" key={fact} delay={i * 40}>
                 <div className="flex gap-3 border-t border-cream-100/15 pt-4">
-                  <StarMotif className="mt-1 h-3.5 w-3.5 shrink-0 text-gold-500" />
-                  <p className="text-[15px] leading-relaxed text-cream-200">{fact}</p>
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-gold-500" />
+                  <p className="text-body-sm leading-relaxed text-cream-200">{fact}</p>
                 </div>
               </Reveal>
             ))}
@@ -373,23 +370,23 @@ function Familias() {
 
 function Llegar() {
   return (
-    <section id="llegar" className="scroll-mt-24 bg-cream-50 py-20 text-ink sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[86rem] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-20 lg:px-12">
+    <section id="llegar" className="scroll-mt-24 bg-cream-50 py-section text-ink">
+      <div className="mx-auto grid max-w-page gap-12 px-gutter lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <SectionHeading title={copy.llegar.title} description={copy.llegar.description} tone="light" />
 
           <Reveal delay={80}>
             <address className="mt-8 not-italic">
-              <p className="font-display text-[clamp(1.7rem,3vw,2.35rem)] leading-[1.08] text-ink">
+              <p className="font-display text-h4 text-ink">
                 <span className="block">{n.addressLines[0]}</span>
                 <span className="block text-ink-mute">{n.addressLines[1]}</span>
               </p>
-              <p className="mt-3 text-[13px] text-ink-mute">Plus Code: {n.address.plusCode}</p>
+              <p className="mt-3 text-label text-ink-mute">Plus Code: {n.address.plusCode}</p>
             </address>
           </Reveal>
 
           <Reveal delay={120}>
-            <p className="mt-5 max-w-md text-[14px] leading-relaxed text-ink-soft">{n.parking.note}</p>
+            <p className="mt-5 max-w-md text-meta leading-relaxed text-ink-soft">{n.parking.note}</p>
           </Reveal>
 
           <Reveal delay={160}>
@@ -414,20 +411,19 @@ function Llegar() {
 
 function Cierre() {
   return (
-    <section className="relative overflow-hidden bg-night-950 py-16 text-cream-50 sm:py-20 lg:py-24">
-      <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={180} />
-      <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+    <section className="relative overflow-hidden bg-night-950 py-section-compact text-cream-50">
+      <div className="relative mx-auto max-w-page px-gutter">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-20">
           <div className="lg:col-span-7">
             <Reveal>
-              <h2 className="max-w-2xl font-display text-[clamp(2.8rem,6.5vw,5.8rem)] leading-[0.94] tracking-[-0.02em]">
+              <h2 className="max-w-2xl font-display text-h2">
                 {copy.cierre.titleA}
                 <br />
                 {copy.cierre.titleB}
               </h2>
             </Reveal>
             <Reveal delay={60}>
-              <p className="mt-5 max-w-lg text-[17px] leading-relaxed text-cream-200">
+              <p className="mt-5 max-w-lg text-body leading-relaxed text-cream-200">
                 {copy.cierre.body}
               </p>
             </Reveal>
@@ -437,7 +433,7 @@ function Cierre() {
             <div className="border-t border-cream-100/20 pt-7 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
               <a
                 href={telHref}
-                className="inline-flex items-center gap-3 font-display text-[clamp(2rem,3.6vw,3rem)] leading-none text-cream-50 hover:text-gold-300"
+                className="inline-flex items-center gap-3 font-display text-h4 leading-none text-cream-50 hover:text-gold-300"
               >
                 <Icon name="phone" className="h-6 w-6 text-gold-400" />
                 {n.phone.display}
@@ -477,13 +473,13 @@ export default function Inicio() {
           <Historia />
           <CartaDestacada />
           <CouscousBanner />
-          <section className="bg-night-950 pb-20 pt-4 text-cream-50 sm:pb-28 lg:pb-32">
-            <div className="mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+          <section className="bg-night-950 pb-section pt-4 text-cream-50">
+            <div className="mx-auto max-w-page px-gutter">
               <div className="mb-9 flex items-end justify-between gap-6">
-                <h2 className="font-display text-[clamp(2.15rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.012em] text-cream-50">
+                <h2 className="font-display text-h3 text-cream-50">
                   {copy.gallery.title}
                 </h2>
-                <p className="hidden pb-1 text-[14px] text-cream-200 sm:block">
+                <p className="hidden pb-1 text-meta text-cream-200 sm:block">
                   Fotos reales del restaurante
                 </p>
               </div>

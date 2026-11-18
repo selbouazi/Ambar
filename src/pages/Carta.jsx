@@ -4,7 +4,6 @@ import Reveal from '../components/Reveal'
 import CTAButton from '../components/CTAButton'
 import MenuCategory from '../components/MenuCategory'
 import Icon from '../components/Icons'
-import { StarPattern } from '../components/Ornament'
 import { LiveStatus } from '../components/Hours'
 import { scrollToHash } from '../components/SmoothScroll'
 import useListoTrasPintar from '../useListoTrasPintar'
@@ -86,14 +85,13 @@ export default function Carta() {
       />
 
       <header className="relative overflow-hidden bg-night-950 pb-12 pt-28 text-cream-50 sm:pb-14 lg:pt-36">
-        <StarPattern className="pointer-events-none absolute inset-0 h-full w-full star-texture" tile={190} />
-        <div className="relative mx-auto grid max-w-[86rem] gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:items-end lg:gap-20 lg:px-12">
+        <div className="relative mx-auto grid max-w-page gap-10 px-gutter lg:grid-cols-12 lg:items-end lg:gap-20">
           <div className="lg:col-span-8">
             <Reveal priority>
-              <h1 className="font-display text-[clamp(3.6rem,10vw,8rem)] leading-[0.86] tracking-[-0.03em] text-cream-50">
+              <h1 className="font-display text-h1 text-cream-50">
                 La carta
               </h1>
-              <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-cream-200">
+              <p className="mt-5 max-w-2xl text-body leading-relaxed text-cream-200">
                 {copy.carta.headerLead}
               </p>
             </Reveal>
@@ -154,12 +152,12 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
   return (
     <>
       {/* Navegación de categorías */}
-      <div className="sticky top-16 z-30 border-b border-ink/15 bg-cream-50/95 backdrop-blur-md lg:top-[76px]">
-        <div className="relative mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12">
+      <div className="sticky top-16 z-30 border-b border-ink/15 bg-cream-50 lg:top-19">
+        <div className="relative mx-auto max-w-page px-gutter">
           <nav
             ref={navRef}
             aria-label="Categorías de la carta"
-            className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
+            className="no-scrollbar -mx-gutter overflow-x-auto px-gutter"
           >
             <ul className="flex w-max items-center gap-1 py-1.5">
               {filtered.map((category) => {
@@ -174,7 +172,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
                         window.setTimeout(() => scrollToHash(category.id), 0)
                       }}
                       aria-current={isActive ? 'true' : undefined}
-                      className={`relative flex min-h-11 items-center whitespace-nowrap px-3.5 text-[13px] font-medium ${
+                      className={`relative flex min-h-11 items-center whitespace-nowrap px-3.5 text-label font-medium ${
                         isActive ? 'text-ink' : 'text-ink-mute hover:text-ink'
                       }`}
                     >
@@ -200,7 +198,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
 
       {/* Buscador */}
       <div className="border-b border-ink/10 bg-cream-100">
-        <div className="mx-auto max-w-[44rem] px-5 py-5 sm:px-8">
+        <div className="mx-auto max-w-3xl px-gutter py-5">
           <label htmlFor="buscar-plato" className="sr-only">
             Buscar un plato en la carta
           </label>
@@ -213,7 +211,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={copy.carta.searchPlaceholder}
-              className="min-h-11 w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-mute"
+              className="min-h-11 w-full bg-transparent text-body-sm text-ink outline-none placeholder:text-ink-mute"
             />
             {searching && (
               <button
@@ -222,7 +220,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
                   setQuery('')
                   searchRef.current?.focus()
                 }}
-                className="flex min-h-11 items-center gap-1 text-[13px] text-ink-mute hover:text-ink"
+                className="flex min-h-11 items-center gap-1 text-label text-ink-mute hover:text-ink"
               >
                 Limpiar
                 <Icon name="close" className="h-3.5 w-3.5" />
@@ -230,7 +228,7 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
             )}
           </div>
           {searching && (
-            <p className="mt-2 text-[13px] text-ink-mute" role="status">
+            <p className="mt-2 text-label text-ink-mute" role="status">
               {resultCount === 0
                 ? 'No hay platos que coincidan. Prueba con otra palabra.'
                 : `${resultCount} ${resultCount === 1 ? 'plato encontrado' : 'platos encontrados'}.`}
@@ -241,10 +239,9 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
 
       {/* Categorías */}
       <div className="relative bg-cream-50 pb-20 pt-12 text-ink sm:pb-24 sm:pt-16">
-        <StarPattern className="pointer-events-none absolute inset-x-0 top-0 h-96 star-texture" tile={210} />
-        <div className="relative mx-auto max-w-[74rem] px-5 sm:px-8">
+        <div className="relative mx-auto max-w-menu px-gutter">
           {resultCount === 0 ? (
-            <p className="py-16 text-center text-[17px] text-ink-soft">{copy.carta.empty}</p>
+            <p className="py-16 text-center text-body text-ink-soft">{copy.carta.empty}</p>
           ) : (
             <div className="space-y-16 sm:space-y-20">
               {filtered.map((category) => {
@@ -263,26 +260,26 @@ function Resto({ query, setQuery, searchRef, searching, filtered, active, result
           )}
 
           <div className="mt-16 border-t border-ink/15 pt-7">
-            <p className="text-[14px] leading-relaxed text-ink-soft">
+            <p className="text-meta leading-relaxed text-ink-soft">
               {copy.carta.footnotePrefix}
               <a href={telHref} className="gold-underline font-semibold text-gold-700">
                 {site.phone.display}
               </a>
               .
             </p>
-            <p className="mt-2 text-[14px] text-ink-mute">{copy.carta.hoursNote}</p>
+            <p className="mt-2 text-meta text-ink-mute">{copy.carta.hoursNote}</p>
           </div>
         </div>
       </div>
 
       {/* Cierre */}
-      <section className="border-t border-cream-100/10 bg-night-950 py-16 text-cream-50 sm:py-20">
-        <div className="mx-auto flex max-w-[86rem] flex-col gap-6 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+      <section className="border-t border-cream-100/10 bg-night-950 py-section-compact text-cream-50">
+        <div className="mx-auto flex max-w-page flex-col gap-6 px-gutter lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="max-w-2xl font-display text-[clamp(1.9rem,4vw,3rem)] leading-[1.02] tracking-[-0.012em]">
+            <h2 className="max-w-2xl font-display text-h3">
               {copy.carta.closingTitle}
             </h2>
-            <p className="mt-2 text-[15px] text-cream-200">{copy.carta.closingText}</p>
+            <p className="mt-2 text-body-sm text-cream-200">{copy.carta.closingText}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <CTAButton href={telHref} variant="primary" icon="phone">

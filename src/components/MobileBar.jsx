@@ -1,4 +1,4 @@
-﻿import Icon from './Icons'
+import Icon from './Icons'
 import { telHref, directionsHref } from '../data/site'
 
 /** Barra inferior fija solo en móvil: llamar y cómo llegar. */
@@ -12,7 +12,7 @@ export default function MobileBar() {
         <li>
           <a
             href={telHref}
-            className="flex min-h-16 flex-col items-center justify-center gap-1 text-[13px] font-medium text-cream-100"
+            className="flex min-h-16 flex-col items-center justify-center gap-1 text-label font-medium text-cream-100"
           >
             <Icon name="phone" className="h-5 w-5 text-gold-400" />
             Llamar
@@ -23,7 +23,7 @@ export default function MobileBar() {
             href={directionsHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-16 flex-col items-center justify-center gap-1 text-[13px] font-medium text-cream-100"
+            className="flex min-h-16 flex-col items-center justify-center gap-1 text-label font-medium text-cream-100"
           >
             <Icon name="pin" className="h-5 w-5 text-gold-400" />
             Cómo llegar

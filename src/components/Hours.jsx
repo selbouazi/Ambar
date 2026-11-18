@@ -21,7 +21,7 @@ export function LiveStatus({ className = '', showDetail = false, tone = 'dark' }
     <div className={className}>
       <p
         role="status"
-        className={`flex items-center gap-2.5 text-[15px] font-medium ${light ? 'text-ink' : 'text-cream-50'}`}
+        className={`flex items-center gap-2.5 text-body-sm font-medium ${light ? 'text-ink' : 'text-cream-50'}`}
       >
         <span
           aria-hidden="true"
@@ -30,12 +30,12 @@ export function LiveStatus({ className = '', showDetail = false, tone = 'dark' }
         {state ? state.label : hoursSummary}
       </p>
       {state && (
-        <p className={`mt-1 pl-[18px] text-[14px] ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
+        <p className={`mt-1 pl-4.5 text-meta ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
           {hoursSummary}
         </p>
       )}
       {showDetail && (
-        <p className={`mt-1.5 text-[14px] ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
+        <p className={`mt-1.5 text-meta ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
           En festivos el horario puede cambiar. Llámanos si vienes desde lejos.
         </p>
       )}
@@ -67,15 +67,15 @@ export function HoursTable({ className = '', tone = 'dark' }) {
               >
                 <th
                   scope="row"
-                  className={`py-3 pl-4 pr-3 text-[15px] font-medium ${
+                  className={`py-3 pl-4 pr-3 text-body-sm font-medium ${
                     isToday ? 'text-cream-50' : light ? 'text-ink' : 'text-cream-50'
                   }`}
                 >
                   {day.label}
-                  {isToday && <span className="ml-2 text-[13px] font-medium">hoy</span>}
+                  {isToday && <span className="ml-2 text-label font-medium">hoy</span>}
                 </th>
                 <td
-                  className={`py-3 pr-4 text-right text-[14px] ${
+                  className={`py-3 pr-4 text-right text-meta ${
                     isToday ? 'text-cream-50' : light ? 'text-ink-soft' : 'text-cream-200'
                   }`}
                 >

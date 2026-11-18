@@ -4,25 +4,14 @@
    que entrar en el CSS aunque estén fuera de src/. */
 @source "../index.html";
 
-/* ── Tipografías propias ──────────────────────────────────────────────────
-   Se sirven desde el mismo dominio: sin peticiones a Google, sin cookies de
-   terceros. Anton (display) e Inter (texto) son fuentes OFL. */
-
-@font-face {
-  font-family: "Anton";
-  src: url("/fonts/anton-latin.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* ── Tipografía propia ─────────────────────────────────────────────────────
+   Estilo suizo: una sola familia grotesca. Inter variable (OFL) se sirve
+   desde el mismo dominio: sin peticiones a Google, sin cookies de terceros. */
 
 @font-face {
   font-family: "Inter";
   src: url("/fonts/inter-normal.woff2") format("woff2");
-  font-weight: 400 600;
+  font-weight: 400 800;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
@@ -31,40 +20,94 @@
 }
 
 @theme {
-  /* Dos familias: Anton para titulares, Inter para todo lo demás. */
-  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* ── Tipografía ── Una familia: Inter. «display» = titulares en negrita. */
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 
-  /* Negros cálidos, no neutros. */
-  --color-night-950: #100f0c;
-  --color-night-900: #17150f;
-  --color-night-800: #211e17;
-  --color-night-700: #2c281f;
+  /* Escala de texto (cuerpo). */
+  --text-label: 0.8125rem;      /* 13 · notas, etiquetas */
+  --text-label--line-height: 1.45;
+  --text-meta: 0.875rem;        /* 14 · pies, datos */
+  --text-meta--line-height: 1.5;
+  --text-body-sm: 0.9375rem;    /* 15 · texto secundario */
+  --text-body-sm--line-height: 1.6;
+  --text-body: 1.0625rem;       /* 17 · texto largo */
+  --text-body--line-height: 1.65;
+  --text-lead: 1.1875rem;       /* 19 · entradillas */
+  --text-lead--line-height: 1.55;
+  --text-title: 1.375rem;       /* 22 · titulares pequeños */
+  --text-title--line-height: 1.3;
 
-  /* Dorado extraído del logotipo (rango #a07028–#e8c870). */
+  /* Escala de titulares (fluida). Negrita, interletraje cerrado. */
+  --text-hero: clamp(5rem, 24vw, 13rem);
+  --text-hero--line-height: 0.84;
+  --text-hero--letter-spacing: -0.055em;
+  --text-hero--font-weight: 700;
+  --text-h1: clamp(3rem, 7.5vw, 6.5rem);
+  --text-h1--line-height: 0.95;
+  --text-h1--letter-spacing: -0.045em;
+  --text-h1--font-weight: 700;
+  --text-h2: clamp(2.4rem, 5.4vw, 4.75rem);
+  --text-h2--line-height: 0.98;
+  --text-h2--letter-spacing: -0.04em;
+  --text-h2--font-weight: 700;
+  --text-h3: clamp(1.9rem, 3.6vw, 3.1rem);
+  --text-h3--line-height: 1.04;
+  --text-h3--letter-spacing: -0.032em;
+  --text-h3--font-weight: 700;
+  --text-h4: clamp(1.5rem, 2.6vw, 2.25rem);
+  --text-h4--line-height: 1.12;
+  --text-h4--letter-spacing: -0.022em;
+  --text-h4--font-weight: 600;
+
+  --tracking-label: 0.12em;     /* etiquetas en mayúscula pequeña */
+
+  /* ── Color ── Monocromo suizo + un único acento (el dorado del logotipo). */
+  --color-night-950: #0d0d0d;
+  --color-night-900: #161616;
+  --color-night-800: #232323;
+  --color-night-700: #303030;
+
   --color-gold-700: #7c5a23;
   --color-gold-600: #a57c37;
   --color-gold-500: #c8a35a;
   --color-gold-400: #d6b46c;
   --color-gold-300: #e5cf9c;
 
-  /* Papel cálido. */
-  --color-cream-50: #f5efe3;
-  --color-cream-100: #e9e0d0;
-  --color-cream-200: #c8bca8;
-  --color-cream-300: #a99d88;
+  /* Papel: blanco roto neutro. */
+  --color-cream-50: #fafaf8;
+  --color-cream-100: #ececea;
+  --color-cream-200: #b8b8b3;
+  --color-cream-300: #8e8e89;
 
-  /* Texto sobre papel. */
-  --color-ink: #17140f;
-  --color-ink-soft: #454033;
-  --color-ink-mute: #5f5748;
+  --color-ink: #0d0d0d;
+  --color-ink-soft: #3b3b38;
+  --color-ink-mute: #5a5a56;
 
-  /* Verde hoja apagado: solo decoración vegetal. */
   --color-leaf: #5b7a4a;
   --color-leaf-soft: #78946a;
 
   /* Estado en vivo. */
   --color-open: #9ac7a0;
+
+  /* Interacción: anillo de foco según la superficie (≥ 3:1 en ambas). */
+  --color-focus-on-dark: #c8a35a;   /* gold-500 · 8.18 sobre night-950 */
+  --color-focus-on-light: #0d0d0d;  /* ink · 18.6 sobre cream-50 */
+
+  /* Velo sobre fotografía (solo negro, sin tinte). */
+  --color-scrim: rgb(13 13 13 / 0.88);
+  --color-scrim-soft: rgb(13 13 13 / 0.38);
+
+  /* ── Espaciado y retícula ── */
+  --spacing-gutter: clamp(1.25rem, 3.2vw + 0.5rem, 3rem);
+  --spacing-section: clamp(5rem, 8vw, 8rem);
+  --spacing-section-sm: clamp(5rem, 7vw, 7rem);
+  --spacing-section-compact: clamp(4rem, 6vw, 6rem);
+  --container-page: 86rem;
+  --container-menu: 74rem;
+
+  /* ── Forma ── Esquinas rectas, sin sombras. */
+  --radius-ui: 0px;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -133,9 +176,22 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold-500);
+  outline: 2px solid var(--focus-ring, var(--color-focus-on-dark));
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-ui);
+}
+
+/* El anillo de foco hereda el color de la superficie más cercana: dorado
+   sobre negro, tinta sobre papel. */
+.bg-night-950,
+.bg-night-900,
+.bg-night-800 {
+  --focus-ring: var(--color-focus-on-dark);
+}
+
+.bg-cream-50,
+.bg-cream-100 {
+  --focus-ring: var(--color-focus-on-light);
 }
 
 .tnum {
@@ -203,23 +259,12 @@ body {
   border-color: var(--color-gold-500);
 }
 
-/* ── Velo cálido sobre fotografía ──────────────────────────────────────── */
+/* ── Velo sobre fotografía ──────────────────────────────────────────────── */
 
+/* Un solo velo vertical, negro neutro: legibilidad garantizada abajo, foto
+   visible arriba. */
 .photo-scrim {
-  background:
-    linear-gradient(
-      to top,
-      rgba(16, 15, 12, 0.97) 0%,
-      rgba(16, 15, 12, 0.72) 46%,
-      rgba(16, 15, 12, 0.26) 100%
-    ),
-    linear-gradient(105deg, rgba(16, 15, 12, 0.66) 0%, rgba(16, 15, 12, 0.04) 68%);
-}
-
-/* Trama de estrella octogonal, muy tenue, como la carta. */
-.star-texture {
-  color: var(--color-gold-500);
-  opacity: 0.045;
+  background: linear-gradient(to top, var(--color-scrim) 0%, var(--color-scrim) 38%, var(--color-scrim-soft) 100%);
 }
 
 /* ── Accesibilidad: movimiento reducido ───────────────────────────────── */

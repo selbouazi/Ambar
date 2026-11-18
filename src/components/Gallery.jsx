@@ -92,7 +92,7 @@ export default function Gallery({ className = '' }) {
                 sizes={i === 0 ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'}
               />
               <span className="pointer-events-none absolute inset-0 bg-night-950/15 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-              <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-night-950/80 text-gold-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              <span className="pointer-events-none absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded-ui bg-night-950/80 text-gold-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                 <Icon name="plus" className="h-4 w-4" />
               </span>
             </button>

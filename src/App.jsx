@@ -28,7 +28,7 @@ export default function App() {
     <SmoothScroll>
       <a
         href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-[2px] focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-[14px] focus:font-semibold focus:text-night-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-ui focus:bg-gold-500 focus:px-5 focus:py-3 focus:text-meta focus:font-semibold focus:text-night-950"
       >
         Saltar al contenido
       </a>
