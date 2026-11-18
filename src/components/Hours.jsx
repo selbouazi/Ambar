@@ -1,9 +1,22 @@
-﻿import { site, hoursSummary } from '../data/site'
-import { getMadridNow, prettyTime, WEEK } from '../lib/hours'
+import { site, hoursSummary } from '../data/site'
+import { useEffect, useState } from 'react'
+import { getMadridNow, getOpenState, prettyTime, WEEK } from '../lib/hours'
 
-/** Estado resumido del horario confirmado. */
+/** Recalcula el estado cada minuto (hora de Madrid). */
+function useOpenState() {
+  const [state, setState] = useState(() => getOpenState())
+  useEffect(() => {
+    const id = window.setInterval(() => setState(getOpenState()), 60_000)
+    return () => window.clearInterval(id)
+  }, [])
+  return state
+}
+
+/** Estado en vivo («Abierto ahora…») y, debajo, el horario resumido. */
 export function LiveStatus({ className = '', showDetail = false, tone = 'dark' }) {
   const light = tone === 'light'
+  const state = useOpenState()
+  const dot = state?.open ? 'bg-open' : light ? 'bg-gold-700' : 'bg-gold-500'
   return (
     <div className={className}>
       <p
@@ -12,10 +25,15 @@ export function LiveStatus({ className = '', showDetail = false, tone = 'dark' }
       >
         <span
           aria-hidden="true"
-          className={`inline-block h-2 w-2 shrink-0 rounded-full ${light ? 'bg-gold-700' : 'bg-gold-500'}`}
+          className={`inline-block h-2 w-2 shrink-0 rounded-full ${dot}`}
         />
-        {hoursSummary}
+        {state ? state.label : hoursSummary}
       </p>
+      {state && (
+        <p className={`mt-1 pl-[18px] text-[14px] ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
+          {hoursSummary}
+        </p>
+      )}
       {showDetail && (
         <p className={`mt-1.5 text-[14px] ${light ? 'text-ink-mute' : 'text-cream-200'}`}>
           En festivos el horario puede cambiar. Llámanos si vienes desde lejos.

@@ -62,3 +62,47 @@ export function prettyTime(time?: string): string {
   const [h, m] = time.split(':')
   return `${Number(h)}:${m}`
 }
+
+function toMinutes(time?: string): number | null {
+  if (!time) return null
+  const [h, m] = time.split(':').map(Number)
+  return h * 60 + m
+}
+
+export interface OpenState {
+  open: boolean
+  /** Texto corto: «Abierto ahora · cierra a las 24:00». */
+  label: string
+}
+
+/**
+ * Estado en vivo según el horario confirmado de site.ts. Devuelve null si
+ * el horario no está confirmado: entonces la web no anuncia «abierto ahora».
+ */
+export function getOpenState(date: Date = new Date()): OpenState | null {
+  if (!site.scheduleConfirmed) return null
+  const now = getMadridNow(date)
+  const todayIndex = WEEK.indexOf(now.dayKey)
+  const today = site.hours.find((d) => d.key === now.dayKey)
+  const opens = toMinutes(today?.opens)
+  const closes = toMinutes(today?.closes)
+
+  if (today && !today.closed && opens !== null && closes !== null) {
+    if (now.minutes >= opens && now.minutes < closes) {
+      return { open: true, label: `Abierto ahora · cierra a las ${prettyTime(today.closes)}` }
+    }
+    if (now.minutes < opens) {
+      return { open: false, label: `Cerrado · abre hoy a las ${prettyTime(today.opens)}` }
+    }
+  }
+
+  for (let step = 1; step <= 7; step++) {
+    const key = WEEK[(todayIndex + step) % 7]
+    const day = site.hours.find((d) => d.key === key)
+    if (day && !day.closed && day.opens) {
+      const when = step === 1 ? 'mañana' : `el ${DAY_NAMES[key]}`
+      return { open: false, label: `Cerrado · abre ${when} a las ${prettyTime(day.opens)}` }
+    }
+  }
+  return null
+}

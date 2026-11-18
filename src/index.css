@@ -74,6 +74,30 @@
 html {
   scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
+  /* El foco de teclado y los anclas no quedan bajo la barra fija superior. */
+  scroll-padding-top: 6rem;
+}
+
+/* Tailwind 4 deja los botones con cursor por defecto: todo lo pulsable
+   lleva mano. Sin retardo de doble toque en móvil. */
+a[href],
+button:not(:disabled),
+[role='button'],
+summary,
+label[for] {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* En móvil, ni la barra inferior tapa el elemento con foco. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 html.lenis,
